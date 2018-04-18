@@ -2,6 +2,7 @@ import axios from 'axios'
 export const CREATE_REMAKE = 'create_remake'
 export const FETCH_REMAKES = 'fetch_remakes'
 export const FETCH_REMAKE = 'fetch_remake'
+export const DELETE_REMAKE = 'delete_remake'
 
 const ROOT_URL = 'http://localhost:8888/api/remakes/'
 
@@ -30,5 +31,15 @@ export function fetchRemake (id) {
   return {
     type: FETCH_REMAKE,
     payload: request
+  }
+}
+
+export function deleteRemake (id, callback) {
+  axios.delete(`${ROOT_URL}${id}`)
+    .then(() => callback())
+
+  return {
+    type: DELETE_REMAKE,
+    payload: id
   }
 }
