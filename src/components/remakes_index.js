@@ -1,18 +1,17 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 class RemakesIndex extends Component {
   renderList () {
-    return this.props.remakes.map(remake => {
+    return _.map(this.props.remakes, remake => {
       return (
         <li
-          key={remake.id}
+          key={remake.title}
           className="list-group-item"
         >
-          <Link to={`/remakes/${remake.id}`}>
-            {remake.title}
-          </Link>
+          {remake.title}
         </li>
       )
     })
@@ -25,6 +24,7 @@ class RemakesIndex extends Component {
         <ul className="list-group col-sm-4">
           {this.renderList()}
         </ul>
+        <Link to={'/remakes/add/'}>New Remake </Link>
       </div>
     )
   }

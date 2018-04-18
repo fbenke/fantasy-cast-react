@@ -5,8 +5,8 @@ import { createStore, applyMiddleware } from 'redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import reducers from './reducers'
-import RemakesIndex from './components/remakes_index'
 import RemakesNew from './components/remakes_new'
+import RemakesIndex from './components/remakes_index'
 
 const createStoreWithMiddleware = applyMiddleware()(createStore)
 
@@ -15,7 +15,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
-          <Route path="/remakes/:id" component={RemakesNew} />
+          <Route path="/remakes/add/" component={RemakesNew} />
           <Route path="/" component={RemakesIndex} />
         </Switch>
       </div>
