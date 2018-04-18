@@ -13,9 +13,12 @@ export function fetchRemakes () {
   }
 }
 
-export function createRemake (values) {
+export function createRemake (values, callback) {
+  const request = axios.post(`${ROOT_URL}`, values)
+    .then(() => callback())
+
   return {
     type: CREATE_REMAKE,
-    payload: {title: values}
+    payload: request
   }
 }

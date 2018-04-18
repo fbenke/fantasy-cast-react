@@ -8,8 +8,9 @@ import { createRemake } from '../actions'
 
 class RemakeNew extends Component {
   onSubmit (values) {
-    this.props.history.push('/')
-    this.props.createRemake(values)
+    this.props.createRemake(values, () => {
+      this.props.history.push('/')
+    })
   }
 
   renderField (field) {
