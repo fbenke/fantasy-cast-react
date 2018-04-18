@@ -2,13 +2,18 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { fetchRemakes } from '../actions'
 
 class RemakesIndex extends Component {
+  componentDidMount () {
+    this.props.fetchRemakes()
+  }
+
   renderList () {
     return _.map(this.props.remakes, remake => {
       return (
         <li
-          key={remake.title}
+          key={remake.id}
           className="list-group-item"
         >
           {remake.title}
@@ -31,9 +36,7 @@ class RemakesIndex extends Component {
 }
 
 function mapStateToProps (state) {
-  return {
-    remakes: state.remakes
-  }
+  return { remakes: state.remakes }
 }
 
-export default connect(mapStateToProps)(RemakesIndex)
+export default connect(mapStateToProps, { fetchRemakes })(RemakesIndex)
