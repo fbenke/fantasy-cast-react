@@ -1,6 +1,7 @@
 import axios from 'axios'
 export const CREATE_REMAKE = 'create_remake'
 export const FETCH_REMAKES = 'fetch_remakes'
+export const FETCH_REMAKE = 'fetch_remake'
 
 const ROOT_URL = 'http://localhost:8888/api/remakes/'
 
@@ -19,6 +20,15 @@ export function createRemake (values, callback) {
 
   return {
     type: CREATE_REMAKE,
+    payload: request
+  }
+}
+
+export function fetchRemake (id) {
+  const request = axios.get(`${ROOT_URL}${id}`)
+
+  return {
+    type: FETCH_REMAKE,
     payload: request
   }
 }

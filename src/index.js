@@ -8,6 +8,7 @@ import promise from 'redux-promise'
 import reducers from './reducers'
 import RemakesNew from './components/remakes_new'
 import RemakesIndex from './components/remakes_index'
+import RemakesShow from './components/remakes_show'
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore)
 
@@ -16,7 +17,8 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
-          <Route path="/remakes/add/" component={RemakesNew} />
+          <Route path="/remakes/add" component={RemakesNew} />
+          <Route path="/remakes/:id" component={RemakesShow} />
           <Route path="/" component={RemakesIndex} />
         </Switch>
       </div>

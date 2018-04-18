@@ -16,7 +16,9 @@ class RemakesIndex extends Component {
           key={remake.id}
           className="list-group-item"
         >
-          {remake.title}
+          <Link to={`/remakes/${remake.id}`}>
+            {remake.title}
+          </Link>
         </li>
       )
     })

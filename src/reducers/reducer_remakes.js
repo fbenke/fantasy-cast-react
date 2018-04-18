@@ -5,7 +5,7 @@ export default function (state = {}, action) {
   switch (action.type) {
     case FETCH_REMAKES:
       const newPosts = _.mapKeys(action.payload.data, 'id')
-      return { ...state, ...newPosts}
+      return { ...state, ...newPosts }
     default:
       return state
   }
