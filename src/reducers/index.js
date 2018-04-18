@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import RemakesReducer from './reducer_remakes';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+	remakes: RemakesReducer
 });
 
 export default rootReducer;
