@@ -7,5 +7,5 @@ npm-debug.log
 *.iml
 /.idea
 
-.jshintrc
 package-lock.json
+.env

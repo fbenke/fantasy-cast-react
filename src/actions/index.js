@@ -4,7 +4,7 @@ export const FETCH_REMAKES = 'fetch_remakes'
 export const FETCH_REMAKE = 'fetch_remake'
 export const DELETE_REMAKE = 'delete_remake'
 
-const ROOT_URL = 'http://localhost:8888/api/remakes/'
+const ROOT_URL = `${process.env.API_URL}api/remakes/`
 
 export function fetchRemakes () {
   const request = axios.get(`${ROOT_URL}`)
