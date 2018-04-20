@@ -1,32 +1,48 @@
-const Dotenv = require('dotenv-webpack')
-var path = require('path')
 var webpack = require('webpack')
+var path = require('path')
+var Dotenv = require('dotenv-webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = {
-  entry: [
-    './src/index.js'
-  ],
+const VENDOR_LIBS = [
+  'react', 'lodash', 'redux', 'react-redux', 'react-dom',
+  'axios', 'redux-form', 'react-router', 'react-router-dom',
+  'redux-promise'
+]
+
+const config = {
+  entry: {
+    bundle: './src/index.js',
+    vendor: VENDOR_LIBS
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: '[name].[chunkhash].js'
   },
   module: {
-    loaders: [{
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015', 'stage-1']
+    rules: [
+      {
+        use: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
       }
-    }]
+    ]
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './'
-  },
+  // resolve: {
+  //   extensions: ['.js', '.jsx']
+  // },
+  // devServer: {
+  //   historyApiFallback: true,
+  //   contentBase: './'
+  // },
   plugins: [
-    new Dotenv()
+    new Dotenv(),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor', 'manifest']
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    })
   ]
 }
+
+module.exports = config

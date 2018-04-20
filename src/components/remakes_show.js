@@ -11,7 +11,6 @@ class RemakesShow extends Component {
 
   onDeleteClick () {
     const { id } = this.props.match.params
-    console.log(id)   
     this.props.deleteRemake(id, () => {
       this.props.history.push('/')
     })
@@ -26,7 +25,7 @@ class RemakesShow extends Component {
     return (
       <div>
         <Link to="/">Back</Link>
-        <button onClick={this.onDeleteClick.bind(this)}>
+        <button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
           Delete Remake
         </button>
         <h1>{remake.title}</h1>
