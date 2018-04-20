@@ -1,14 +1,14 @@
 {
-  "name": "redux-simple-starter",
+  "name": "fantasy-case",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "Predict who is going to get famous roles in upcoming movies.",
   "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "repository": "git@github.com:fbenke/fantasy-cast-react.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
-    "webpack": "./node_modules/.bin/webpack -w"
+    "webpack": "./node_modules/.bin/webpack"
   },
   "author": "",
   "license": "ISC",
