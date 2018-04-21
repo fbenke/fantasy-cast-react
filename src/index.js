@@ -10,6 +10,8 @@ import RemakesNew from './components/remakes_new'
 import RemakesIndex from './components/remakes_index'
 import RemakesShow from './components/remakes_show'
 
+import '../style/style.css'
+
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore)
 
 ReactDOM.render(
