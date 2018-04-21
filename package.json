@@ -6,7 +6,7 @@
   "repository": "git@github.com:fbenke/fantasy-cast-react.git",
   "scripts": {
     "clean": "rimraf build",
-    "build": "npm run clean && webpack",
+    "build": "NODE_ENV=production npm run clean && webpack && webpack -p",
     "serve": "webpack-dev-server"
   },
   "author": "Falk Benke",
