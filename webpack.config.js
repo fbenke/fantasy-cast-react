@@ -16,7 +16,8 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -42,7 +43,12 @@ const config = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
-  ]
+  ],
+  devServer: {
+    publicPath: '/',
+    contentBase: path.resolve(__dirname, 'build'),
+    historyApiFallback: true
+  }
 }
 
 module.exports = config
