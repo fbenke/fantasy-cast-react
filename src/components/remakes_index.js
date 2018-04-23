@@ -26,12 +26,12 @@ class RemakesIndex extends Component {
 
   render () {
     return (
-      <div>
+      <div className="remakes-index">
         <h1> Remakes </h1>
         <ul className="list-group col-sm-4">
           {this.renderList()}
         </ul>
-        <Link to={'/remakes/add/'}>New Remake </Link>
+        <Link to={'/remakes/add/'}>New Remake</Link>
       </div>
     )
   }

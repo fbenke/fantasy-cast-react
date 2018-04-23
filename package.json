@@ -7,7 +7,9 @@
   "scripts": {
     "clean": "rimraf build",
     "build": "NODE_ENV=production && npm run clean && webpack && webpack -p",
-    "serve": "webpack-dev-server"
+    "serve": "webpack-dev-server",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "test:watch": "npm run test -- --watch"
   },
   "author": "Falk Benke",
   "license": "ISC",
