@@ -34,7 +34,7 @@ class RemakeNew extends Component {
   render () {
     const { handleSubmit } = this.props
     return (
-      <div>
+      <div className="remakes-new">
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Title"
