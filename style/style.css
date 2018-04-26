@@ -1,4 +1,7 @@
 a {
 	color: #636363;
 }
-	
+
+.hidden {
+	display: none;
+}

@@ -11,6 +11,7 @@ class Navigation extends Component {
 
     return <button onClick={() => this.props.authenticate(true)}>Sign In</button>
   }
+
   render () {
     return (
       <nav className="navbar navbar-light">
@@ -18,7 +19,7 @@ class Navigation extends Component {
           <li className="nav-item">
             <Link to="/">Home</Link>
           </li>
-          <li className="nav-item">
+          <li className={this.props.authenticated ? 'nav-item' : 'hidden'} >
             <Link to="/remakes/">Remakes</Link>
           </li>
           <li className="nav-item">
@@ -34,4 +35,4 @@ function mapStateToProps (state) {
   return { authenticated: state.authenticated }
 }
 
-export default connect(mapStateToProps, {authenticate} )(Navigation)
+export default connect(mapStateToProps, {authenticate})(Navigation)
