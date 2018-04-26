@@ -6,10 +6,10 @@ import { createRemake } from '../actions'
 
 // TODO: refactor as soon as we have more fields
 
-class RemakeNew extends Component {
+class RemakesNew extends Component {
   onSubmit (values) {
     this.props.createRemake(values, () => {
-      this.props.history.push('/')
+      this.props.history.push('/remakes/')
     })
   }
 
@@ -42,7 +42,7 @@ class RemakeNew extends Component {
             component={this.renderField}
           />
           <button type="submit" className="btn btn-primary">Submit</button>
-          <Link to="/">Back</Link>
+          <Link to="/remakes/">Back</Link>
         </form>
       </div>
     )
@@ -63,5 +63,5 @@ export default reduxForm({
   validate,
   form: 'RemakeNewForm'
 })(
-  connect(null, { createRemake })(RemakeNew)
+  connect(null, { createRemake })(RemakesNew)
 )

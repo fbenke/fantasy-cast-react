@@ -3,8 +3,16 @@ export const CREATE_REMAKE = 'create_remake'
 export const FETCH_REMAKES = 'fetch_remakes'
 export const FETCH_REMAKE = 'fetch_remake'
 export const DELETE_REMAKE = 'delete_remake'
+export const CHANGE_AUTH = 'change_auth'
 
 const ROOT_URL = `${process.env.API_URL}api/remakes/`
+
+export function authenticate (isLoggedIn) {
+  return {
+    type: CHANGE_AUTH,
+    payload: isLoggedIn
+  }
+}
 
 export function fetchRemakes () {
   const request = axios.get(`${ROOT_URL}`)
