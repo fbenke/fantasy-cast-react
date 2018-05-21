@@ -1,21 +1,47 @@
 import axios from 'axios'
-export const CREATE_REMAKE = 'create_remake'
-export const FETCH_REMAKES = 'fetch_remakes'
-export const FETCH_REMAKE = 'fetch_remake'
-export const DELETE_REMAKE = 'delete_remake'
-export const CHANGE_AUTH = 'change_auth'
+import {
+  CREATE_REMAKE,
+  FETCH_REMAKES,
+  FETCH_REMAKE,
+  DELETE_REMAKE,
+  AUTH_USER,
+  UNAUTH_USER,
+  CHANGE_AUTH,
+  AUTH_ERROR
+} from './types'
 
-const ROOT_URL = `${process.env.API_URL}api/remakes/`
+const REMAKE_URL = `${process.env.API_URL}api/remakes/`
+const AUTH_URL = `${process.env.API_URL}api/account/`
 
-export function authenticate (isLoggedIn) {
-  return {
-    type: CHANGE_AUTH,
-    payload: isLoggedIn
+export function signinUser ({ email, password }, callback) {
+  return function (dispatch) {
+    axios.post(`${AUTH_URL}signin/`, {username: email, password})
+      .then(response => {
+        dispatch({ type: AUTH_USER })
+        localStorage.setItem('token', response.data.token)
+        callback()
+      })
+      .catch(() => {
+        // TODO: add more specific message
+        dispatch(authError('Bad Login Info'))
+      })
   }
 }
 
+export function authError (error) {
+  return {
+    type: AUTH_ERROR,
+    payload: error
+  }
+}
+
+export function signoutUser () {
+  localStorage.removeItem('token')
+  return { type: UNAUTH_USER }
+}
+
 export function fetchRemakes () {
-  const request = axios.get(`${ROOT_URL}`)
+  const request = axios.get(`${REMAKE_URL}`)
 
   return {
     type: FETCH_REMAKES,
@@ -24,7 +50,7 @@ export function fetchRemakes () {
 }
 
 export function createRemake (values, callback) {
-  const request = axios.post(`${ROOT_URL}`, values)
+  const request = axios.post(`${REMAKE_URL}`, values)
     .then(() => callback())
 
   return {
@@ -34,7 +60,7 @@ export function createRemake (values, callback) {
 }
 
 export function fetchRemake (id) {
-  const request = axios.get(`${ROOT_URL}${id}`)
+  const request = axios.get(`${REMAKE_URL}${id}`)
 
   return {
     type: FETCH_REMAKE,
@@ -43,7 +69,7 @@ export function fetchRemake (id) {
 }
 
 export function deleteRemake (id, callback) {
-  axios.delete(`${ROOT_URL}${id}`)
+  axios.delete(`${REMAKE_URL}${id}`)
     .then(() => callback())
 
   return {

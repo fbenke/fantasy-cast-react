@@ -4,27 +4,33 @@ import { connect } from 'react-redux'
 import { authenticate } from '../actions'
 
 class Navigation extends Component {
-  authButton () {
+  renderLinks () {
     if (this.props.authenticated) {
-      return <button onClick={() => this.props.authenticate(false)}>Sign Out</button>
+      return [
+        <li className="nav-item" key={1}>
+          <Link className="nav-link" to="/signout/">Sign Out</Link>
+        </li>,
+        <li className="nav-item" key={2}>
+          <Link className="nav-link" to="/remakes/">Remakes</Link>
+        </li>
+      ]
     }
-
-    return <button onClick={() => this.props.authenticate(true)}>Sign In</button>
+    return [
+      <li className="nav-item" key={1}>
+        <Link className="nav-link" to="/signup/">Sign Up</Link>
+      </li>,
+      <li className="nav-item" key={2}>
+        <Link className="nav-link" to="/signin/">Sign In</Link>
+      </li>
+    ]
   }
 
   render () {
     return (
       <nav className="navbar navbar-light">
+        <Link className="navbar-brand" to="/">Home</Link>
         <ul className="nav navbar-nav">
-          <li className="nav-item">
-            <Link to="/">Home</Link>
-          </li>
-          <li className={this.props.authenticated ? 'nav-item' : 'hidden'} >
-            <Link to="/remakes/">Remakes</Link>
-          </li>
-          <li className="nav-item">
-            {this.authButton()}
-          </li>
+          { this.renderLinks() }
         </ul>
       </nav>
     )
@@ -32,7 +38,7 @@ class Navigation extends Component {
 }
 
 function mapStateToProps (state) {
-  return { authenticated: state.authenticated }
+  return { authenticated: state.auth.authenticated }
 }
 
 export default connect(mapStateToProps, {authenticate})(Navigation)

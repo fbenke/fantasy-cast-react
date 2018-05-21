@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import promise from 'redux-promise'
+import reduxThunk from 'redux-thunk'
 
 import reducers from './reducers'
 import Home from './components/home'
@@ -13,10 +14,11 @@ import RemakesIndex from './components/remakes_index'
 import RemakesShow from './components/remakes_show'
 import requireAuth from './components/hoc/require_authentication'
 import Signin from './components/auth/signin'
+import Signout from './components/auth/signout'
 
 import '../style/style.css'
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore)
+const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createStore)
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
@@ -26,6 +28,7 @@ ReactDOM.render(
           <Navigation/>
           <Switch>
             <Route path="/signin" component={Signin} />
+            <Route path="/signout" component={Signout} />
             <Route path="/remakes/add" component={requireAuth(RemakesNew)} />
             <Route path="/remakes/:id" component={requireAuth(RemakesShow)} />
             <Route path="/remakes" component={requireAuth(RemakesIndex)} />

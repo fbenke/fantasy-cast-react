@@ -1,9 +1,23 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { signinUser } from '../../actions'
 
 class Signin extends Component {
   onSubmit ({ email, password }) {
-    console.log(email, password)
+    this.props.signinUser({ email, password }, () => {
+      this.props.history.push('/remakes/')
+    })
+  }
+
+  renderAlert () {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          {this.props.errorMessage}
+        </div>
+      )
+    }
   }
 
   renderField (field) {
@@ -12,7 +26,7 @@ class Signin extends Component {
         <label>{field.label}</label>
         <input
           { ...field.input }
-          type="text"
+          type={field.type}
           className="form-control"
         />
       </fieldset>
@@ -26,19 +40,28 @@ class Signin extends Component {
         <Field
           label="Email"
           name="email"
+          type="text"
           component={this.renderField}
         />
         <Field
           label="Password"
           name="password"
+          type="password"
           component={this.renderField}
         />
+        { this.renderAlert() }
         <button action="submit" className="btn btn-primary">Sign in</button>
       </form>
     )
   }
 }
 
+function mapStateToProps (state) {
+  return { errorMessage: state.auth.error }
+}
+
 export default reduxForm({
   form: 'Signin'
-})(Signin)
+})(
+  connect(mapStateToProps, { signinUser })(Signin)
+)

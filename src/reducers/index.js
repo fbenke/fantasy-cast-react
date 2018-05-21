@@ -6,7 +6,7 @@ import AuthenticationReducer from './authentication'
 const rootReducer = combineReducers({
   remakes: RemakesReducer,
   form: formReducer,
-  authenticated: AuthenticationReducer
+  auth: AuthenticationReducer
 })
 
 export default rootReducer
