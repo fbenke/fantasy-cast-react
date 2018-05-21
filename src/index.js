@@ -12,6 +12,7 @@ import RemakesNew from './components/remakes_new'
 import RemakesIndex from './components/remakes_index'
 import RemakesShow from './components/remakes_show'
 import requireAuth from './components/hoc/require_authentication'
+import Signin from './components/auth/signin'
 
 import '../style/style.css'
 
@@ -24,9 +25,10 @@ ReactDOM.render(
         <div>
           <Navigation/>
           <Switch>
+            <Route path="/signin" component={Signin} />
             <Route path="/remakes/add" component={requireAuth(RemakesNew)} />
             <Route path="/remakes/:id" component={requireAuth(RemakesShow)} />
-            <Route path="/remakes/" component={requireAuth(RemakesIndex)} />
+            <Route path="/remakes" component={requireAuth(RemakesIndex)} />
             <Route path="/" component={Home} />
           </Switch>
         </div>
