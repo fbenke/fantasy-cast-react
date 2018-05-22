@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { signinUser } from '../../actions'
 
 class Signin extends Component {
-  onSubmit ({ email, password }) {
-    this.props.signinUser({ email, password }, () => {
+  onSubmit (formProps) {
+    this.props.signinUser(formProps, () => {
       this.props.history.push('/remakes/')
     })
   }
@@ -20,6 +20,7 @@ class Signin extends Component {
     }
   }
 
+  // TODO: hook up validation
   renderField (field) {
     return (
       <fieldset className="form-group">

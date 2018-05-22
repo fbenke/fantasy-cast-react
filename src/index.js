@@ -14,20 +14,29 @@ import RemakesIndex from './components/remakes_index'
 import RemakesShow from './components/remakes_show'
 import requireAuth from './components/hoc/require_authentication'
 import Signin from './components/auth/signin'
+import Signup from './components/auth/signup'
 import Signout from './components/auth/signout'
-
+import { AUTH_USER } from './actions/types'
 import '../style/style.css'
 
 const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createStore)
+const store = createStoreWithMiddleware(reducers)
+
+const token = localStorage.getItem('token')
+
+if (token) {
+  store.dispatch({ type: AUTH_USER })
+}
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <div>
       <BrowserRouter>
         <div>
           <Navigation/>
           <Switch>
             <Route path="/signin" component={Signin} />
+            <Route path="/signup" component={Signup} />
             <Route path="/signout" component={Signout} />
             <Route path="/remakes/add" component={requireAuth(RemakesNew)} />
             <Route path="/remakes/:id" component={requireAuth(RemakesShow)} />

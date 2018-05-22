@@ -6,7 +6,6 @@ import {
   DELETE_REMAKE,
   AUTH_USER,
   UNAUTH_USER,
-  CHANGE_AUTH,
   AUTH_ERROR
 } from './types'
 
@@ -23,6 +22,20 @@ export function signinUser ({ email, password }, callback) {
       })
       .catch(() => {
         // TODO: add more specific message
+        dispatch(authError('Bad Login Info'))
+      })
+  }
+}
+
+export function signupUser ({ email, password, passwordConfirm }, callback) {
+  return function (dispatch) {
+    axios.post(`${AUTH_URL}signup/`, {email, password1: password, password2: passwordConfirm})
+      .then(response => {
+        dispatch({ type: AUTH_USER })
+        localStorage.setItem('token', response.data.token)
+        callback()
+      })
+      .catch(response => {
         dispatch(authError('Bad Login Info'))
       })
   }
