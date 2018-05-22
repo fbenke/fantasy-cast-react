@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { signinUser } from '../../actions'
-import { email, required } from '../../helpers/form_validation'
+import { email, required, renderField } from '../../helpers/form'
 
 class Signin extends Component {
   onSubmit (formProps) {
@@ -21,41 +21,23 @@ class Signin extends Component {
     }
   }
 
-  renderField (field) {
-    const { meta: { touched, error } } = field
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`
-    return (
-      <fieldset className={className}>
-        <label>{field.label}</label>
-        <input
-          { ...field.input }
-          type={field.type}
-          className="form-control"
-        />
-        <div className="text-help">
-          {touched && error ? error : ''}
-        </div>
-      </fieldset>
-    )
-  }
-
   render () {
     const { handleSubmit } = this.props
     return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+      <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Email"
           name="email"
           type="text"
           validate={[required, email]}
-          component={this.renderField}
+          component={renderField}
         />
         <Field
           label="Password"
           name="password"
           type="password"
           validate={required}
-          component={this.renderField}
+          component={renderField}
         />
         { this.renderAlert() }
         <button action="submit" className="btn btn-primary">Sign in</button>

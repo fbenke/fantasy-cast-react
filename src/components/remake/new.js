@@ -3,31 +3,13 @@ import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createRemake } from '../../actions'
-import { required } from '../../helpers/form_validation'
+import { required, renderField } from '../../helpers/form'
 
 class RemakesNew extends Component {
   onSubmit (values) {
     this.props.createRemake(values, () => {
       this.props.history.push('/remakes/')
     })
-  }
-
-  renderField (field) {
-    const { meta: { touched, error } } = field
-    const className = `form-group ${touched && error ? 'has-danger' : ''}`
-    return (
-      <div className={className}>
-        <label>{field.label}</label>
-        <input
-          className="form-control"
-          type="text"
-          {...field.input}
-        />
-        <div className="text-help">
-          {touched ? error : ''}
-        </div>
-      </div>
-    )
   }
 
   render () {
@@ -38,8 +20,9 @@ class RemakesNew extends Component {
           <Field
             label="Title"
             name="title"
+            type="text"
             validate={required}
-            component={this.renderField}
+            component={renderField}
           />
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link to="/remakes/">Back</Link>
