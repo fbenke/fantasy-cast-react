@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createRemake } from '../actions'
-import { required } from '../helpers/form_validation'
+import { createRemake } from '../../actions'
+import { required } from '../../helpers/form_validation'
 
 class RemakesNew extends Component {
   onSubmit (values) {
