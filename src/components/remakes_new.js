@@ -3,8 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { createRemake } from '../actions'
-
-// TODO: refactor as soon as we have more fields
+import { required } from '../helpers/form_validation'
 
 class RemakesNew extends Component {
   onSubmit (values) {
@@ -39,6 +38,7 @@ class RemakesNew extends Component {
           <Field
             label="Title"
             name="title"
+            validate={required}
             component={this.renderField}
           />
           <button type="submit" className="btn btn-primary">Submit</button>
@@ -49,18 +49,7 @@ class RemakesNew extends Component {
   }
 }
 
-function validate (values) {
-  const errors = {}
-
-  if (!values.title) {
-    errors.title = 'Enter a title!'
-  }
-
-  return errors
-}
-
 export default reduxForm({
-  validate,
   form: 'RemakeNewForm'
 })(
   connect(null, { createRemake })(RemakesNew)

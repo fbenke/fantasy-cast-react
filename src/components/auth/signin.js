@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { signinUser } from '../../actions'
+import { email, required } from '../../helpers/form_validation'
 
 class Signin extends Component {
   onSubmit (formProps) {
@@ -20,16 +21,20 @@ class Signin extends Component {
     }
   }
 
-  // TODO: hook up validation
   renderField (field) {
+    const { meta: { touched, error } } = field
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`
     return (
-      <fieldset className="form-group">
+      <fieldset className={className}>
         <label>{field.label}</label>
         <input
           { ...field.input }
           type={field.type}
           className="form-control"
         />
+        <div className="text-help">
+          {touched && error ? error : ''}
+        </div>
       </fieldset>
     )
   }
@@ -42,12 +47,14 @@ class Signin extends Component {
           label="Email"
           name="email"
           type="text"
+          validate={[required, email]}
           component={this.renderField}
         />
         <Field
           label="Password"
           name="password"
           type="password"
+          validate={required}
           component={this.renderField}
         />
         { this.renderAlert() }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { signupUser } from '../../actions'
+import { email, required } from '../../helpers/form_validation'
 
 class Signup extends Component {
   onSubmit (formProps) {
@@ -46,18 +47,21 @@ class Signup extends Component {
           label="Email"
           name="email"
           type="text"
+          validate={[required, email]}
           component={this.renderField}
         />
         <Field
           label="Password"
           name="password"
           type="password"
+          validate={required}
           component={this.renderField}
         />
         <Field
           label="Confirm Password"
           name="passwordConfirm"
           type="password"
+          validate={required}
           component={this.renderField}
         />
         { this.renderAlert() }
@@ -69,19 +73,6 @@ class Signup extends Component {
 
 function validate (values) {
   const errors = {}
-
-  // TODO: make this DRYer
-  if (!values.email) {
-    errors.email = 'Enter a email!'
-  }
-
-  if (!values.password) {
-    errors.password = 'Enter a password!'
-  }
-
-  if (!values.passwordConfirm) {
-    errors.passwordConfirm = 'Enter a password confirmation!'
-  }
 
   if (values.password !== values.passwordConfirm) {
     errors.password = 'Passwords must match'
