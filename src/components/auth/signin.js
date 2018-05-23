@@ -2,23 +2,13 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { signinUser } from '../../actions'
-import { email, required, renderField } from '../../helpers/form'
+import { email, required, renderField, renderNonFieldErrors } from '../../helpers/form'
 
 class Signin extends Component {
   onSubmit (formProps) {
     this.props.signinUser(formProps, () => {
       this.props.history.push('/remakes/')
     })
-  }
-
-  renderAlert () {
-    if (this.props.errorMessage) {
-      return (
-        <div className="alert alert-danger">
-          {this.props.errorMessage}
-        </div>
-      )
-    }
   }
 
   render () {
@@ -31,6 +21,7 @@ class Signin extends Component {
           type="text"
           validate={[required, email]}
           component={renderField}
+          props={this.props.serverErrors}
         />
         <Field
           label="Password"
@@ -38,8 +29,9 @@ class Signin extends Component {
           type="password"
           validate={required}
           component={renderField}
+          props={this.props.serverErrors}
         />
-        { this.renderAlert() }
+        { renderNonFieldErrors(this.props.serverErrors) }
         <button action="submit" className="btn btn-primary">Sign in</button>
       </form>
     )
@@ -47,7 +39,7 @@ class Signin extends Component {
 }
 
 function mapStateToProps (state) {
-  return { errorMessage: state.auth.error }
+  return { serverErrors: state.auth.error }
 }
 
 export default reduxForm({

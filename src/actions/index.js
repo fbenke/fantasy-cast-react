@@ -20,9 +20,8 @@ export function signinUser ({ email, password }, callback) {
         localStorage.setItem('token', response.data.token)
         callback()
       })
-      .catch(() => {
-        // TODO: add more specific message
-        dispatch(authError('Bad Login Info'))
+      .catch(error => {
+        dispatch(authError(error.response.data))
       })
   }
 }
@@ -35,13 +34,17 @@ export function signupUser ({ email, password, passwordConfirm }, callback) {
         localStorage.setItem('token', response.data.token)
         callback()
       })
-      .catch(response => {
-        dispatch(authError('Bad Login Info'))
+      .catch(error => {
+        dispatch(authError(error.response.data))
       })
   }
 }
 
 export function authError (error) {
+
+  // field name mapping
+  error.password = error.password1
+
   return {
     type: AUTH_ERROR,
     payload: error
