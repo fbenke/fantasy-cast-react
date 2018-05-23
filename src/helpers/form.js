@@ -13,7 +13,7 @@ export const renderField = field => {
         className="form-control"
       />
       <div className="text-help">
-        {touched && error ? error : serverError ? serverError : ''}
+        {touched && error ? error : serverError || ''}
       </div>
     </fieldset>
   )
