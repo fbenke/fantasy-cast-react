@@ -35,12 +35,12 @@ ReactDOM.render(
         <div>
           <Navigation/>
           <Switch>
-            <Route path="/signin" component={Signin} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/signin" component={requireAuth(Signin, true)} />
+            <Route path="/signup" component={requireAuth(Signup, true)} />
             <Route path="/signout" component={Signout} />
-            <Route path="/remakes/add" component={requireAuth(RemakesNew)} />
-            <Route path="/remakes/:id" component={requireAuth(RemakesShow)} />
-            <Route path="/remakes" component={requireAuth(RemakesIndex)} />
+            <Route path="/remakes/add" component={requireAuth(RemakesNew, false)} />
+            <Route path="/remakes/:id" component={requireAuth(RemakesShow, false)} />
+            <Route path="/remakes" component={requireAuth(RemakesIndex, false)} />
             <Route path="/" component={Home} />
           </Switch>
         </div>

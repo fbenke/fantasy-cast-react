@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-export default function (ComposedComponent) {
+export default function (ComposedComponent, reverse) {
   class Authentication extends Component {
     componentWillMount () {
-      if (!this.props.authenticated) {
+      if (!this.props.authenticated === !reverse) {
         this.props.history.push('/')
       }
     }
 
     componentWillUpdate (nextProps) {
-      if (!nextProps.authenticated) {
+      if (!nextProps.authenticated === !reverse) {
         this.props.history.push('/')
       }
     }
