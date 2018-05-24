@@ -1,5 +1,9 @@
 import _ from 'lodash'
-import { FETCH_REMAKES, FETCH_REMAKE, DELETE_REMAKE } from '../actions/types'
+import {
+  FETCH_REMAKES,
+  FETCH_REMAKE,
+  DELETE_REMAKE
+} from '../actions/types'
 
 export default function (state = {}, action) {
   switch (action.type) {

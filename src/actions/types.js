@@ -1,6 +1,7 @@
 export const CREATE_REMAKE = 'create_remake'
 export const FETCH_REMAKES = 'fetch_remakes'
 export const FETCH_REMAKE = 'fetch_remake'
+export const FETCH_MOVIE_SUGGESTIONS = 'fetch_movie_suggestions'
 export const DELETE_REMAKE = 'delete_remake'
 export const AUTH_USER = 'auth_user'
 export const UNAUTH_USER = 'unauth_user'

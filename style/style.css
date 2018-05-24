@@ -5,3 +5,10 @@ a {
 .hidden {
 	display: none;
 }
+
+/* Add new remake */
+
+.item-highlighted {
+  color: white;
+  background-color: #4095bf;
+}

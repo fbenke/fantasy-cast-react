@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
-import RemakesReducer from './remakes'
 import AuthenticationReducer from './authentication'
+import RemakesReducer from './remakes'
+import MovieReducer from './movies'
 
 const rootReducer = combineReducers({
   remakes: RemakesReducer,
   form: formReducer,
-  auth: AuthenticationReducer
+  auth: AuthenticationReducer,
+  movies: MovieReducer
 })
 
 export default rootReducer

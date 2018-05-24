@@ -4,6 +4,8 @@ import {
   FETCH_REMAKES,
   FETCH_REMAKE,
   DELETE_REMAKE,
+  FETCH_MOVIE_SUGGESTIONS,
+  MOVIE_ERROR,
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR
@@ -41,7 +43,6 @@ export function signupUser ({ email, password, passwordConfirm }, callback) {
 }
 
 export function authError (error) {
-
   // field name mapping
   error.password = error.password1
 
@@ -91,5 +92,25 @@ export function deleteRemake (id, callback) {
   return {
     type: DELETE_REMAKE,
     payload: id
+  }
+}
+
+export function fetchMovieSuggestions (query) {
+  const payload = [
+    { id: '1', name: 'Dawn of the Dead' },
+    { id: '2', name: 'Zombieland' },
+    { id: '3', name: 'Shaun of the Dead' },
+    { id: '4', name: 'Big' },
+    { id: '5', name: 'Interstellar' }
+  ]
+
+  var suggestions = payload.filter(i => i.name.toLowerCase().indexOf(query.toLowerCase()) !== -1)
+
+  return {
+    type: FETCH_MOVIE_SUGGESTIONS,
+    payload: {
+      suggestions: suggestions,
+      notFound: suggestions.length == 0
+    }
   }
 }
