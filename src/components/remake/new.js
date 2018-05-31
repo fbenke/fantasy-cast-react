@@ -9,18 +9,18 @@ import { required, renderField } from '../../helpers/form'
 class RemakesNew extends Component {
   constructor (props) {
     super(props)
-    this.state = { movie: '', dropDownInput: '' }
+    this.state = { movie: -1, dropDownInput: '' }
     this.onDropdownSelect = this.onDropdownSelect.bind(this)
     this.onDropdownChange = this.onDropdownChange.bind(this)
   }
 
   onDropdownSelect (value, item) {
-    this.setState({ movie: value, dropDownInput: value })
+    this.setState({ movie: item.id, dropDownInput: value })
   }
 
   onDropdownChange (event, value) {
     this.setState({ dropDownInput: value })
-    if (value.length > 1) {
+    if (value.length > 0) {
       this.props.fetchMovieSuggestions(value)
     }
   }
@@ -37,7 +37,7 @@ class RemakesNew extends Component {
         className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
         key={item.id}
       >
-        {item.name}
+        { `${item.name} (${item.type} from ${item.year})` }
       </div>
     )
   }

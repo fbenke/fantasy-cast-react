@@ -11,8 +11,10 @@ import {
   AUTH_ERROR
 } from './types'
 
-const REMAKE_URL = `${process.env.API_URL}api/remakes/`
-const AUTH_URL = `${process.env.API_URL}api/account/`
+const ROOT_URL = `${process.env.API_URL}api/`
+const REMAKE_URL = `${ROOT_URL}remakes/`
+const AUTH_URL = `${ROOT_URL}account/`
+const MOVIE_URL = `${ROOT_URL}imdb/`
 
 export function signinUser ({ email, password }, callback) {
   return function (dispatch) {
@@ -96,21 +98,14 @@ export function deleteRemake (id, callback) {
 }
 
 export function fetchMovieSuggestions (query) {
-  const payload = [
-    { id: '1', name: 'Dawn of the Dead' },
-    { id: '2', name: 'Zombieland' },
-    { id: '3', name: 'Shaun of the Dead' },
-    { id: '4', name: 'Big' },
-    { id: '5', name: 'Interstellar' }
-  ]
 
-  var suggestions = payload.filter(i => i.name.toLowerCase().indexOf(query.toLowerCase()) !== -1)
+  const request = axios.get(`${MOVIE_URL}movies/`, {
+    headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+    params: { query: query, limit: 5 }
+  })
 
   return {
     type: FETCH_MOVIE_SUGGESTIONS,
-    payload: {
-      suggestions: suggestions,
-      notFound: suggestions.length == 0
-    }
+    payload: request
   }
 }
