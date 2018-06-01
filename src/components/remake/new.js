@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce'
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
@@ -12,6 +13,9 @@ class RemakesNew extends Component {
     this.state = { movie: -1, dropDownInput: '' }
     this.onDropdownSelect = this.onDropdownSelect.bind(this)
     this.onDropdownChange = this.onDropdownChange.bind(this)
+    this.getSuggestions = debounce((value) => {
+      this.props.fetchMovieSuggestions(value)
+    }, 200)
   }
 
   onDropdownSelect (value, item) {
@@ -21,7 +25,7 @@ class RemakesNew extends Component {
   onDropdownChange (event, value) {
     this.setState({ dropDownInput: value })
     if (value.length > 0) {
-      this.props.fetchMovieSuggestions(value)
+      this.getSuggestions(value)
     }
   }
 
