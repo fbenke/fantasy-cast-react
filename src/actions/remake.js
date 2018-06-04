@@ -17,7 +17,10 @@ export function fetchRemakes () {
 }
 
 export function createRemake (values, callback) {
-  const request = axios.post(`${REMAKE_URL}`, values)
+  const request = axios.post(
+    `${REMAKE_URL}`, values,
+    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+  )
     .then(() => callback())
 
   return {
@@ -36,7 +39,10 @@ export function fetchRemake (id) {
 }
 
 export function deleteRemake (id, callback) {
-  axios.delete(`${REMAKE_URL}${id}`)
+  axios.delete(
+    `${REMAKE_URL}${id}`,
+    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+  )
     .then(() => callback())
 
   return {
