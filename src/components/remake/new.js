@@ -4,7 +4,8 @@ import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Autocomplete from 'react-autocomplete'
-import { createRemake, fetchMovieSuggestions } from '../../actions'
+import { createRemake } from '../../actions/remake'
+import { fetchMovieSuggestions } from '../../actions/movie'
 import { required, renderField } from '../../helpers/form'
 
 class RemakesNew extends Component {

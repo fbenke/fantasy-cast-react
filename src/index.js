@@ -16,7 +16,7 @@ import requireAuth from './components/hoc/require_authentication'
 import Signin from './components/auth/signin'
 import Signup from './components/auth/signup'
 import Signout from './components/auth/signout'
-import { AUTH_USER } from './actions/types'
+import { AUTH_USER } from './actions/auth'
 import '../style/style.css'
 
 const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createStore)

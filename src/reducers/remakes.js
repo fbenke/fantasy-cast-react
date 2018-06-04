@@ -3,7 +3,7 @@ import {
   FETCH_REMAKES,
   FETCH_REMAKE,
   DELETE_REMAKE
-} from '../actions/types'
+} from '../actions/remake'
 
 export default function (state = {}, action) {
   switch (action.type) {

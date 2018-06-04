@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import { signupUser } from '../../actions'
+import { signupUser } from '../../actions/auth'
 import { email, required, renderField, renderNonFieldErrors } from '../../helpers/form'
 
 class Signup extends Component {

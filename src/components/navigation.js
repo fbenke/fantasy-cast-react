@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { authenticate } from '../actions'
 
 class Navigation extends Component {
   renderLinks () {
@@ -41,4 +40,4 @@ function mapStateToProps (state) {
   return { authenticated: state.auth.authenticated }
 }
 
-export default connect(mapStateToProps, {authenticate})(Navigation)
+export default connect(mapStateToProps)(Navigation)

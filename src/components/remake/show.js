@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchRemake, deleteRemake } from '../../actions'
+import { fetchRemake, deleteRemake } from '../../actions/remake'
 
 class RemakesShow extends Component {
   componentDidMount () {
