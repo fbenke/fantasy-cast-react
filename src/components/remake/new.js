@@ -9,11 +9,16 @@ import { fetchMovieSuggestions } from '../../actions/movie'
 import { required, renderField } from '../../helpers/form'
 
 class RemakesNew extends Component {
+  componentDidUpdate () {
+    console.log(this.state)
+  }
+
   constructor (props) {
     super(props)
-    this.state = { movie: -1, dropDownInput: '' }
+    this.state = { movie: -1, dropDownInput: '', touched: false }
     this.onDropdownSelect = this.onDropdownSelect.bind(this)
     this.onDropdownChange = this.onDropdownChange.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
     this.getSuggestions = debounce((value) => {
       this.props.fetchMovieSuggestions(value)
     }, 200)
@@ -36,6 +41,10 @@ class RemakesNew extends Component {
     })
   }
 
+  handleBlur () {
+    this.setState({ ...this.state, touched: true })
+  }
+
   renderDropdownItem (item, isHighlighted) {
     return (
       <div
@@ -49,33 +58,39 @@ class RemakesNew extends Component {
 
   render () {
     const { handleSubmit } = this.props
-    const dropDownClass = `form-group ${this.props.movies.notFound ? 'has-danger' : ''}`
+
+    const shouldMarkError = () => {
+      const serverError = this.props.movies.notFound
+      const frontendError = this.state.touched && this.state.movie === -1
+      return serverError || frontendError
+    }
+
     return (
       <div className="remakes-new">
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <fieldset className="form-group">
-            <Field
-              label="Title"
-              name="title"
-              type="text"
-              validate={required}
-              component={renderField}
-            />
-          </fieldset>
-          <fieldset className={dropDownClass}>
+          <Field
+            label="Title"
+            name="title"
+            type="text"
+            validate={required}
+            component={renderField}
+          />
+          <fieldset className={`form-group ${shouldMarkError() ? 'has-danger' : ''}`}>
             <label>Movie</label>
             <Autocomplete
-              inputProps={{ className: 'form-control' }}
+              inputProps={{ className: 'form-control', onBlur: this.handleBlur }}
               wrapperStyle={{ display: 'block' }}
               value={this.state.dropDownInput}
               items={this.props.movies.suggestions}
-              getItemValue={(item) => item.name}
+              getItemValue={(item) => `${item.name} (${item.type} from ${item.year})`}
               onSelect={this.onDropdownSelect}
               onChange={this.onDropdownChange}
               renderItem={this.renderDropdownItem}
+
             />
             <div className="text-help">
               {this.props.movies.notFound ? 'No matching movie title found' : ''}
+              {this.state.touched && this.state.movie === -1 ? 'Required' : ''}
             </div>
           </fieldset>
           <button type="submit" className="btn btn-primary">Submit</button>
