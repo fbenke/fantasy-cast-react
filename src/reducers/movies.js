@@ -3,7 +3,7 @@ import { FETCH_MOVIE_SUGGESTIONS } from '../actions/movie'
 
 const MOVIE_URL = `${process.env.API_URL}api/imdb/`
 
-export default function (state = {suggestions: [], notFound: false}, action) {
+export default function (state = [], action) {
   switch (action.type) {
     case FETCH_MOVIE_SUGGESTIONS:
       const suggestions = _.map(
@@ -11,11 +11,7 @@ export default function (state = {suggestions: [], notFound: false}, action) {
           { id: i.id, name: i.primary_title, year: i.start_year, 'type': i.title_type }
         )
       )
-
-      return {
-        suggestions: suggestions,
-        notFound: suggestions.length === 0
-      }
+      return suggestions
 
     default:
       return state
