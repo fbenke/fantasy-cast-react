@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { FETCH_MOVIE_SUGGESTIONS } from '../actions/movie'
+import { FETCH_MOVIE_SUGGESTIONS, RESET_MOVIE_SUGGESTIONS } from '../actions/movie'
 
 const MOVIE_URL = `${process.env.API_URL}api/imdb/`
 
@@ -16,7 +16,8 @@ export default function (state = [], action) {
         )
       )
       return suggestions
-
+    case RESET_MOVIE_SUGGESTIONS:
+      return []
     default:
       return state
   }

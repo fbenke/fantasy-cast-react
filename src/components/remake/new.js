@@ -1,13 +1,19 @@
 import debounce from 'lodash/debounce'
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { createRemake } from '../../actions/remake'
-import { fetchMovieSuggestions } from '../../actions/movie'
+import { fetchMovieSuggestions, resetMovieSuggestions } from '../../actions/movie'
 import { required, renderField, renderTextArea, renderAutocompleteField } from '../../helpers/form'
 
+
 class RemakesNew extends Component {
+  componentDidMount () {
+    this.props.resetMovieSuggestions()
+  }
+
   constructor (props) {
     super(props)
     this.state = { movieId: -1 }
@@ -34,7 +40,6 @@ class RemakesNew extends Component {
 
   render () {
     const { handleSubmit } = this.props
-
     return (
       <div className="remakes-new">
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -79,8 +84,7 @@ function mapStateToProps (state) {
   return { suggestions: state.movies }
 }
 
-export default reduxForm({
-  form: 'RemakeNewForm'
-})(
-  connect(mapStateToProps, { createRemake, fetchMovieSuggestions })(RemakesNew)
-)
+export default compose(
+  connect(mapStateToProps, { fetchMovieSuggestions, resetMovieSuggestions, createRemake }),
+  reduxForm({ form: 'RemakeNewForm' })
+)(RemakesNew)

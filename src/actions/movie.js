@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const FETCH_MOVIE_SUGGESTIONS = 'fetch_movie_suggestions'
+export const RESET_MOVIE_SUGGESTIONS = 'reset_movie_suggestions'
 
 const MOVIE_URL = `${process.env.API_URL}api/imdb/movies/`
 
@@ -13,5 +14,11 @@ export function fetchMovieSuggestions (query) {
   return {
     type: FETCH_MOVIE_SUGGESTIONS,
     payload: request
+  }
+}
+
+export function resetMovieSuggestions () {
+  return {
+    type: RESET_MOVIE_SUGGESTIONS
   }
 }
