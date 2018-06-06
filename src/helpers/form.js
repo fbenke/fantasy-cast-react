@@ -20,8 +20,28 @@ export const renderField = field => {
   )
 }
 
-export const renderAutocompleteField = field => {
+export const renderTextArea = field => {
   const { meta: { touched, error } } = field
+  const serverError = field[field.input.name]
+  const className = `form-group ${(touched && error) || serverError ? 'has-danger' : ''}`
+  return (
+    <fieldset className={className}>
+      <label>{field.label}</label>
+      <textarea
+        { ...field.input }
+        className="form-control"
+        rows={field.rows}
+        columns={field.columns}
+      />
+      <div className="text-help">
+        {touched && error ? error : serverError || ''}
+      </div>
+    </fieldset>
+  )
+}
+
+export const renderAutocompleteField = field => {
+  const { meta: { touched } } = field
   const serverError = touched && field.suggestions.length === 0 ? 'No matching movie title found' : ''
   const formError = touched && !field.isMovieIdValid() ? 'Select a movie title' : ''
   const className = `form-group ${formError || serverError ? 'has-danger' : ''}`
@@ -69,7 +89,6 @@ export const renderAutocompleteField = field => {
     </fieldset>
   )
 }
-
 
 export const renderNonFieldErrors = errors => {
   if (errors && errors.non_field_errors) {

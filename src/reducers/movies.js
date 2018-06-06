@@ -8,7 +8,11 @@ export default function (state = [], action) {
     case FETCH_MOVIE_SUGGESTIONS:
       const suggestions = _.map(
         action.payload.data, i => (
-          { id: i.id, name: i.primary_title, year: i.start_year, 'type': i.title_type }
+          { id: i.id,
+            name: i.primary_title,
+            year: i.start_year,
+            type: i.title_type
+          }
         )
       )
       return suggestions

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { createRemake } from '../../actions/remake'
 import { fetchMovieSuggestions } from '../../actions/movie'
-import { required, renderField, renderAutocompleteField } from '../../helpers/form'
+import { required, renderField, renderTextArea, renderAutocompleteField } from '../../helpers/form'
 
 class RemakesNew extends Component {
   constructor (props) {
@@ -19,7 +19,7 @@ class RemakesNew extends Component {
   }
 
   onSubmit (values) {
-    this.props.createRemake({ ...values, movieId: this.state.movieId }, () => {
+    this.props.createRemake({ ...values, movie: this.state.movieId }, () => {
       this.props.history.push('/remakes/')
     })
   }
@@ -46,9 +46,18 @@ class RemakesNew extends Component {
             component={renderField}
           />
           <Field
+            label="Description"
+            name="description"
+            validate={required}
+            component={renderTextArea}
+            props={
+              {rows: '5',
+                cols: '50'}
+            }
+          />
+          <Field
             label="Movie"
             name="movie"
-            validate={required}
             component={renderAutocompleteField}
             props={
               {suggestions: this.props.suggestions,

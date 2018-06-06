@@ -29,6 +29,10 @@ class RemakesShow extends Component {
           Delete Remake
         </button>
         <h1>{remake.title}</h1>
+        <ul>
+          <li>{remake.movie.primary_title} ({remake.movie.start_year})</li>
+          <li>{remake.description}</li>
+        </ul>
       </div>
     )
   }
