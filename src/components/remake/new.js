@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { createRemake } from '../../actions/remake'
-import { fetchMovieSuggestions, resetMovieSuggestions } from '../../actions/movie'
+import { fetchMovieSuggestions, resetMovieSuggestions, setMovieId } from '../../actions/movie'
 import { required, renderField, renderTextArea, renderAutocompleteField } from '../../helpers/form'
-
 
 class RemakesNew extends Component {
   componentDidMount () {
@@ -16,26 +15,20 @@ class RemakesNew extends Component {
 
   constructor (props) {
     super(props)
-    this.state = { movieId: -1 }
     this.getSuggestions = debounce((value) => {
       this.props.fetchMovieSuggestions(value)
     }, 200)
-    this.setMovieId = this.setMovieId.bind(this)
     this.isMovieIdValid = this.isMovieIdValid.bind(this)
   }
 
   onSubmit (values) {
-    this.props.createRemake({ ...values, movie: this.state.movieId }, () => {
+    this.props.createRemake({ ...values, movie: this.props.newRemake.movieId }, () => {
       this.props.history.push('/remakes/')
     })
   }
 
-  setMovieId (id) {
-    this.setState({ movieId: id })
-  }
-
   isMovieIdValid () {
-    return this.state.movieId !== -1
+    return this.props.newRemake.movieId !== -1
   }
 
   render () {
@@ -67,7 +60,7 @@ class RemakesNew extends Component {
             props={
               {suggestions: this.props.suggestions,
                 getSuggestions: this.getSuggestions,
-                setMovieId: this.setMovieId,
+                setMovieId: this.props.setMovieId,
                 isMovieIdValid: this.isMovieIdValid
               }
             }
@@ -81,10 +74,10 @@ class RemakesNew extends Component {
 }
 
 function mapStateToProps (state) {
-  return { suggestions: state.movies }
+  return { suggestions: state.movies, 'newRemake': state.newRemake }
 }
 
 export default compose(
-  connect(mapStateToProps, { fetchMovieSuggestions, resetMovieSuggestions, createRemake }),
+  connect(mapStateToProps, { fetchMovieSuggestions, resetMovieSuggestions, createRemake, setMovieId }),
   reduxForm({ form: 'RemakeNewForm' })
 )(RemakesNew)
