@@ -3,11 +3,12 @@ import axios from 'axios'
 export const FETCH_MOVIE_SUGGESTIONS = 'fetch_movie_suggestions'
 export const RESET_MOVIE_SUGGESTIONS = 'reset_movie_suggestions'
 export const SET_MOVIE_ID = 'set_movie_id'
+export const FETCH_MOVIE_ACTOR_SUGGESTIONS = 'fetch_movie_actor_suggestions'
 
-const MOVIE_URL = `${process.env.API_URL}api/imdb/movies/`
+const MOVIE_URL = `${process.env.API_URL}api/imdb/`
 
 export function fetchMovieSuggestions (query) {
-  const request = axios.get(`${MOVIE_URL}`, {
+  const request = axios.get(`${MOVIE_URL}movies/`, {
     headers: { Authorization: `Token ${localStorage.getItem('token')}` },
     params: { query: query, limit: 10 }
   })
@@ -28,5 +29,17 @@ export function setMovieId (id) {
   return {
     type: SET_MOVIE_ID,
     payload: id
+  }
+}
+
+export function fetchMovieActorSuggestions (id) {
+  const request = axios.get(`${MOVIE_URL}principals/`, {
+    headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+    params: { movie_id: id }
+  })
+
+  return {
+    type: FETCH_MOVIE_ACTOR_SUGGESTIONS,
+    payload: request
   }
 }

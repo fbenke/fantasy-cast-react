@@ -1,11 +1,11 @@
-import debounce from 'lodash/debounce'
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { compose } from 'redux'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { createRemake } from '../../actions/remake'
-import { fetchMovieSuggestions, resetMovieSuggestions, setMovieId } from '../../actions/movie'
+import * as remakeActions from '../../actions/remake'
+import * as movieActions from '../../actions/movie'
 import { required, renderField, renderTextArea, renderAutocompleteField } from '../../helpers/form'
 
 class RemakesNew extends Component {
@@ -13,12 +13,20 @@ class RemakesNew extends Component {
     this.props.resetMovieSuggestions()
   }
 
+  componentDidUpdate () {
+    const remake = this.props.newRemake
+    if (remake.movieId !== -1 && remake.actor_suggestions.length === 0) {
+      this.props.fetchMovieActorSuggestions(remake.movieId)
+    }
+  }
+
   constructor (props) {
     super(props)
-    this.getSuggestions = debounce((value) => {
+    this.getSuggestions = _.debounce((value) => {
       this.props.fetchMovieSuggestions(value)
     }, 200)
     this.isMovieIdValid = this.isMovieIdValid.bind(this)
+    this.renderActorSuggestions = this.renderActorSuggestions.bind(this)
   }
 
   onSubmit (values) {
@@ -29,6 +37,19 @@ class RemakesNew extends Component {
 
   isMovieIdValid () {
     return this.props.newRemake.movieId !== -1
+  }
+
+  renderActorSuggestions () {
+    return _.map(this.props.newRemake.actor_suggestions, actor => {
+      return (
+        <button
+          key={actor.id}
+          className="btn btn-primary"
+        >
+          {actor.characters} ({actor.person.primary_name})
+        </button>
+      )
+    })
   }
 
   render () {
@@ -65,6 +86,9 @@ class RemakesNew extends Component {
               }
             }
           />
+          <div>
+            { this.renderActorSuggestions() }
+          </div>
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link to="/remakes/">Back</Link>
         </form>
@@ -78,6 +102,6 @@ function mapStateToProps (state) {
 }
 
 export default compose(
-  connect(mapStateToProps, { fetchMovieSuggestions, resetMovieSuggestions, createRemake, setMovieId }),
+  connect(mapStateToProps, { ...movieActions, ...remakeActions }),
   reduxForm({ form: 'RemakeNewForm' })
 )(RemakesNew)
