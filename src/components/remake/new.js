@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import * as remakeActions from '../../actions/remake'
 import * as movieActions from '../../actions/movie'
-import { required, renderField, renderTextArea, renderAutocompleteField } from '../../helpers/form'
+import { required, renderField, renderTextArea } from '../../helpers/form'
+import { renderAutocompleteField } from '../../helpers/autocomplete'
 
 class RemakesNew extends Component {
   componentDidMount () {
@@ -26,7 +27,7 @@ class RemakesNew extends Component {
       this.props.fetchMovieSuggestions(value)
     }, 200)
     this.isMovieIdValid = this.isMovieIdValid.bind(this)
-    this.renderActorSuggestions = this.renderActorSuggestions.bind(this)
+    this.renderActorSection = this.renderActorSection.bind(this)
   }
 
   onSubmit (values) {
@@ -39,7 +40,7 @@ class RemakesNew extends Component {
     return this.props.newRemake.movieId !== -1
   }
 
-  renderActorSuggestions () {
+  renderActorSection () {
     return _.map(this.props.newRemake.actor_suggestions, actor => {
       return (
         <button
@@ -81,13 +82,13 @@ class RemakesNew extends Component {
             props={
               {suggestions: this.props.suggestions,
                 getSuggestions: this.getSuggestions,
-                setMovieId: this.props.setMovieId,
-                isMovieIdValid: this.isMovieIdValid
+                setId: this.props.setMovieId,
+                isValid: this.isMovieIdValid
               }
             }
           />
           <div>
-            { this.renderActorSuggestions() }
+            { this.renderActorSection() }
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link to="/remakes/">Back</Link>
