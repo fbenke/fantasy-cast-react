@@ -2,9 +2,8 @@ import React from 'react'
 import Autocomplete from 'react-autocomplete'
 
 export const renderAutocompleteField = field => {
-  const { meta: { touched } } = field
-  const serverError = touched && field.suggestions.length === 0 ? 'No matching movie title found' : ''
-  const formError = touched && !field.isValid() ? 'Select a movie title' : ''
+  const serverError = field.suggestions.error ? 'No matching movie title found' : ''
+  const formError = field.meta.touched && !field.isValid() ? 'Select a movie title' : ''
   const className = `form-group ${formError || serverError ? 'has-danger' : ''}`
 
   const renderDropdownItem = (item, isHighlighted) => {
@@ -38,14 +37,14 @@ export const renderAutocompleteField = field => {
         inputProps={{ className: 'form-control', ...field.input }}
         wrapperStyle={{ display: 'block' }}
         value={field.input.value}
-        items={field.suggestions}
+        items={field.suggestions.suggestions}
         getItemValue={(item) => `${item.name} (${item.type} from ${item.year})`}
         onSelect={onDropdownSelect}
         onChange={onDropdownChange}
         renderItem={renderDropdownItem}
       />
       <div className="text-help">
-        { formError || serverError || '' }
+        { serverError || formError || '' }
       </div>
     </fieldset>
   )

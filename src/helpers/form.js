@@ -40,7 +40,6 @@ export const renderTextArea = field => {
   )
 }
 
-
 export const renderNonFieldErrors = errors => {
   if (errors && errors.non_field_errors) {
     return (
