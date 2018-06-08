@@ -14,10 +14,10 @@ class RemakesNew extends Component {
     this.props.resetMovieSuggestions()
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (prevProps) {
     const remake = this.props.newRemake
-    if (remake.movieId !== -1 && remake.actor_suggestions.length === 0) {
-      this.props.fetchMovieActorSuggestions(remake.movieId)
+    if (remake.movieId !== prevProps.newRemake.movieId) {
+      this.props.fetchActorSuggestions(remake.movieId)
     }
   }
 
@@ -27,7 +27,7 @@ class RemakesNew extends Component {
       this.props.fetchMovieSuggestions(value)
     }, 200)
     this.isMovieIdValid = this.isMovieIdValid.bind(this)
-    this.renderActorSection = this.renderActorSection.bind(this)
+    this.renderActors = this.renderActors.bind(this)
   }
 
   onSubmit (values) {
@@ -40,15 +40,14 @@ class RemakesNew extends Component {
     return this.props.newRemake.movieId !== -1
   }
 
-  renderActorSection () {
-    return _.map(this.props.newRemake.actor_suggestions, actor => {
+  renderActors () {
+    return _.map(this.props.newRemake.actors, actor => {
       return (
-        <button
-          key={actor.id}
-          className="btn btn-primary"
-        >
+        <li key={actor.id} >
           {actor.characters} ({actor.person.primary_name})
-        </button>
+          <a className="btn btn-danger"
+            onClick={() => this.props.deleteActor(actor.id)}>X</a>
+        </li>
       )
     })
   }
@@ -88,7 +87,9 @@ class RemakesNew extends Component {
             }
           />
           <div>
-            { this.renderActorSection() }
+            <ul>
+              { this.renderActors() }
+            </ul>
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link to="/remakes/">Back</Link>
