@@ -10,9 +10,9 @@ export default function (state = { suggestions: [], error: false }, action) {
       const suggestions = _.map(
         action.payload.data, i => (
           { id: i.id,
-            name: i.primary_title,
-            year: i.start_year,
-            type: i.title_type
+            name: i.primaryTitle,
+            year: i.startYear,
+            type: i.titleType
           }
         )
       )

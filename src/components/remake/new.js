@@ -16,10 +16,12 @@ class RemakesNew extends Component {
 
   componentDidUpdate (prevProps) {
     const remake = this.props.newRemake
-    console.log(this.props.newRemake)
+    console.log(this.props.newRemake.additionalInfo)
     if (remake.movieId !== prevProps.newRemake.movieId) {
       this.props.fetchActorSuggestions(remake.movieId)
-      this.props.fetchAdditionalMovieInfo(remake.movieId)
+      if (remake.movieId !== -1 ){
+        this.props.fetchAdditionalMovieInfo(remake.movieId)
+      }
     }
   }
 
@@ -30,6 +32,7 @@ class RemakesNew extends Component {
     }, 200)
     this.isMovieIdValid = this.isMovieIdValid.bind(this)
     this.renderActors = this.renderActors.bind(this)
+    this.renderAdditionalInfo = this.renderAdditionalInfo.bind(this)
   }
 
   onSubmit (values) {
@@ -46,7 +49,7 @@ class RemakesNew extends Component {
     return _.map(this.props.newRemake.actors, actor => {
       return (
         <li key={actor.id} >
-          {actor.characters} ({actor.person.primary_name})
+          {actor.characters} ({actor.person.primaryName})
           <a className="btn btn-danger"
             onClick={() => this.props.deleteActor(actor)}>X</a>
         </li>
@@ -60,8 +63,8 @@ class RemakesNew extends Component {
     return (
       <div>
         <div>
-          { this.props.newRemake.additionalInfo.poster_path !== undefined &&
-            <img src={`${TMDB_POSTER_PATH}${this.props.newRemake.additionalInfo.poster_path}`} />
+          { this.props.newRemake.additionalInfo.posterPath !== undefined &&
+            <img src={`${TMDB_POSTER_PATH}${this.props.newRemake.additionalInfo.posterPath}`} />
           }
         </div>
         <div>
