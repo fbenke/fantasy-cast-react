@@ -46,7 +46,7 @@ class RemakesNew extends Component {
         <li key={actor.id} >
           {actor.characters} ({actor.person.primary_name})
           <a className="btn btn-danger"
-            onClick={() => this.props.deleteActor(actor.id)}>X</a>
+            onClick={() => this.props.deleteActor(actor)}>X</a>
         </li>
       )
     })
