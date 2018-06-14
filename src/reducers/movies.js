@@ -6,6 +6,7 @@ const MOVIE_URL = `${process.env.API_URL}api/imdb/`
 export default function (state = { suggestions: [], error: false }, action) {
   switch (action.type) {
     case FETCH_MOVIE_SUGGESTIONS:
+
       const suggestions = _.map(
         action.payload.data, i => (
           { id: i.id,

@@ -16,8 +16,10 @@ class RemakesNew extends Component {
 
   componentDidUpdate (prevProps) {
     const remake = this.props.newRemake
+    console.log(this.props.newRemake)
     if (remake.movieId !== prevProps.newRemake.movieId) {
       this.props.fetchActorSuggestions(remake.movieId)
+      this.props.fetchAdditionalMovieInfo(remake.movieId)
     }
   }
 
@@ -50,6 +52,25 @@ class RemakesNew extends Component {
         </li>
       )
     })
+  }
+
+  renderAdditionalInfo () {
+    const TMDB_POSTER_PATH = 'http://image.tmdb.org/t/p/w185/'
+
+    return (
+      <div>
+        <div>
+          { this.props.newRemake.additionalInfo.poster_path !== undefined &&
+            <img src={`${TMDB_POSTER_PATH}${this.props.newRemake.additionalInfo.poster_path}`} />
+          }
+        </div>
+        <div>
+          { this.props.newRemake.additionalInfo.overview !== undefined &&
+            this.props.newRemake.additionalInfo.overview
+          }
+        </div>
+      </div>
+    )
   }
 
   render () {
@@ -91,6 +112,7 @@ class RemakesNew extends Component {
               { this.renderActors() }
             </ul>
           </div>
+          <div> { this.renderAdditionalInfo() } </div>
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link to="/remakes/">Back</Link>
         </form>
