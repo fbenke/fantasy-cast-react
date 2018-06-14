@@ -8,6 +8,7 @@ import * as remakeActions from '../../actions/remake'
 import * as movieActions from '../../actions/movie'
 import { required, renderField, renderTextArea } from '../../helpers/form'
 import { renderAutocompleteField } from '../../helpers/autocomplete'
+import * as c from '../../helpers/constants'
 
 class RemakesNew extends Component {
   componentDidMount () {
@@ -19,7 +20,7 @@ class RemakesNew extends Component {
     console.log(this.props.newRemake.additionalInfo)
     if (remake.movieId !== prevProps.newRemake.movieId) {
       this.props.fetchActorSuggestions(remake.movieId)
-      if (remake.movieId !== -1 ){
+      if (remake.movieId !== -1) {
         this.props.fetchAdditionalMovieInfo(remake.movieId)
       }
     }
@@ -58,7 +59,7 @@ class RemakesNew extends Component {
   }
 
   renderAdditionalInfo () {
-    const TMDB_POSTER_PATH = 'http://image.tmdb.org/t/p/w185/'
+    const TMDB_POSTER_PATH = `${c.IMAGE_BASE_URL}/${c.POSTER_SIZE}`
 
     return (
       <div>

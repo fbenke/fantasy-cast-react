@@ -13,7 +13,7 @@ const TMDB_MOVIE_URL = `${process.env.API_URL}api/tmdb/`
 export function fetchMovieSuggestions (query) {
   const request = axios.get(`${IMDB_MOVIE_URL}movies/`, {
     headers: { Authorization: `Token ${localStorage.getItem('token')}` },
-    params: { query: query, limit: 10 }
+    params: { query: query, limit: 50 }
   })
 
   return {
