@@ -37,7 +37,11 @@ class RemakesNew extends Component {
   }
 
   onSubmit (values) {
-    this.props.createRemake({ ...values, movie: this.props.newRemake.movieId }, () => {
+    this.props.createRemake({
+      ...values,
+      movie: this.props.newRemake.movieId,
+      tmdbId: this.props.newRemake.additionalInfo.tmdbId },
+    () => {
       this.props.history.push('/remakes/')
     })
   }
@@ -59,7 +63,7 @@ class RemakesNew extends Component {
   }
 
   renderAdditionalInfo () {
-    const TMDB_POSTER_PATH = `${c.IMAGE_BASE_URL}/${c.POSTER_SIZE}`
+    const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}/${c.TMDB_POSTER_SIZE}`
 
     return (
       <div>
