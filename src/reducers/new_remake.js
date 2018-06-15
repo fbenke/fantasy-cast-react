@@ -4,32 +4,30 @@ import {
   RESET_MOVIE_SUGGESTIONS,
   FETCH_ACTOR_SUGGESTIONS,
   FETCH_ADDITIONAL_MOVIE_INFO,
-  DELETE_ACTOR
+  DELETE_CHARACTER
 } from '../actions/movie'
 
-const emptyState = { imdbId: -1, tmdbId: -1, actors: {}, characters: [], tmdbInfo: {} }
+const emptyState = { imdbId: -1, tmdbId: -1, characters: {}, tmdbInfo: {} }
 
 export default function (state = emptyState, action) {
   switch (action.type) {
     case SET_MOVIE_ID:
-      return { ...state, imdbId: action.payload, actors: {}, tmdbInfo: {}, tmdbId: -1 }
+      return { ...state, imdbId: action.payload, characters: {}, tmdbInfo: {}, tmdbId: -1 }
     case FETCH_ACTOR_SUGGESTIONS:
       return {
         ...state,
-        actors: _.mapKeys(action.payload.data, 'id'),
-        characters: _.map(action.payload.data, i => i.characters) }
+        characters: _.mapKeys(action.payload.data, 'id')
+      }
     case RESET_MOVIE_SUGGESTIONS:
       return emptyState
     case FETCH_ADDITIONAL_MOVIE_INFO:
       return {
         ...state, tmdbInfo: action.payload.data, tmdbId: action.payload.data.tmdbId || -1
       }
-    case DELETE_ACTOR:
+    case DELETE_CHARACTER:
       return {
         ...state,
-        actors: _.omit(state.actors, action.payload.id),
-        characters: _.remove(state.characters, c => c !== action.payload.characters)
-
+        characters: _.omit(state.characters, action.payload)
       }
     default:
       return state

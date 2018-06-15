@@ -44,30 +44,35 @@ class RemakesNew extends Component {
   }
 
   renderActors () {
-    return _.map(this.props.newRemake.actors, actor => {
+    const TMDB_ACTOR_PROFILE_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_PORTRAIT_SIZE}`
+    return _.map(this.props.newRemake.characters, c => {
       return (
-        <li key={actor.id} >
-          {actor.characters} ({actor.person.primaryName})
+        <li key={c.id} >
+          {c.character} ({c.actorName})
           <a className="btn btn-danger"
-            onClick={() => this.props.deleteActor(actor)}>X</a>
+            onClick={() => this.props.deleteCharacter(c.id)}>X</a>
+          { c.tmdbProfilePath !== '' &&
+            <img src={`${TMDB_ACTOR_PROFILE_PATH}${c.tmdbProfilePath}`} />
+          }
         </li>
       )
     })
   }
 
   renderTmdbInfo () {
-    const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}/${c.TMDB_POSTER_SIZE}`
+    const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_POSTER_SIZE}`
 
+    const tmdbInfo = this.props.newRemake.tmdbInfo
     return (
       <div>
         <div>
-          { this.props.newRemake.tmdbInfo.posterPath !== undefined &&
-            <img src={`${TMDB_POSTER_PATH}${this.props.newRemake.tmdbInfo.posterPath}`} />
+          { (tmdbInfo.posterPath !== undefined && tmdbInfo.posterPath !== '') &&
+            <img src={`${TMDB_POSTER_PATH}${tmdbInfo.posterPath}`} />
           }
         </div>
         <div>
-          { this.props.newRemake.tmdbInfo.overview !== undefined &&
-            this.props.newRemake.tmdbInfo.overview
+          { tmdbInfo.overview !== undefined &&
+            tmdbInfo.overview
           }
         </div>
       </div>

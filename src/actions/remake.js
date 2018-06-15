@@ -5,7 +5,7 @@ export const FETCH_REMAKES = 'fetch_remakes'
 export const FETCH_REMAKE = 'fetch_remake'
 export const DELETE_REMAKE = 'delete_remake'
 
-const REMAKE_URL = `${process.env.API_URL}api/remakes/`
+export const REMAKE_URL = `${process.env.API_URL}api/remakes/`
 
 export function fetchRemakes () {
   const request = axios.get(`${REMAKE_URL}`)
