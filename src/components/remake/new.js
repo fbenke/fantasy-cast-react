@@ -16,12 +16,7 @@ class RemakesNew extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const remake = this.props.newRemake
     console.log(this.props.newRemake)
-    if (remake.imdbId !== prevProps.newRemake.imdbId && remake.imdbId !== -1) {
-      this.props.fetchActorSuggestions(remake.imdbId)
-      this.props.fetchAdditionalMovieInfo(remake.imdbId)
-    }
   }
 
   constructor (props) {

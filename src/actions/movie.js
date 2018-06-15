@@ -14,7 +14,7 @@ const TMDB_MOVIE_URL = `${process.env.API_URL}api/tmdb/`
 export function fetchMovieSuggestions (query) {
   const request = axios.get(`${IMDB_MOVIE_URL}movies/`, {
     headers: { Authorization: `Token ${localStorage.getItem('token')}` },
-    params: { query: query, limit: 50 }
+    params: { query: query, limit: 15 }
   })
 
   return {
@@ -30,13 +30,33 @@ export function resetMovieSuggestions () {
 }
 
 export function setImdbId (id) {
-  return {
-    type: SET_MOVIE_ID,
-    payload: id
+  return dispatch => {
+    dispatch({
+      type: SET_MOVIE_ID,
+      payload: id
+    })
+    if (id !== -1) {
+      dispatch(fetchAdditionalMovieInfo(id))
+    }
+  }
+}
+
+export function fetchAdditionalMovieInfo (id) {
+  return dispatch => {
+    axios.get(`${TMDB_MOVIE_URL}movie/${id}`, {
+      headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+    }).then(response => {
+      dispatch({
+        type: FETCH_ADDITIONAL_MOVIE_INFO,
+        payload: response
+      })
+      dispatch(fetchActorSuggestions(id))
+    })
   }
 }
 
 export function fetchActorSuggestions (id) {
+
   const request = axios.get(`${IMDB_MOVIE_URL}principals/`, {
     headers: { Authorization: `Token ${localStorage.getItem('token')}` },
     params: { movie_id: id }
@@ -44,17 +64,6 @@ export function fetchActorSuggestions (id) {
 
   return {
     type: FETCH_ACTOR_SUGGESTIONS,
-    payload: request
-  }
-}
-
-export function fetchAdditionalMovieInfo (id) {
-  const request = axios.get(`${TMDB_MOVIE_URL}movie/${id}`, {
-    headers: { Authorization: `Token ${localStorage.getItem('token')}` }
-  })
-
-  return {
-    type: FETCH_ADDITIONAL_MOVIE_INFO,
     payload: request
   }
 }
