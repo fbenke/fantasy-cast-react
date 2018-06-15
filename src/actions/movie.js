@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { REMAKE_URL } from './remake'
 
 export const FETCH_MOVIE_SUGGESTIONS = 'fetch_movie_suggestions'
 export const RESET_MOVIE_SUGGESTIONS = 'reset_movie_suggestions'
@@ -28,7 +29,7 @@ export function resetMovieSuggestions () {
   }
 }
 
-export function setMovieId (id) {
+export function setImdbId (id) {
   return {
     type: SET_MOVIE_ID,
     payload: id

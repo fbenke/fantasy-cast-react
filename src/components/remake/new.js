@@ -17,12 +17,10 @@ class RemakesNew extends Component {
 
   componentDidUpdate (prevProps) {
     const remake = this.props.newRemake
-    console.log(this.props.newRemake.additionalInfo)
-    if (remake.movieId !== prevProps.newRemake.movieId) {
-      this.props.fetchActorSuggestions(remake.movieId)
-      if (remake.movieId !== -1) {
-        this.props.fetchAdditionalMovieInfo(remake.movieId)
-      }
+    console.log(this.props.newRemake)
+    if (remake.imdbId !== prevProps.newRemake.imdbId && remake.imdbId !== -1) {
+      this.props.fetchActorSuggestions(remake.imdbId)
+      this.props.fetchAdditionalMovieInfo(remake.imdbId)
     }
   }
 
@@ -31,23 +29,23 @@ class RemakesNew extends Component {
     this.getSuggestions = _.debounce((value) => {
       this.props.fetchMovieSuggestions(value)
     }, 200)
-    this.isMovieIdValid = this.isMovieIdValid.bind(this)
+    this.isValid = this.isValid.bind(this)
     this.renderActors = this.renderActors.bind(this)
-    this.renderAdditionalInfo = this.renderAdditionalInfo.bind(this)
+    this.renderTmdbInfo = this.renderTmdbInfo.bind(this)
   }
 
   onSubmit (values) {
     this.props.createRemake({
       ...values,
-      movie: this.props.newRemake.movieId,
-      tmdbId: this.props.newRemake.additionalInfo.tmdbId },
+      movie: this.props.newRemake.imdbId,
+      tmdbId: this.props.newRemake.tmdbId },
     () => {
       this.props.history.push('/remakes/')
     })
   }
 
-  isMovieIdValid () {
-    return this.props.newRemake.movieId !== -1
+  isValid () {
+    return this.props.newRemake.imdbId !== -1
   }
 
   renderActors () {
@@ -62,19 +60,19 @@ class RemakesNew extends Component {
     })
   }
 
-  renderAdditionalInfo () {
+  renderTmdbInfo () {
     const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}/${c.TMDB_POSTER_SIZE}`
 
     return (
       <div>
         <div>
-          { this.props.newRemake.additionalInfo.posterPath !== undefined &&
-            <img src={`${TMDB_POSTER_PATH}${this.props.newRemake.additionalInfo.posterPath}`} />
+          { this.props.newRemake.tmdbInfo.posterPath !== undefined &&
+            <img src={`${TMDB_POSTER_PATH}${this.props.newRemake.tmdbInfo.posterPath}`} />
           }
         </div>
         <div>
-          { this.props.newRemake.additionalInfo.overview !== undefined &&
-            this.props.newRemake.additionalInfo.overview
+          { this.props.newRemake.tmdbInfo.overview !== undefined &&
+            this.props.newRemake.tmdbInfo.overview
           }
         </div>
       </div>
@@ -110,8 +108,8 @@ class RemakesNew extends Component {
             props={
               {suggestions: this.props.suggestions,
                 getSuggestions: this.getSuggestions,
-                setId: this.props.setMovieId,
-                isValid: this.isMovieIdValid
+                setId: this.props.setImdbId,
+                isValid: this.isValid
               }
             }
           />
@@ -120,7 +118,7 @@ class RemakesNew extends Component {
               { this.renderActors() }
             </ul>
           </div>
-          <div> { this.renderAdditionalInfo() } </div>
+          <div> { this.renderTmdbInfo() } </div>
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link to="/remakes/">Back</Link>
         </form>

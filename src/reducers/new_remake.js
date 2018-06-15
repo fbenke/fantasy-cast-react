@@ -7,12 +7,12 @@ import {
   DELETE_ACTOR
 } from '../actions/movie'
 
-const emptyState = { movieId: -1, actors: {}, characters: [], additionalInfo: {} }
+const emptyState = { imdbId: -1, tmdbId: -1, actors: {}, characters: [], tmdbInfo: {} }
 
 export default function (state = emptyState, action) {
   switch (action.type) {
     case SET_MOVIE_ID:
-      return { ...state, movieId: action.payload, actors: {}, additionalInfo: {} }
+      return { ...state, imdbId: action.payload, actors: {}, tmdbInfo: {}, tmdbId: -1 }
     case FETCH_ACTOR_SUGGESTIONS:
       return {
         ...state,
@@ -22,7 +22,7 @@ export default function (state = emptyState, action) {
       return emptyState
     case FETCH_ADDITIONAL_MOVIE_INFO:
       return {
-        ...state, additionalInfo: action.payload.data
+        ...state, tmdbInfo: action.payload.data, tmdbId: action.payload.data.tmdbId || -1
       }
     case DELETE_ACTOR:
       return {
