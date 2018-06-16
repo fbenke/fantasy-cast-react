@@ -15,10 +15,6 @@ class RemakesNew extends Component {
     this.props.resetMovieSuggestions()
   }
 
-  componentDidUpdate (prevProps) {
-    console.log(this.props.newRemake)
-  }
-
   constructor (props) {
     super(props)
     this.getSuggestions = _.debounce((value) => {
@@ -33,7 +29,9 @@ class RemakesNew extends Component {
     this.props.createRemake({
       ...values,
       movie: this.props.newRemake.imdbId,
-      tmdbId: this.props.newRemake.tmdbId },
+      tmdbId: this.props.newRemake.tmdbId,
+      characters: _.map(this.props.newRemake.characters)
+    },
     () => {
       this.props.history.push('/remakes/')
     })
