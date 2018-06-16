@@ -18,7 +18,7 @@ export function fetchRemakes () {
 
 export function createRemake (values, callback) {
   const request = axios.post(
-    `${REMAKE_URL}`, values,
+    `${REMAKE_URL}add/`, values,
     {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
   )
     .then(() => callback())

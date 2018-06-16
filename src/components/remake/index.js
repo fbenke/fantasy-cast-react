@@ -17,7 +17,7 @@ class RemakesIndex extends Component {
           className="list-group-item"
         >
           <Link to={`/remakes/${remake.id}`}>
-            {remake.title}
+            {remake.title} (Recast of "{remake.movie.originalTitle}" by User123)
           </Link>
         </li>
       )
