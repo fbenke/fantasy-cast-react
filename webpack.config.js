@@ -29,6 +29,10 @@ const config = {
       {
         use: ['style-loader', 'css-loader'],
         test: /\.css$/
+      },
+      {
+        use: 'url-loader?name=[name].[ext]',
+        test: /\.(gif|ttf|eot|svg|woff2?)$/
       }
     ]
   },

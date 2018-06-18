@@ -6,7 +6,6 @@ export const RESET_MOVIE_SUGGESTIONS = 'reset_movie_suggestions'
 export const SET_MOVIE_ID = 'set_movie_id'
 export const FETCH_ACTOR_SUGGESTIONS = 'fetch_actor_suggestions'
 export const FETCH_ADDITIONAL_MOVIE_INFO = 'fetch_additional_movie_info'
-export const DELETE_CHARACTER = 'delete_character'
 
 const IMDB_MOVIE_URL = `${process.env.API_URL}api/imdb/`
 const TMDB_MOVIE_URL = `${process.env.API_URL}api/tmdb/`
@@ -64,12 +63,5 @@ export function fetchActorSuggestions (imdbId, tmdbId) {
   return {
     type: FETCH_ACTOR_SUGGESTIONS,
     payload: request
-  }
-}
-
-export function deleteCharacter (id) {
-  return {
-    type: DELETE_CHARACTER,
-    payload: id
   }
 }

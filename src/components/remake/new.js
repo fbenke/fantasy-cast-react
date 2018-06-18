@@ -7,8 +7,9 @@ import { Field, reduxForm } from 'redux-form'
 import * as remakeActions from '../../actions/remake'
 import * as movieActions from '../../actions/movie'
 import { required, renderField, renderTextArea } from '../../helpers/form'
-import { renderAutocompleteField } from '../../helpers/autocomplete'
 import * as c from '../../helpers/constants'
+import { renderAutocompleteField } from '../../helpers/autocomplete'
+import { renderCharacterField } from './characters'
 
 class RemakesNew extends Component {
   componentDidMount () {
@@ -20,43 +21,23 @@ class RemakesNew extends Component {
     this.getSuggestions = _.debounce((value) => {
       this.props.fetchMovieSuggestions(value)
     }, 200)
-    this.isValid = this.isValid.bind(this)
-    this.renderActors = this.renderActors.bind(this)
     this.renderTmdbInfo = this.renderTmdbInfo.bind(this)
+    this.isMovieValid = this.isMovieValid.bind(this)
   }
 
   onSubmit (values) {
     this.props.createRemake({
       ...values,
       movie: this.props.newRemake.imdbId,
-      tmdbId: this.props.newRemake.tmdbId,
-      characters: _.map(this.props.newRemake.characters)
+      tmdbId: this.props.newRemake.tmdbId
     },
     () => {
       this.props.history.push('/remakes/')
     })
   }
-
-  isValid () {
+  isMovieValid () {
     return this.props.newRemake.imdbId !== -1
   }
-
-  renderActors () {
-    const TMDB_ACTOR_PROFILE_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_PORTRAIT_SIZE}`
-    return _.map(this.props.newRemake.characters, c => {
-      return (
-        <li key={c.id} >
-          {c.character} ({c.actorName})
-          <a className="btn btn-danger"
-            onClick={() => this.props.deleteCharacter(c.id)}>X</a>
-          { c.tmdbProfilePath !== '' &&
-            <img src={`${TMDB_ACTOR_PROFILE_PATH}${c.tmdbProfilePath}`} />
-          }
-        </li>
-      )
-    })
-  }
-
   renderTmdbInfo () {
     const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_POSTER_SIZE}`
 
@@ -107,15 +88,19 @@ class RemakesNew extends Component {
               {suggestions: this.props.suggestions,
                 getSuggestions: this.getSuggestions,
                 setId: this.props.setImdbId,
-                isValid: this.isValid
+                isValid: this.isMovieValid
               }
             }
           />
-          <div>
-            <ul>
-              { this.renderActors() }
-            </ul>
-          </div>
+          { this.props.newRemake.availableCharacters.length !== 0 &&
+            <Field
+              label="Characters"
+              name="characters"
+              component={renderCharacterField}
+              data={this.props.newRemake.availableCharacters}
+              validate={value => (value !== undefined && value.length > 0 ? undefined : 'Required')}
+            />
+          }
           <div> { this.renderTmdbInfo() } </div>
           <button type="submit" className="btn btn-primary">Submit</button>
           <Link to="/remakes/">Back</Link>

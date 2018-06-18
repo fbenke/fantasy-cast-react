@@ -17,7 +17,9 @@ import Signin from './components/auth/signin'
 import Signup from './components/auth/signup'
 import Signout from './components/auth/signout'
 import { AUTH_USER } from './actions/auth'
+
 import '../style/style.css'
+import '../node_modules/react-widgets/dist/css/react-widgets.css'
 
 const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createStore)
 const store = createStoreWithMiddleware(reducers)
