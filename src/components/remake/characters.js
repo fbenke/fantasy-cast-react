@@ -1,11 +1,22 @@
 import React from 'react'
 import { Multiselect } from 'react-widgets'
-import { CHARACTER_LOADING } from '../../helpers/constants'
+import { CHARACTER_LOADING, TMDB_ACTOR_PROFILE_PATH } from '../../helpers/constants'
 
 export const renderCharacterField = field => {
   const { meta: { touched, error }, input, data, state } = field
   const formError = touched && error ? error : ''
   const className = `form-group ${formError ? 'has-danger' : ''}`
+
+  const renderListItem = ({ item }) => (
+    <span>
+      <strong>{item.character}</strong>
+      {' ' + item.actorName}
+      { item.tmdbProfilePath !== '' &&
+        <img src={`${TMDB_ACTOR_PROFILE_PATH}${item.tmdbProfilePath}`} />
+      }
+    </span>
+  )
+
   const inputElement = state === CHARACTER_LOADING ? (
     <Multiselect busy />
   ) : (
@@ -13,7 +24,8 @@ export const renderCharacterField = field => {
       onBlur={() => input.onBlur()}
       value={input.value || []}
       data={data}
-      textField={c => (`${c.character} (${c.actorName})`) }
+      textField='character'
+      itemComponent={renderListItem}
     />
   )
 
