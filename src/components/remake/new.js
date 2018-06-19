@@ -63,7 +63,8 @@ class RemakesNew extends Component {
   }
 
   render () {
-    const { handleSubmit, clearFields } = this.props
+    const { handleSubmit, clearFields,
+      newRemake: {availableCharacters, characterState} } = this.props
     return (
       <div className="remakes-new">
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -98,14 +99,20 @@ class RemakesNew extends Component {
               }
             }
           />
-          { this.props.newRemake.availableCharacters.length !== 0 &&
+          { (availableCharacters.length !== 0 || characterState === c.CHARACTER_LOADING) &&
             <Field
               label="Characters"
               name="characters"
               component={renderCharacterField}
-              data={this.props.newRemake.availableCharacters}
+              data={availableCharacters}
               validate={requiredArray}
+              props={
+                {state: characterState}
+              }
             />
+          }
+          { characterState === c.CHARACTER_NOT_FOUND &&
+            <div>No characters found for the movie :(</div>
           }
           <div> { this.renderTmdbInfo() } </div>
           <button type="submit" className="btn btn-primary">Submit</button>
