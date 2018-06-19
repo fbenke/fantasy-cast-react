@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import * as remakeActions from '../../actions/remake'
 import * as movieActions from '../../actions/movie'
-import { required, renderField, renderTextArea } from '../../helpers/form'
+import { required, renderField, renderTextArea, requiredArray } from '../../helpers/form'
 import * as c from '../../helpers/constants'
 import { renderAutocompleteField } from '../../helpers/autocomplete'
 import { renderCharacterField } from './characters'
@@ -98,12 +98,12 @@ class RemakesNew extends Component {
               name="characters"
               component={renderCharacterField}
               data={this.props.newRemake.availableCharacters}
-              validate={value => (value !== undefined && value.length > 0 ? undefined : 'Required')}
+              validate={requiredArray}
             />
           }
           <div> { this.renderTmdbInfo() } </div>
           <button type="submit" className="btn btn-primary">Submit</button>
-          <Link to="/remakes/">Back</Link>
+          <button type="submit" className="btn btn-link"><Link to="/remakes/">Back</Link></button>
         </form>
       </div>
     )

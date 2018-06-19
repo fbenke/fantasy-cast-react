@@ -12,3 +12,7 @@ a {
   color: white;
   background-color: #4095bf;
 }
+
+.has-danger .rw-widget-container{
+  border-color: #d9534f;
+}
