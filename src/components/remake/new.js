@@ -26,14 +26,16 @@ class RemakesNew extends Component {
   }
 
   onSubmit (values) {
-    this.props.createRemake({
-      ...values,
-      movie: this.props.newRemake.imdbId,
-      tmdbId: this.props.newRemake.tmdbId
-    },
-    () => {
-      this.props.history.push('/remakes/')
-    })
+    if (this.isMovieValid()) {
+      this.props.createRemake({
+        ...values,
+        movie: this.props.newRemake.imdbId,
+        tmdbId: this.props.newRemake.tmdbId
+      },
+      () => {
+        this.props.history.push('/remakes/')
+      })
+    }
   }
   isMovieValid () {
     return this.props.newRemake.imdbId !== -1
