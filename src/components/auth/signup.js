@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { signupUser } from '../../actions/auth'
-import { email, required, renderField, renderNonFieldErrors } from '../../helpers/form'
+import {
+  email, required, renderField,
+  renderNonFieldErrors, passwordsMatch
+} from '../../helpers/form'
 
 class Signup extends Component {
   onSubmit (formProps) {
@@ -24,6 +27,14 @@ class Signup extends Component {
           props={this.props.serverErrors}
         />
         <Field
+          label="Username"
+          name="username"
+          type="text"
+          validate={required}
+          component={renderField}
+          props={this.props.serverErrors}
+        />
+        <Field
           label="Password"
           name="password"
           type="password"
@@ -35,7 +46,7 @@ class Signup extends Component {
           label="Confirm Password"
           name="passwordConfirm"
           type="password"
-          validate={required}
+          validate={[required, passwordsMatch]}
           component={renderField}
           props={this.props.serverErrors}
         />
@@ -46,22 +57,11 @@ class Signup extends Component {
   }
 }
 
-function validate (values) {
-  const errors = {}
-
-  if (values.password !== values.passwordConfirm) {
-    errors.password = 'Passwords must match'
-  }
-
-  return errors
-}
-
 function mapStateToProps (state) {
   return { serverErrors: state.auth.error }
 }
 
 export default reduxForm({
-  validate,
   form: 'signup'
 })(
   connect(mapStateToProps, { signupUser })(Signup)

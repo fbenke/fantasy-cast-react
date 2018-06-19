@@ -20,9 +20,9 @@ export function signinUser ({ email, password }, callback) {
   }
 }
 
-export function signupUser ({ email, password, passwordConfirm }, callback) {
+export function signupUser ({ email, password, passwordConfirm, username }, callback) {
   return function (dispatch) {
-    axios.post(`${AUTH_URL}signup/`, {email, password1: password, password2: passwordConfirm})
+    axios.post(`${AUTH_URL}signup/`, {email, username, password1: password, password2: passwordConfirm})
       .then(response => {
         dispatch({ type: AUTH_USER })
         localStorage.setItem('token', response.data.token)
