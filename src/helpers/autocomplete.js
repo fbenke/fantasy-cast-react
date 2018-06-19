@@ -20,6 +20,7 @@ export const renderAutocompleteField = field => {
   const onDropdownChange = (event, value) => {
     field.input.onChange(value)
     field.setId(-1)
+    field.clearFields(false, false, field.dependentFields)
     if (value.length > 0) {
       field.getSuggestions(value)
     }
@@ -28,6 +29,7 @@ export const renderAutocompleteField = field => {
   const onDropdownSelect = (value, item) => {
     field.input.onChange(value)
     field.setId(item.id)
+    field.clearFields(false, false, field.dependentFields)
   }
 
   return (

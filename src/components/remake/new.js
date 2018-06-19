@@ -23,6 +23,7 @@ class RemakesNew extends Component {
     }, 200)
     this.renderTmdbInfo = this.renderTmdbInfo.bind(this)
     this.isMovieValid = this.isMovieValid.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   onSubmit (values) {
@@ -37,6 +38,7 @@ class RemakesNew extends Component {
       })
     }
   }
+
   isMovieValid () {
     return this.props.newRemake.imdbId !== -1
   }
@@ -61,10 +63,10 @@ class RemakesNew extends Component {
   }
 
   render () {
-    const { handleSubmit } = this.props
+    const { handleSubmit, clearFields } = this.props
     return (
       <div className="remakes-new">
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.onSubmit)}>
           <Field
             label="Title"
             name="title"
@@ -90,7 +92,9 @@ class RemakesNew extends Component {
               {suggestions: this.props.suggestions,
                 getSuggestions: this.getSuggestions,
                 setId: this.props.setImdbId,
-                isValid: this.isMovieValid
+                isValid: this.isMovieValid,
+                clearFields: clearFields,
+                dependentFields: ['characters']
               }
             }
           />
