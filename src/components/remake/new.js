@@ -21,7 +21,6 @@ class RemakesNew extends Component {
     this.getSuggestions = _.debounce((value) => {
       this.props.fetchMovieSuggestions(value)
     }, 200)
-    this.renderTmdbInfo = this.renderTmdbInfo.bind(this)
     this.isMovieValid = this.isMovieValid.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -42,10 +41,11 @@ class RemakesNew extends Component {
   isMovieValid () {
     return this.props.newRemake.imdbId !== -1
   }
+
   renderTmdbInfo () {
     const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_POSTER_SIZE}`
-
     const tmdbInfo = this.props.newRemake.tmdbInfo
+
     return (
       <div>
         <div>
