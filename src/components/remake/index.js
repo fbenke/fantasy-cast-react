@@ -31,9 +31,6 @@ class RemakesIndex extends Component {
         <ul className="list-group col-sm-10 col-sm-offset-1">
           {this.renderList()}
         </ul>
-        <button type="submit" className="btn btn-link">
-          <Link to="/remakes/add/">New Remake</Link>
-        </button>
       </div>
     )
   }
