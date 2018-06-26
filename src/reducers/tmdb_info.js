@@ -4,7 +4,6 @@ import {
   FETCH_ADDITIONAL_MOVIE_INFO
 } from '../actions/movie'
 
-
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_MOVIE_ID:

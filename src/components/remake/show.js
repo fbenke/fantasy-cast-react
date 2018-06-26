@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchRemake, deleteRemake } from '../../actions/remake'
+import TmdbInfo from './tmdb_info'
 
 class RemakesShow extends Component {
   componentDidMount () {
@@ -34,30 +35,33 @@ class RemakesShow extends Component {
     return (
       <div>
         <h1>"{remake.title}" by {remake.user.username}</h1>
-        <table className="table table-hover table-striped">
-          <tbody>
-            <tr>
-              <td>{remake.movie.titleType} Title</td>
-              <td>{remake.movie.primaryTitle} ({remake.movie.startYear})</td>
-            </tr>
-            <tr>
-              <td>Description</td>
-              <td>{remake.description}</td>
-            </tr>
-            <tr>
-              <td>Characters</td>
-              <td>
-                <ul className="list-unstyled">
-                  {this.renderCharacters()}
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td>Tmdb Says:</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="row">
+          <div className="col-md-7 col-md-offset-1">
+            <table className="table table-hover table-striped">
+              <tbody>
+                <tr>
+                  <td>{remake.movie.titleType} Title</td>
+                  <td>{remake.movie.primaryTitle} ({remake.movie.startYear})</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{remake.description}</td>
+                </tr>
+                <tr>
+                  <td>Characters</td>
+                  <td>
+                    <ul className="list-unstyled">
+                      {this.renderCharacters()}
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="col-md-4">
+            <TmdbInfo/>
+          </div>
+        </div>
         <div>
           <button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
             Delete Remake
@@ -71,8 +75,8 @@ class RemakesShow extends Component {
   }
 }
 
-function mapStateToProps ({ remakes }, ownProps) {
-  return { remake: remakes[ownProps.match.params.id] }
+function mapStateToProps ({ remakes, tmdbInfo }, ownProps) {
+  return { remake: remakes[ownProps.match.params.id], tmdbInfo }
 }
 
 export default connect(mapStateToProps, { fetchRemake, deleteRemake })(RemakesShow)

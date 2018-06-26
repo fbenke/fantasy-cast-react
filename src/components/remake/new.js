@@ -8,8 +8,9 @@ import * as remakeActions from '../../actions/remake'
 import * as movieActions from '../../actions/movie'
 import { required, renderField, renderTextArea, requiredArray } from '../../helpers/form'
 import * as c from '../../helpers/constants'
-import { renderAutocompleteField } from '../../helpers/autocomplete'
-import { renderCharacterField } from './characters'
+import { renderAutocompleteField } from './autocomplete'
+import { renderCharacterField } from './characters_selector'
+import TmdbInfo from './tmdb_info'
 
 class RemakesNew extends Component {
   componentDidMount () {
@@ -30,7 +31,7 @@ class RemakesNew extends Component {
       this.props.createRemake({
         ...values,
         movie: this.props.newRemake.imdbId,
-        tmdbId: this.props.tmdbInfo.tmdbId
+        tmdbId: this.props.tmdbId
       },
       () => {
         this.props.history.push('/remakes/')
@@ -42,82 +43,66 @@ class RemakesNew extends Component {
     return this.props.newRemake.imdbId !== -1
   }
 
-  renderTmdbInfo () {
-    const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_POSTER_SIZE}`
-    const tmdbInfo = this.props.tmdbInfo
-
-    return (
-      <div>
-        <div>
-          { (tmdbInfo.posterPath !== undefined && tmdbInfo.posterPath !== '') &&
-            <img src={`${TMDB_POSTER_PATH}${tmdbInfo.posterPath}`} />
-          }
-        </div>
-        <div>
-          { tmdbInfo.overview !== undefined &&
-            tmdbInfo.overview
-          }
-        </div>
-      </div>
-    )
-  }
-
   render () {
     const { handleSubmit, clearFields,
       newRemake: {availableCharacters, characterState} } = this.props
     return (
-      <div className="remakes-new">
-        <form onSubmit={handleSubmit(this.onSubmit)}>
-          <Field
-            label="Title"
-            name="title"
-            type="text"
-            validate={required}
-            component={renderField}
-          />
-          <Field
-            label="Description"
-            name="description"
-            validate={required}
-            component={renderTextArea}
-            props={
-              {rows: '5',
-                cols: '50'}
-            }
-          />
-          <Field
-            label="Movie"
-            name="movie"
-            component={renderAutocompleteField}
-            props={
-              {suggestions: this.props.suggestions,
-                getSuggestions: this.getSuggestions,
-                setId: this.props.setImdbId,
-                isValid: this.isMovieValid,
-                clearFields: clearFields,
-                dependentFields: ['characters']
-              }
-            }
-          />
-          { (availableCharacters.length !== 0 || characterState === c.CHARACTER_LOADING) &&
+      <div className="row remakes-new">
+        <div className="col-md-7 col-md-offset-1">
+          <form onSubmit={handleSubmit(this.onSubmit)}>
             <Field
-              label="Characters"
-              name="characters"
-              component={renderCharacterField}
-              data={availableCharacters}
-              validate={requiredArray}
+              label="Title"
+              name="title"
+              type="text"
+              validate={required}
+              component={renderField}
+            />
+            <Field
+              label="Description"
+              name="description"
+              validate={required}
+              component={renderTextArea}
               props={
-                {state: characterState}
+                {rows: '5',
+                  cols: '50'}
               }
             />
-          }
-          { characterState === c.CHARACTER_NOT_FOUND &&
-            <div>No characters found for the movie :(</div>
-          }
-          <div> { this.renderTmdbInfo() } </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-          <button type="submit" className="btn btn-link"><Link to="/remakes/">Back</Link></button>
-        </form>
+            <Field
+              label="Movie"
+              name="movie"
+              component={renderAutocompleteField}
+              props={
+                {suggestions: this.props.suggestions,
+                  getSuggestions: this.getSuggestions,
+                  setId: this.props.setImdbId,
+                  isValid: this.isMovieValid,
+                  clearFields: clearFields,
+                  dependentFields: ['characters']
+                }
+              }
+            />
+            { (availableCharacters.length !== 0 || characterState === c.CHARACTER_LOADING) &&
+              <Field
+                label="Characters"
+                name="characters"
+                component={renderCharacterField}
+                data={availableCharacters}
+                validate={requiredArray}
+                props={
+                  {state: characterState}
+                }
+              />
+            }
+            { characterState === c.CHARACTER_NOT_FOUND &&
+              <div>No characters found for the movie :(</div>
+            }
+            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-link"><Link to="/remakes/">Back</Link></button>
+          </form>
+        </div>
+        <div className="col-md-4">
+          <TmdbInfo/>
+        </div>
       </div>
     )
   }
@@ -127,7 +112,7 @@ function mapStateToProps (state) {
   return {
     suggestions: state.movieSuggestions,
     newRemake: state.newRemake,
-    tmdbInfo: state.tmdbInfo
+    tmdbId: state.tmdbInfo.tmdbId
   }
 }
 

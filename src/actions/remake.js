@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { FETCH_ADDITIONAL_MOVIE_INFO, TMDB_MOVIE_URL } from './movie'
 
 export const CREATE_REMAKE = 'create_remake'
 export const FETCH_REMAKES = 'fetch_remakes'
@@ -30,11 +31,22 @@ export function createRemake (values, callback) {
 }
 
 export function fetchRemake (id) {
-  const request = axios.get(`${REMAKE_URL}${id}`)
-
-  return {
-    type: FETCH_REMAKE,
-    payload: request
+  return function (dispatch) {
+    axios.get(`${REMAKE_URL}${id}`)
+      .then(response => {
+        dispatch({
+          type: FETCH_REMAKE,
+          payload: response
+        })
+        axios.get(`${TMDB_MOVIE_URL}movie/${response.data.movie.id}`, {
+          headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+        }).then(response => {
+          dispatch({
+            type: FETCH_ADDITIONAL_MOVIE_INFO,
+            payload: response
+          })
+        })
+      })
   }
 }
 
