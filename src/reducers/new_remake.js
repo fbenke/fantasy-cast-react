@@ -2,8 +2,7 @@ import _ from 'lodash'
 import {
   SET_MOVIE_ID,
   RESET_MOVIE_SUGGESTIONS,
-  FETCH_ACTOR_SUGGESTIONS,
-  FETCH_ADDITIONAL_MOVIE_INFO
+  FETCH_ACTOR_SUGGESTIONS
 } from '../actions/movie'
 
 import {
@@ -12,7 +11,7 @@ import {
   CHARACTER_INIT
 } from '../helpers/constants'
 
-const emptyState = { imdbId: -1, tmdbId: -1, availableCharacters: [], characterState: CHARACTER_INIT, tmdbInfo: {} }
+const emptyState = { imdbId: -1, availableCharacters: [], characterState: CHARACTER_INIT }
 
 export default function (state = emptyState, action) {
   switch (action.type) {
@@ -21,8 +20,6 @@ export default function (state = emptyState, action) {
         ...state,
         imdbId: action.payload,
         availableCharacters: [],
-        tmdbInfo: {},
-        tmdbId: -1,
         characterState: action.payload !== -1 ? CHARACTER_LOADING : CHARACTER_INIT
       }
     case FETCH_ACTOR_SUGGESTIONS:
@@ -32,11 +29,6 @@ export default function (state = emptyState, action) {
       }
     case RESET_MOVIE_SUGGESTIONS:
       return emptyState
-    case FETCH_ADDITIONAL_MOVIE_INFO:
-      return { ...state,
-        tmdbInfo: action.payload.data,
-        tmdbId: action.payload.data.tmdbId || -1
-      }
     default:
       return state
   }

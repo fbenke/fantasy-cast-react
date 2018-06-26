@@ -30,7 +30,7 @@ class RemakesNew extends Component {
       this.props.createRemake({
         ...values,
         movie: this.props.newRemake.imdbId,
-        tmdbId: this.props.newRemake.tmdbId
+        tmdbId: this.props.tmdbInfo.tmdbId
       },
       () => {
         this.props.history.push('/remakes/')
@@ -44,7 +44,7 @@ class RemakesNew extends Component {
 
   renderTmdbInfo () {
     const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_POSTER_SIZE}`
-    const tmdbInfo = this.props.newRemake.tmdbInfo
+    const tmdbInfo = this.props.tmdbInfo
 
     return (
       <div>
@@ -124,7 +124,11 @@ class RemakesNew extends Component {
 }
 
 function mapStateToProps (state) {
-  return { suggestions: state.movies, 'newRemake': state.newRemake }
+  return {
+    suggestions: state.movieSuggestions,
+    newRemake: state.newRemake,
+    tmdbInfo: state.tmdbInfo
+  }
 }
 
 export default compose(
