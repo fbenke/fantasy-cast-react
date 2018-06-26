@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -16,6 +17,14 @@ class RemakesShow extends Component {
     })
   }
 
+  renderCharacters () {
+    return _.map(this.props.remake.characters, character => {
+      return (
+        <li key={character.id}>{character.character}</li>
+      )
+    })
+  }
+
   render () {
     const { remake } = this.props
     if (!remake) {
@@ -24,15 +33,39 @@ class RemakesShow extends Component {
 
     return (
       <div>
-        <Link to="/remakes/">Back</Link>
-        <button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
-          Delete Remake
-        </button>
-        <h1>{remake.title}</h1>
-        <ul>
-          <li>{remake.movie.primaryTitle} ({remake.movie.startYear})</li>
-          <li>{remake.description}</li>
-        </ul>
+        <h1>"{remake.title}" by {remake.user.username}</h1>
+        <table className="table table-hover table-striped">
+          <tbody>
+            <tr>
+              <td>{remake.movie.titleType} Title</td>
+              <td>{remake.movie.primaryTitle} ({remake.movie.startYear})</td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>{remake.description}</td>
+            </tr>
+            <tr>
+              <td>Characters</td>
+              <td>
+                <ul className="list-unstyled">
+                  {this.renderCharacters()}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Tmdb Says:</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
+            Delete Remake
+          </button>
+          <button type="submit" className="btn btn-link">
+            <Link to="/remakes/">Back</Link>
+          </button>
+        </div>
       </div>
     )
   }

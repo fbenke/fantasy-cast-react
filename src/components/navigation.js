@@ -28,7 +28,7 @@ class Navigation extends Component {
     return (
       <nav className="navbar navbar-light">
         <Link className="navbar-brand" to="/">Home</Link>
-        <ul className="nav navbar-nav">
+        <ul className="nav justify-content-center">
           { this.renderLinks() }
         </ul>
       </nav>
