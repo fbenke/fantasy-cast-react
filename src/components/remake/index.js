@@ -17,7 +17,7 @@ class RemakesIndex extends Component {
           className="list-group-item"
         >
           <Link to={`/remakes/${remake.id}`}>
-            {remake.title} (Recast of "{remake.movie.originalTitle}" by User123)
+            {remake.title} (Recast of "{remake.movie.originalTitle}" by {remake.user.username})
           </Link>
         </li>
       )
@@ -28,10 +28,12 @@ class RemakesIndex extends Component {
     return (
       <div className="remakes-index">
         <h1> Remakes </h1>
-        <ul className="list-group col-sm-4">
+        <ul className="list-group col-sm-10 col-sm-offset-1">
           {this.renderList()}
         </ul>
-        <Link to={'/remakes/add/'}>New Remake</Link>
+        <button type="submit" className="btn btn-link">
+          <Link to="/remakes/add/">New Remake</Link>
+        </button>
       </div>
     )
   }
