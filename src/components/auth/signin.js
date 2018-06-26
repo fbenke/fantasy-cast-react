@@ -16,10 +16,10 @@ class Signin extends Component {
     return (
       <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
         <Field
-          label="Email"
+          label="Email or Username"
           name="email"
           type="text"
-          validate={[required, email]}
+          validate={required}
           component={renderField}
           props={this.props.serverErrors}
         />
