@@ -33,22 +33,24 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <BrowserRouter>
-        <div>
-          <Navigation/>
-          <Switch>
-            <Route path="/signin" component={requireAuth(Signin, true)} />
-            <Route path="/signup" component={requireAuth(Signup, true)} />
-            <Route path="/signout" component={Signout} />
-            <Route path="/remakes/add" component={requireAuth(RemakesNew, false)} />
-            <Route path="/remakes/:id" component={requireAuth(RemakesShow, false)} />
-            <Route path="/remakes" component={requireAuth(RemakesIndex, false)} />
-            <Route path="/" component={Home} />
-          </Switch>
-          <Footer/>
+    <BrowserRouter>
+      <div>
+        <Navigation/>
+        <div className="row">
+          <div className="col-md-12">
+            <Switch>
+              <Route path="/signin" component={requireAuth(Signin, true)} />
+              <Route path="/signup" component={requireAuth(Signup, true)} />
+              <Route path="/signout" component={Signout} />
+              <Route path="/remakes/add" component={requireAuth(RemakesNew, false)} />
+              <Route path="/remakes/:id" component={requireAuth(RemakesShow, false)} />
+              <Route path="/remakes" component={requireAuth(RemakesIndex, false)} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </div>
         </div>
-      </BrowserRouter>
-    </div>
+        <Footer/>
+      </div>
+    </BrowserRouter>
   </Provider>
   , document.querySelector('.container'))
