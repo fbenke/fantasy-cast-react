@@ -9,6 +9,7 @@ import reduxThunk from 'redux-thunk'
 import reducers from './reducers'
 import Home from './components/home'
 import Navigation from './components/navigation'
+import Footer from './components/footer'
 import RemakesNew from './components/remake/new'
 import RemakesIndex from './components/remake/index'
 import RemakesShow from './components/remake/show'
@@ -45,6 +46,7 @@ ReactDOM.render(
             <Route path="/remakes" component={requireAuth(RemakesIndex, false)} />
             <Route path="/" component={Home} />
           </Switch>
+          <Footer/>
         </div>
       </BrowserRouter>
     </div>
