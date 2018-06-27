@@ -19,7 +19,8 @@ class RemakesShow extends Component {
   }
 
   renderCharacters () {
-    return _.map(this.props.remake.characters, character => {
+    const characters = _.orderBy(this.props.remake.characters, ['order'], ['asc'])
+    return _.map(characters, character => {
       return (
         <li key={character.id}>{character.character}</li>
       )
