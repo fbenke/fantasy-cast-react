@@ -10,6 +10,13 @@ a {
 	display: none;
 }
 
+/* List remakes */
+
+.list-group-item-action a:hover{
+  text-decoration: none;
+  color: black;
+}
+
 /* Add new remake */
 
 .item-highlighted {

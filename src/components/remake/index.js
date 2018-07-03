@@ -14,7 +14,7 @@ class RemakesIndex extends Component {
       return (
         <li
           key={remake.id}
-          className="list-group-item"
+          className="list-group-item list-group-item-action"
         >
           <Link to={`/remakes/${remake.id}`}>
             {remake.title} (Recast of "{remake.movie.originalTitle}" by {remake.user.username})
