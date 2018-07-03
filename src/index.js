@@ -36,7 +36,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Navigation/>
-        <div className="row">
+        <div className="row" id="body">
           <div className="col-md-12">
             <Switch>
               <Route path="/signin" component={requireAuth(Signin, true)} />

@@ -47,61 +47,64 @@ class RemakesNew extends Component {
     const { handleSubmit, clearFields,
       newRemake: {availableCharacters, characterState} } = this.props
     return (
-      <div className="row remakes-new">
-        <div className="col-md-7 col-md-offset-1">
-          <form onSubmit={handleSubmit(this.onSubmit)}>
-            <Field
-              label="Title"
-              name="title"
-              type="text"
-              validate={required}
-              component={renderField}
-            />
-            <Field
-              label="Description"
-              name="description"
-              validate={required}
-              component={renderTextArea}
-              props={
-                {rows: '5',
-                  cols: '50'}
-              }
-            />
-            <Field
-              label="Movie"
-              name="movie"
-              component={renderAutocompleteField}
-              props={
-                {suggestions: this.props.suggestions,
-                  getSuggestions: this.getSuggestions,
-                  setId: this.props.setImdbId,
-                  isValid: this.isMovieValid,
-                  clearFields: clearFields,
-                  dependentFields: ['characters']
-                }
-              }
-            />
-            { (availableCharacters.length !== 0 || characterState === c.CHARACTER_LOADING) &&
+      <div>
+        <h1> Which movie would you like to recast? </h1>
+        <div className="row remakes-new">
+          <div className="col-md-7 col-md-offset-1">
+            <form onSubmit={handleSubmit(this.onSubmit)}>
               <Field
-                label="Characters"
-                name="characters"
-                component={renderCharacterField}
-                data={availableCharacters}
-                validate={requiredArray}
+                label="Title"
+                name="title"
+                type="text"
+                validate={required}
+                component={renderField}
+              />
+              <Field
+                label="Description"
+                name="description"
+                validate={required}
+                component={renderTextArea}
                 props={
-                  {state: characterState}
+                  {rows: '5',
+                    cols: '50'}
                 }
               />
-            }
-            { characterState === c.CHARACTER_NOT_FOUND &&
-              <div>No characters found for the movie :(</div>
-            }
-            <button type="submit" className="btn btn-primary">Submit</button>
-            <button type="submit" className="btn btn-link"><Link to="/remakes/">Back</Link></button>
-          </form>
-        </div>
-        <div className="col-md-4">
-          <TmdbInfo/>
+              <Field
+                label="Movie"
+                name="movie"
+                component={renderAutocompleteField}
+                props={
+                  {suggestions: this.props.suggestions,
+                    getSuggestions: this.getSuggestions,
+                    setId: this.props.setImdbId,
+                    isValid: this.isMovieValid,
+                    clearFields: clearFields,
+                    dependentFields: ['characters']
+                  }
+                }
+              />
+              { (availableCharacters.length !== 0 || characterState === c.CHARACTER_LOADING) &&
+                <Field
+                  label="Characters"
+                  name="characters"
+                  component={renderCharacterField}
+                  data={availableCharacters}
+                  validate={requiredArray}
+                  props={
+                    {state: characterState}
+                  }
+                />
+              }
+              { characterState === c.CHARACTER_NOT_FOUND &&
+                <div>No characters found for the movie :(</div>
+              }
+              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn btn-link"><Link to="/remakes/">Back</Link></button>
+            </form>
+          </div>
+          <div className="col-md-4">
+            <TmdbInfo/>
+          </div>
         </div>
       </div>
     )
