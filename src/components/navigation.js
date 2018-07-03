@@ -6,14 +6,14 @@ class Navigation extends Component {
   renderLinks () {
     if (this.props.authenticated) {
       return [
-        <li className="nav-item" key={1}>
-          <Link className="nav-link" to="/signout/">Sign Out</Link>
-        </li>,
         <li className="nav-item" key={2}>
           <Link className="nav-link" to="/remakes/">Remakes</Link>
         </li>,
         <li className="nav-item" key={3}>
           <Link className="nav-link" to="/remakes/add/">Add a remake</Link>
+        </li>,
+        <li className="nav-item" key={1}>
+          <Link className="nav-link" to="/signout/">Sign Out</Link>
         </li>
       ]
     }
