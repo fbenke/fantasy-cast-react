@@ -4,7 +4,7 @@ import Autocomplete from 'react-autocomplete'
 export const renderAutocompleteField = field => {
   const serverError = field.suggestions.error ? 'No matching movie title found' : ''
   const formError = field.meta.touched && !field.isValid() ? 'Select a movie title' : ''
-  const className = `form-group ${formError || serverError ? 'has-danger' : ''}`
+  const isInvalid = formError || serverError
 
   const renderDropdownItem = (item, isHighlighted) => {
     return (
@@ -33,10 +33,10 @@ export const renderAutocompleteField = field => {
   }
 
   return (
-    <fieldset className={className}>
+    <fieldset className={`form-group ${isInvalid ? 'has-danger' : ''}`}>
       <label>{field.label}</label>
       <Autocomplete
-        inputProps={{ className: 'form-control', ...field.input }}
+        inputProps={{ className: `form-control ${isInvalid ? 'is-invalid' : ''}`, ...field.input }}
         wrapperStyle={{ display: 'block' }}
         value={field.input.value}
         items={field.suggestions.suggestions}

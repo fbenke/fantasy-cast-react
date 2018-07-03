@@ -21,6 +21,10 @@ a {
   border-color: #d9534f;
 }
 
+.has-danger {
+  color: #d9534f;
+}
+
 /* Footer */
 
 .footer {

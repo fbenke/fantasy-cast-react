@@ -4,14 +4,14 @@ import Autocomplete from 'react-autocomplete'
 export const renderField = field => {
   const { meta: { touched, error } } = field
   const serverError = field[field.input.name]
-  const className = `form-group ${(touched && error) || serverError ? 'has-danger' : ''}`
+  const isInvalid = (touched && error) || serverError
   return (
-    <fieldset className={className}>
+    <fieldset className={`form-group ${isInvalid ? 'has-danger' : ''}`}>
       <label>{field.label}</label>
       <input
         { ...field.input }
         type={field.type}
-        className="form-control"
+        className={`form-control ${isInvalid ? 'is-invalid' : ''}`}
       />
       <div className="text-help">
         {touched && error ? error : serverError || ''}
@@ -23,13 +23,13 @@ export const renderField = field => {
 export const renderTextArea = field => {
   const { meta: { touched, error } } = field
   const serverError = field[field.input.name]
-  const className = `form-group ${(touched && error) || serverError ? 'has-danger' : ''}`
+  const isInvalid = (touched && error) || serverError
   return (
-    <fieldset className={className}>
+    <fieldset className={`form-group ${isInvalid ? 'has-danger' : ''}`}>
       <label>{field.label}</label>
       <textarea
         { ...field.input }
-        className="form-control"
+        className={`form-control ${isInvalid ? 'is-invalid' : ''}`}
         rows={field.rows}
         columns={field.columns}
       />
