@@ -3,6 +3,7 @@ import axios from 'axios'
 export const AUTH_USER = 'auth_user'
 export const UNAUTH_USER = 'unauth_user'
 export const AUTH_ERROR = 'auth_error'
+export const AUTH_DETAIL = 'auth_detail'
 
 const AUTH_URL = `${process.env.API_URL}api/account/`
 
@@ -47,4 +48,16 @@ export function authError (error) {
 export function signoutUser () {
   localStorage.removeItem('token')
   return { type: UNAUTH_USER }
+}
+
+export function getUserDetails () {
+  const request = axios.get(
+    `${AUTH_URL}detail/`,
+    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+  )
+
+  return {
+    type: AUTH_DETAIL,
+    payload: request
+  }
 }

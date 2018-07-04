@@ -3,12 +3,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchRemake, deleteRemake } from '../../actions/remake'
+import { getUserDetails } from '../../actions/auth'
 import TmdbInfo from './tmdb_info'
 
 class RemakesShow extends Component {
   componentDidMount () {
     const { id } = this.props.match.params
     this.props.fetchRemake(id)
+    this.props.getUserDetails()
   }
 
   onDeleteClick () {
@@ -25,6 +27,15 @@ class RemakesShow extends Component {
         <li key={character.id}>{character.character}</li>
       )
     })
+  }
+
+  hasEditRights () {
+    const { remake, user } = this.props
+    if (user && remake) {
+      return (user.username === remake.user.username)
+    } else {
+      return false
+    }
   }
 
   render () {
@@ -64,9 +75,16 @@ class RemakesShow extends Component {
           </div>
         </div>
         <div>
-          <button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
-            Delete Remake
-          </button>
+          { this.hasEditRights() &&
+            (<button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
+              Delete
+            </button>)
+          }
+          { this.hasEditRights() &&
+            (<button className="btn btn-primary">
+              Close Voting
+            </button>)
+          }
           <button type="submit" className="btn btn-link">
             <Link to="/remakes/">Back</Link>
           </button>
@@ -76,8 +94,8 @@ class RemakesShow extends Component {
   }
 }
 
-function mapStateToProps ({ remakes, tmdbInfo }, ownProps) {
-  return { remake: remakes[ownProps.match.params.id], tmdbInfo }
+function mapStateToProps ({ remakes, tmdbInfo, auth: {user} }, ownProps) {
+  return { remake: remakes[ownProps.match.params.id], tmdbInfo, user }
 }
 
-export default connect(mapStateToProps, { fetchRemake, deleteRemake })(RemakesShow)
+export default connect(mapStateToProps, { fetchRemake, deleteRemake, getUserDetails })(RemakesShow)
