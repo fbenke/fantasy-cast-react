@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchRemake, deleteRemake } from '../../actions/remake'
+import { fetchRemake, deleteRemake, closeRemake } from '../../actions/remake'
 import { getUserDetails } from '../../actions/auth'
 import TmdbInfo from './tmdb_info'
 
@@ -17,6 +17,13 @@ class RemakesShow extends Component {
     const { id } = this.props.match.params
     this.props.deleteRemake(id, () => {
       this.props.history.push('/remakes/')
+    })
+  }
+
+  onCloseClick () {
+    const { id } = this.props.match.params
+    this.props.closeRemake(id, () => {
+      this.props.fetchRemake(id)
     })
   }
 
@@ -43,7 +50,6 @@ class RemakesShow extends Component {
     if (!remake) {
       return <div>Loading...</div>
     }
-
     return (
       <div>
         <h1>"{remake.title}" <small>by {remake.user.username}</small></h1>
@@ -80,14 +86,11 @@ class RemakesShow extends Component {
               Delete
             </button>)
           }
-          { this.hasEditRights() &&
-            (<button className="btn btn-primary">
+          { this.hasEditRights() && remake.isOpen &&
+            (<button onClick={this.onCloseClick.bind(this)} className="btn btn-primary">
               Close Voting
             </button>)
           }
-          <button type="submit" className="btn btn-link">
-            <Link to="/remakes/">Back</Link>
-          </button>
         </div>
       </div>
     )
@@ -98,4 +101,4 @@ function mapStateToProps ({ remakes, tmdbInfo, auth: {user} }, ownProps) {
   return { remake: remakes[ownProps.match.params.id], tmdbInfo, user }
 }
 
-export default connect(mapStateToProps, { fetchRemake, deleteRemake, getUserDetails })(RemakesShow)
+export default connect(mapStateToProps, { fetchRemake, deleteRemake, closeRemake, getUserDetails })(RemakesShow)

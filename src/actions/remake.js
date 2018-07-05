@@ -5,6 +5,7 @@ export const CREATE_REMAKE = 'create_remake'
 export const FETCH_REMAKES = 'fetch_remakes'
 export const FETCH_REMAKE = 'fetch_remake'
 export const DELETE_REMAKE = 'delete_remake'
+export const CLOSE_REMAKE = 'close_remake'
 export const RESET_TMDB_DETAILS = 'reset_tmdb_details'
 
 export const REMAKE_URL = `${process.env.API_URL}api/remakes/`
@@ -61,6 +62,19 @@ export function deleteRemake (id, callback) {
 
   return {
     type: DELETE_REMAKE,
+    payload: id
+  }
+}
+
+export function closeRemake (id, callback) {
+  axios.get(
+    `${REMAKE_URL}close/${id}`,
+    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+  )
+    .then(() => callback())
+
+  return {
+    type: CLOSE_REMAKE,
     payload: id
   }
 }

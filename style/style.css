@@ -11,6 +11,10 @@ a {
 	display: none;
 }
 
+.btn {
+  margin-left: 5px;
+}
+
 /* List remakes */
 
 .list-group-item-action a:hover{
