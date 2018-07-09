@@ -10,7 +10,7 @@ class RemakesIndex extends Component {
   }
 
   renderList () {
-    return _.map(this.props.remakes, remake => {
+    return _.map(_.omit(this.props.remakes, 'error'), remake => {
       return (
         <li
           key={remake.id}

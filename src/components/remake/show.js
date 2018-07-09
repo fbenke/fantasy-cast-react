@@ -15,6 +15,12 @@ class RemakesShow extends Component {
     this.props.getUserDetails()
   }
 
+  componentDidUpdate () {
+    if (this.props.error !== undefined) {
+      this.props.history.push('/')
+    }
+  }
+
   renderCharacters () {
     const characters = _.orderBy(this.props.remake.characters, ['order'], ['asc'])
     return _.map(characters, character => {
@@ -82,7 +88,7 @@ class RemakesShow extends Component {
 }
 
 function mapStateToProps ({ remakes, tmdbInfo, auth: {user} }, ownProps) {
-  return { remake: remakes[ownProps.match.params.id], tmdbInfo, user }
+  return { remake: remakes[ownProps.match.params.id], tmdbInfo, user, error: remakes.error }
 }
 
 export default connect(mapStateToProps, { fetchRemake, getUserDetails })(RemakesShow)

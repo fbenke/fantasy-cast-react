@@ -4,6 +4,7 @@ import { FETCH_ADDITIONAL_MOVIE_INFO, TMDB_MOVIE_URL } from './movie'
 export const CREATE_REMAKE = 'create_remake'
 export const FETCH_REMAKES = 'fetch_remakes'
 export const FETCH_REMAKE = 'fetch_remake'
+export const FETCH_REMAKE_ERROR = 'fetch_remake_error'
 export const DELETE_REMAKE = 'delete_remake'
 export const CLOSE_REMAKE = 'close_remake'
 export const RESET_TMDB_DETAILS = 'reset_tmdb_details'
@@ -48,6 +49,11 @@ export function fetchRemake (id) {
             type: FETCH_ADDITIONAL_MOVIE_INFO,
             payload: response
           })
+        })
+      }).catch(error => {
+        dispatch({
+          type: FETCH_REMAKE_ERROR,
+          payload: error
         })
       })
   }
