@@ -2,29 +2,17 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchRemake, deleteRemake, closeRemake } from '../../actions/remake'
+import { fetchRemake } from '../../actions/remake'
 import { getUserDetails } from '../../actions/auth'
 import TmdbInfo from './tmdb_info'
+import CloseRemakeModal from './confirm_close_modal'
+import DeleteRemakeModal from './confirm_delete_modal'
 
 class RemakesShow extends Component {
   componentDidMount () {
     const { id } = this.props.match.params
     this.props.fetchRemake(id)
     this.props.getUserDetails()
-  }
-
-  onDeleteClick () {
-    const { id } = this.props.match.params
-    this.props.deleteRemake(id, () => {
-      this.props.history.push('/remakes/')
-    })
-  }
-
-  onCloseClick () {
-    const { id } = this.props.match.params
-    this.props.closeRemake(id, () => {
-      this.props.fetchRemake(id)
-    })
   }
 
   renderCharacters () {
@@ -82,14 +70,10 @@ class RemakesShow extends Component {
         </div>
         <div>
           { this.hasEditRights() &&
-            (<button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
-              Delete
-            </button>)
+            <DeleteRemakeModal remake={this.props.match.params.id} history={this.props.history}/>
           }
           { this.hasEditRights() && remake.isOpen &&
-            (<button onClick={this.onCloseClick.bind(this)} className="btn btn-primary">
-              Close Voting
-            </button>)
+            <CloseRemakeModal remake={this.props.match.params.id}/>
           }
         </div>
       </div>
@@ -101,4 +85,4 @@ function mapStateToProps ({ remakes, tmdbInfo, auth: {user} }, ownProps) {
   return { remake: remakes[ownProps.match.params.id], tmdbInfo, user }
 }
 
-export default connect(mapStateToProps, { fetchRemake, deleteRemake, closeRemake, getUserDetails })(RemakesShow)
+export default connect(mapStateToProps, { fetchRemake, getUserDetails })(RemakesShow)
