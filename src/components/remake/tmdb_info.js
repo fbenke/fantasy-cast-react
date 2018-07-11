@@ -7,10 +7,10 @@ class TmdbInfo extends Component {
     const TMDB_POSTER_PATH = `${c.TMDB_IMAGE_BASE_URL}${c.TMDB_POSTER_SIZE}`
     const tmdbInfo = this.props.tmdbInfo
     return (
-      <div>
+      <div className="tmdb">
         <div>
           { (tmdbInfo.posterPath !== undefined && tmdbInfo.posterPath !== '') &&
-            <img src={`${TMDB_POSTER_PATH}${tmdbInfo.posterPath}`} />
+            <img src={`${TMDB_POSTER_PATH}${tmdbInfo.posterPath}`} className="rounded mx-auto d-block"/>
           }
         </div>
         <div>

@@ -12,7 +12,7 @@ export const renderCharacterField = field => {
       <strong>{item.character}</strong>
       {' ' + item.actorName}
       { item.tmdbProfilePath !== '' &&
-        <img src={`${TMDB_ACTOR_PROFILE_PATH}${item.tmdbProfilePath}`} />
+        <img className="actor-icon" src={`${TMDB_ACTOR_PROFILE_PATH}${item.tmdbProfilePath}`} />
       }
     </span>
   )

@@ -22,9 +22,13 @@ a {
   color: black;
 }
 
+.remakes-index div:nth-child(2){
+  margin-top: 20px;
+}
+
 /* Add new remake */
 
-.item-highlighted {
+.item-highlighted{
   color: white;
   background-color: #4095bf;
 }
@@ -36,6 +40,17 @@ a {
 .has-danger label, .has-danger .text-help{
   color: #d9534f;
 }
+
+.actor-icon {
+  margin-left: 5px;
+}
+
+/* Remake detail */
+
+.tmdb div:nth-child(2){
+  margin-top: 20px;
+}
+
 
 /* Footer */
 

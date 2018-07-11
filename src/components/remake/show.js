@@ -52,7 +52,7 @@ class RemakesShow extends Component {
         <h1>"{remake.title}" <small>by {remake.user.username}</small></h1>
         <div className="row">
           <div className="col-md-7 col-md-offset-1">
-            <table className="table table-hover table-striped">
+            <table className="table table-hover">
               <tbody>
                 <tr>
                   <td>{remake.movie.titleType} Title</td>
