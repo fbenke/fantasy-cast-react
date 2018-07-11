@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import { TMDB_MOVIE_URL } from './movie'
-export const RESET_TMDB_DETAILS = 'reset_tmdb_details'
 export const FETCH_TMDB_DETAILS = 'fetch_tmdb_details'
 export const FETCH_TMDB_DETAILS_ERRORS = 'fetch_tmdb_details_error'
 
@@ -21,8 +20,4 @@ export function fetchAdditionalMovieInfo (id) {
       })
     })
   }
-}
-
-export function resetAdditionalMovieInfo () {
-  return {type: RESET_TMDB_DETAILS}
 }

@@ -2,8 +2,8 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchRemake } from '../../actions/remake'
-import { fetchAdditionalMovieInfo, resetAdditionalMovieInfo } from '../../actions/tmdb'
+import { fetchRemake, resetRemake } from '../../actions/remake'
+import { fetchAdditionalMovieInfo } from '../../actions/tmdb'
 import { getUserDetails } from '../../actions/auth'
 import TmdbInfo from './tmdb_info'
 import CloseRemakeModal from './confirm_close_modal'
@@ -12,14 +12,14 @@ import DeleteRemakeModal from './confirm_delete_modal'
 class RemakesShow extends Component {
   componentDidMount () {
     const { id } = this.props.match.params
-    this.props.resetAdditionalMovieInfo()
+    this.props.resetRemake()
     this.props.fetchRemake(id)
     this.props.fetchAdditionalMovieInfo(id)
     this.props.getUserDetails()
   }
 
   componentDidUpdate () {
-    if (this.props.error !== undefined) {
+    if (this.props.remake.error !== undefined) {
       this.props.history.push('/')
     }
   }
@@ -35,7 +35,7 @@ class RemakesShow extends Component {
 
   hasEditRights () {
     const { remake, user } = this.props
-    if (user && remake) {
+    if (user && remake.user) {
       return (user.username === remake.user.username)
     } else {
       return false
@@ -44,7 +44,7 @@ class RemakesShow extends Component {
 
   render () {
     const { remake } = this.props
-    if (!remake) {
+    if (_.isEmpty(remake) || remake.error !== undefined) {
       return <div>Loading...</div>
     }
     return (
@@ -90,10 +90,10 @@ class RemakesShow extends Component {
   }
 }
 
-function mapStateToProps ({ remakes, tmdbInfo, auth: {user} }, ownProps) {
-  return { remake: remakes[ownProps.match.params.id], tmdbInfo, user, error: remakes.error }
+function mapStateToProps ({ remake, tmdbInfo, auth: {user} }, ownProps) {
+  return { remake, tmdbInfo, user }
 }
 
 export default connect(mapStateToProps, {
-  fetchRemake, getUserDetails, fetchAdditionalMovieInfo, resetAdditionalMovieInfo
+  fetchRemake, resetRemake, getUserDetails, fetchAdditionalMovieInfo
 })(RemakesShow)

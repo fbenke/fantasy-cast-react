@@ -30,13 +30,13 @@ class RemakesIndex extends Component {
         <div>
           <h1> Vote for recasts </h1>
           <ul className="list-group col-sm-10 col-sm-offset-1">
-            {this.renderList(_.filter(_.omit(this.props.remakes, 'error'), r => (r.isOpen)))}
+            {this.renderList(_.filter(this.props.remakes, r => (r.isOpen)))}
           </ul>
         </div>
         <div>
           <h1> Closed recasts </h1>
           <ul className="list-group col-sm-10 col-sm-offset-1">
-            {this.renderList(_.filter(_.omit(this.props.remakes, 'error'), r => (!r.isOpen)))}
+            {this.renderList(_.filter(this.props.remakes, r => (!r.isOpen)))}
           </ul>
         </div>
       </div>

@@ -6,6 +6,7 @@ export const FETCH_REMAKE = 'fetch_remake'
 export const FETCH_REMAKE_ERROR = 'fetch_remake_error'
 export const DELETE_REMAKE = 'delete_remake'
 export const CLOSE_REMAKE = 'close_remake'
+export const RESET_REMAKE = 'reset_remake'
 
 export const REMAKE_URL = `${process.env.API_URL}api/remakes/`
 
@@ -46,6 +47,10 @@ export function fetchRemake (id) {
         })
       })
   }
+}
+
+export function resetRemake () {
+  return {type: RESET_REMAKE}
 }
 
 export function deleteRemake (id, callback) {

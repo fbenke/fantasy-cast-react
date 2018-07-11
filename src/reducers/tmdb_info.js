@@ -3,10 +3,8 @@ import {
   RESET_MOVIE_SUGGESTIONS
 } from '../actions/movie'
 
-import {
-  RESET_TMDB_DETAILS,
-  FETCH_TMDB_DETAILS
-} from '../actions/tmdb'
+import { FETCH_TMDB_DETAILS } from '../actions/tmdb'
+import { RESET_REMAKE } from '../actions/remake'
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -14,7 +12,7 @@ export default function (state = {}, action) {
       return {}
     case RESET_MOVIE_SUGGESTIONS:
       return {}
-    case RESET_TMDB_DETAILS:
+    case RESET_REMAKE:
       return {}
     case FETCH_TMDB_DETAILS:
       return action.payload.data

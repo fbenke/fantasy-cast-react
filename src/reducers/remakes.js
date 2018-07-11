@@ -15,8 +15,6 @@ export default function (state = {}, action) {
       return { ...state, [action.payload.data.id]: action.payload.data }
     case DELETE_REMAKE:
       return _.omit(state, action.payload)
-    case FETCH_REMAKE_ERROR:
-      return { error: action.payload }
     default:
       return state
   }
