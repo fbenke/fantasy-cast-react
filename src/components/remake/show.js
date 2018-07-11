@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchRemake } from '../../actions/remake'
+import { fetchAdditionalMovieInfo, resetAdditionalMovieInfo } from '../../actions/tmdb'
 import { getUserDetails } from '../../actions/auth'
 import TmdbInfo from './tmdb_info'
 import CloseRemakeModal from './confirm_close_modal'
@@ -11,7 +12,9 @@ import DeleteRemakeModal from './confirm_delete_modal'
 class RemakesShow extends Component {
   componentDidMount () {
     const { id } = this.props.match.params
+    this.props.resetAdditionalMovieInfo()
     this.props.fetchRemake(id)
+    this.props.fetchAdditionalMovieInfo(id)
     this.props.getUserDetails()
   }
 
@@ -91,4 +94,6 @@ function mapStateToProps ({ remakes, tmdbInfo, auth: {user} }, ownProps) {
   return { remake: remakes[ownProps.match.params.id], tmdbInfo, user, error: remakes.error }
 }
 
-export default connect(mapStateToProps, { fetchRemake, getUserDetails })(RemakesShow)
+export default connect(mapStateToProps, {
+  fetchRemake, getUserDetails, fetchAdditionalMovieInfo, resetAdditionalMovieInfo
+})(RemakesShow)
