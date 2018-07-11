@@ -51,7 +51,7 @@ class RemakesShow extends Component {
       <div>
         <h1>"{remake.title}" <small>by {remake.user.username}</small></h1>
         <div className="row">
-          <div className="col-md-7 col-md-offset-1">
+          <div className="col-md-7 offset-md-1">
             <table className="table table-hover">
               <tbody>
                 <tr>
@@ -77,7 +77,7 @@ class RemakesShow extends Component {
             <TmdbInfo/>
           </div>
         </div>
-        <div>
+        <div className="options">
           { this.hasEditRights() &&
             <DeleteRemakeModal remake={this.props.match.params.id} history={this.props.history}/>
           }

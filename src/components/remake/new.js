@@ -50,7 +50,7 @@ class RemakesNew extends Component {
       <div>
         <h1> Which movie would you like to recast? </h1>
         <div className="row remakes-new">
-          <div className="col-md-7 col-md-offset-1">
+          <div className="col-md-7 offset-md-1">
             <form onSubmit={handleSubmit(this.onSubmit)}>
               <Field
                 label="Title"
