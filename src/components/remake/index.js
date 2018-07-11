@@ -9,8 +9,8 @@ class RemakesIndex extends Component {
     this.props.fetchRemakes()
   }
 
-  renderList () {
-    return _.map(_.omit(this.props.remakes, 'error'), remake => {
+  renderList (remakes) {
+    return _.map(remakes, remake => {
       return (
         <li
           key={remake.id}
@@ -27,10 +27,18 @@ class RemakesIndex extends Component {
   render () {
     return (
       <div className="remakes-index">
-        <h1> Remakes </h1>
-        <ul className="list-group col-sm-10 col-sm-offset-1">
-          {this.renderList()}
-        </ul>
+        <div>
+          <h1> Vote for recasts </h1>
+          <ul className="list-group col-sm-10 col-sm-offset-1">
+            {this.renderList(_.filter(_.omit(this.props.remakes, 'error'), r => (r.isOpen)))}
+          </ul>
+        </div>
+        <div>
+          <h1> Closed recasts </h1>
+          <ul className="list-group col-sm-10 col-sm-offset-1">
+            {this.renderList(_.filter(_.omit(this.props.remakes, 'error'), r => (!r.isOpen)))}
+          </ul>
+        </div>
       </div>
     )
   }
