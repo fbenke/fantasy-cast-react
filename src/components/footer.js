@@ -7,13 +7,13 @@ const Footer = () => {
       <div className="row">
         <div className="col-xs-12 col-md-6">
           <img src={ IMDB_LOGO_URL } className="brand-logo" />
-          <a href="http://www.imdb.com">
+          <a href="http://www.imdb.com" target="_blank">
             Information courtesy of IMDb. Used with permission.
           </a>
         </div>
         <div className="col-xs-12 col-md-6">
           <img src={ TMDB_LOGO_URL } className="brand-logo" />
-          <a href="https://www.themoviedb.org/">
+          <a href="https://www.themoviedb.org/" target="_blank">
             This product uses the TMDb API but is not endorsed or certified by TMDb.
           </a>
         </div>
