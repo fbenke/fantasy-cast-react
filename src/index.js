@@ -14,6 +14,7 @@ import RemakesNew from './components/remake/new'
 import RemakesIndex from './components/remake/index'
 import RemakesShow from './components/remake/show'
 import requireAuth from './components/hoc/require_authentication'
+import requireAnonymous from './components/hoc/require_anonymous'
 import Signin from './components/auth/signin'
 import Signup from './components/auth/signup'
 import Signout from './components/auth/signout'
@@ -39,12 +40,12 @@ ReactDOM.render(
         <div className="row" id="body">
           <div className="col-md-12">
             <Switch>
-              <Route path="/signin" component={requireAuth(Signin, true)} />
-              <Route path="/signup" component={requireAuth(Signup, true)} />
+              <Route path="/signin" component={requireAnonymous(Signin)} />
+              <Route path="/signup" component={requireAnonymous(Signup)} />
               <Route path="/signout" component={Signout} />
-              <Route path="/remakes/add" component={requireAuth(RemakesNew, false)} />
-              <Route path="/remakes/:id" component={requireAuth(RemakesShow, false)} />
-              <Route path="/remakes" component={requireAuth(RemakesIndex, false)} />
+              <Route path="/remakes/add" component={requireAuth(RemakesNew)} />
+              <Route path="/remakes/:id" component={requireAuth(RemakesShow)} />
+              <Route path="/remakes" component={requireAuth(RemakesIndex)} />
               <Route path="/" component={Home} />
             </Switch>
           </div>
