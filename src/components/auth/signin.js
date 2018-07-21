@@ -18,7 +18,7 @@ class Signin extends Component {
       <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Email or Username"
-          name="email"
+          name="username"
           type="text"
           validate={required}
           component={renderField}

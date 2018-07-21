@@ -9,11 +9,11 @@ import {
   AUTH_DETAIL
 } from './types'
 
-export function signinUser ({ email, password }, callback) {
+export function signinUser (formProps, callback) {
   return function (dispatch) {
     axios.post(
       `${AUTH_URL}signin/`,
-      {username: email, password}
+      formProps
     )
       .then(response => {
         dispatch({ type: AUTH_USER })
