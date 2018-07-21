@@ -3,7 +3,7 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   AUTH_DETAIL
-} from '../actions/auth'
+} from '../actions/types'
 
 const INITIAL_STATE = {
   errors: {},

@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-import { TMDB_MOVIE_URL } from './movie'
-export const FETCH_TMDB_DETAILS = 'fetch_tmdb_details'
-export const FETCH_TMDB_DETAILS_ERRORS = 'fetch_tmdb_details_error'
+import { TMDB_MOVIE_URL } from '../helpers/constants'
+
+import {
+  FETCH_TMDB_DETAILS,
+  FETCH_TMDB_DETAILS_ERRORS
+} from './types'
 
 export function fetchAdditionalMovieInfo (id) {
   return function (dispatch) {

@@ -1,15 +1,20 @@
 import axios from 'axios'
 
-export const AUTH_USER = 'auth_user'
-export const UNAUTH_USER = 'unauth_user'
-export const AUTH_ERROR = 'auth_error'
-export const AUTH_DETAIL = 'auth_detail'
+import { AUTH_URL } from '../helpers/constants'
 
-const AUTH_URL = `${process.env.API_URL}api/account/`
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  UNAUTH_USER,
+  AUTH_DETAIL
+} from './types'
 
 export function signinUser ({ email, password }, callback) {
   return function (dispatch) {
-    axios.post(`${AUTH_URL}signin/`, {username: email, password})
+    axios.post(
+      `${AUTH_URL}signin/`,
+      {username: email, password}
+    )
       .then(response => {
         dispatch({ type: AUTH_USER })
         localStorage.setItem('token', response.data.token)
@@ -23,7 +28,10 @@ export function signinUser ({ email, password }, callback) {
 
 export function signupUser ({ email, password, passwordConfirm, username }, callback) {
   return function (dispatch) {
-    axios.post(`${AUTH_URL}signup/`, {email, username, password1: password, password2: passwordConfirm})
+    axios.post(
+      `${AUTH_URL}signup/`,
+      {email, username, password1: password, password2: passwordConfirm}
+    )
       .then(response => {
         dispatch({ type: AUTH_USER })
         localStorage.setItem('token', response.data.token)
@@ -47,6 +55,7 @@ export function authError (error) {
 
 export function signoutUser () {
   localStorage.removeItem('token')
+
   return { type: UNAUTH_USER }
 }
 

@@ -1,13 +1,18 @@
 import axios from 'axios'
-import { REMAKE_URL } from './remake'
-import { FETCH_TMDB_DETAILS } from './tmdb'
 
-export const FETCH_MOVIE_SUGGESTIONS = 'fetch_movie_suggestions'
-export const RESET_MOVIE_SUGGESTIONS = 'reset_movie_suggestions'
-export const SET_MOVIE_ID = 'set_movie_id'
-export const FETCH_ACTOR_SUGGESTIONS = 'fetch_actor_suggestions'
-export const IMDB_MOVIE_URL = `${process.env.API_URL}api/imdb/`
-export const TMDB_MOVIE_URL = `${process.env.API_URL}api/tmdb/`
+import {
+  IMDB_MOVIE_URL,
+  TMDB_MOVIE_URL,
+  REMAKE_URL
+} from '../helpers/constants'
+
+import {
+  FETCH_MOVIE_SUGGESTIONS,
+  RESET_MOVIE_SUGGESTIONS,
+  SET_MOVIE_ID,
+  FETCH_ACTOR_SUGGESTIONS,
+  FETCH_TMDB_DETAILS
+} from './types'
 
 export function fetchMovieSuggestions (query) {
   const request = axios.get(`${IMDB_MOVIE_URL}movies/`, {

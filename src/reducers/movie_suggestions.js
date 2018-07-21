@@ -1,5 +1,9 @@
 import _ from 'lodash'
-import { FETCH_MOVIE_SUGGESTIONS, RESET_MOVIE_SUGGESTIONS } from '../actions/movie'
+
+import {
+  FETCH_MOVIE_SUGGESTIONS,
+  RESET_MOVIE_SUGGESTIONS
+} from '../actions/types'
 
 const INITIAL_STATE = {
   suggestions: [],

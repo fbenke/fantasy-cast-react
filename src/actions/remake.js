@@ -1,14 +1,16 @@
 import axios from 'axios'
 
-export const CREATE_REMAKE = 'create_remake'
-export const FETCH_REMAKES = 'fetch_remakes'
-export const FETCH_REMAKE = 'fetch_remake'
-export const FETCH_REMAKE_ERROR = 'fetch_remake_error'
-export const DELETE_REMAKE = 'delete_remake'
-export const CLOSE_REMAKE = 'close_remake'
-export const RESET_REMAKE = 'reset_remake'
+import { REMAKE_URL } from '../helpers/constants'
 
-export const REMAKE_URL = `${process.env.API_URL}api/remakes/`
+import {
+  CREATE_REMAKE,
+  FETCH_REMAKES,
+  FETCH_REMAKE,
+  FETCH_REMAKE_ERROR,
+  DELETE_REMAKE,
+  CLOSE_REMAKE,
+  RESET_REMAKE
+} from './types'
 
 export function fetchRemakes () {
   const request = axios.get(`${REMAKE_URL}`)

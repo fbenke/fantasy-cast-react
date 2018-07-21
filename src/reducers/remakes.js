@@ -4,7 +4,7 @@ import {
   FETCH_REMAKE,
   FETCH_REMAKE_ERROR,
   DELETE_REMAKE
-} from '../actions/remake'
+} from '../actions/types'
 
 export default function (state = {}, action) {
   switch (action.type) {

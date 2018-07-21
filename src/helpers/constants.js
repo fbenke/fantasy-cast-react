@@ -1,3 +1,8 @@
+export const AUTH_URL = `${process.env.API_URL}api/account/`
+export const IMDB_MOVIE_URL = `${process.env.API_URL}api/imdb/`
+export const TMDB_MOVIE_URL = `${process.env.API_URL}api/tmdb/`
+export const REMAKE_URL = `${process.env.API_URL}api/remakes/`
+
 export const TMDB_IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/'
 export const TMDB_POSTER_SIZE = 'w185'
 export const TMDB_PORTRAIT_SIZE = 'w45'

@@ -1,10 +1,9 @@
 import {
   SET_MOVIE_ID,
-  RESET_MOVIE_SUGGESTIONS
-} from '../actions/movie'
-
-import { FETCH_TMDB_DETAILS } from '../actions/tmdb'
-import { RESET_REMAKE } from '../actions/remake'
+  RESET_MOVIE_SUGGESTIONS,
+  FETCH_TMDB_DETAILS,
+  RESET_REMAKE
+} from '../actions/types'
 
 export default function (state = {}, action) {
   switch (action.type) {

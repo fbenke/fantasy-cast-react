@@ -1,9 +1,10 @@
 import _ from 'lodash'
+
 import {
   SET_MOVIE_ID,
   RESET_MOVIE_SUGGESTIONS,
   FETCH_ACTOR_SUGGESTIONS
-} from '../actions/movie'
+} from '../actions/types'
 
 import {
   CHARACTER_NOT_FOUND,
