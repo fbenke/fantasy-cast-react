@@ -5,7 +5,13 @@ import {
   AUTH_DETAIL
 } from '../actions/auth'
 
-export default function (state = {error: {}, user: {}, authenticated: false}, action) {
+const INITIAL_STATE = {
+  error: {},
+  user: {},
+  authenticated: false
+}
+
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case AUTH_USER:
       return { ...state, error: {}, authenticated: true }

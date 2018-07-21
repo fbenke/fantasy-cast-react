@@ -1,9 +1,12 @@
 import _ from 'lodash'
 import { FETCH_MOVIE_SUGGESTIONS, RESET_MOVIE_SUGGESTIONS } from '../actions/movie'
 
-const MOVIE_URL = `${process.env.API_URL}api/imdb/`
+const INITIAL_STATE = {
+  suggestions: [],
+  error: false
+}
 
-export default function (state = { suggestions: [], error: false }, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_MOVIE_SUGGESTIONS:
 
@@ -21,7 +24,7 @@ export default function (state = { suggestions: [], error: false }, action) {
       }
       return { error: false, suggestions: suggestions }
     case RESET_MOVIE_SUGGESTIONS:
-      return { suggestions: [], error: false }
+      return INITIAL_STATE
     default:
       return state
   }

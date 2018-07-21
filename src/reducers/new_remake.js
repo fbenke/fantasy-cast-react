@@ -11,9 +11,13 @@ import {
   CHARACTER_INIT
 } from '../helpers/constants'
 
-const emptyState = { imdbId: -1, availableCharacters: [], characterState: CHARACTER_INIT }
+const INITIAL_STATE = {
+  imdbId: -1,
+  availableCharacters: [],
+  characterState: CHARACTER_INIT
+}
 
-export default function (state = emptyState, action) {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case SET_MOVIE_ID:
       return {
@@ -28,7 +32,7 @@ export default function (state = emptyState, action) {
         characterState: action.payload.data.length === 0 ? CHARACTER_NOT_FOUND : CHARACTER_INIT
       }
     case RESET_MOVIE_SUGGESTIONS:
-      return emptyState
+      return INITIAL_STATE
     default:
       return state
   }
