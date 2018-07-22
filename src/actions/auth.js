@@ -17,7 +17,7 @@ export function signinUser (formProps, callback) {
     )
       .then(response => {
         dispatch({ type: AUTH_USER })
-        localStorage.setItem('token', response.data.token)
+        window.localStorage.setItem('token', response.data.token)
         callback()
       })
       .catch(error => {
@@ -34,7 +34,7 @@ export function signupUser ({ email, password, passwordConfirm, username }, call
     )
       .then(response => {
         dispatch({ type: AUTH_USER })
-        localStorage.setItem('token', response.data.token)
+        window.localStorage.setItem('token', response.data.token)
         callback()
       })
       .catch(error => {
@@ -54,7 +54,7 @@ export function authError (error) {
 }
 
 export function signoutUser () {
-  localStorage.removeItem('token')
+  window.localStorage.removeItem('token')
 
   return { type: UNAUTH_USER }
 }
@@ -62,7 +62,7 @@ export function signoutUser () {
 export function getUserDetails () {
   const request = axios.get(
     `${AUTH_URL}detail/`,
-    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+    {headers: { Authorization: `Token ${window.localStorage.getItem('token')}` }}
   )
 
   return {

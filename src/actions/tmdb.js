@@ -10,7 +10,7 @@ import {
 export function fetchAdditionalMovieInfo (id) {
   return function (dispatch) {
     axios.get(`${TMDB_MOVIE_URL}movie/remake/${id}`, {
-      headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      headers: { Authorization: `Token ${window.localStorage.getItem('token')}` }
     }).then(response => {
       dispatch({
         type: FETCH_TMDB_DETAILS,

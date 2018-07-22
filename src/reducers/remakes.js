@@ -2,7 +2,6 @@ import _ from 'lodash'
 import {
   FETCH_REMAKES,
   FETCH_REMAKE,
-  FETCH_REMAKE_ERROR,
   DELETE_REMAKE
 } from '../actions/types'
 

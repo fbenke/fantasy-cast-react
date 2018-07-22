@@ -29,7 +29,7 @@ const store = createStore(
   applyMiddleware(promise, reduxThunk)
 )
 
-const token = localStorage.getItem('token')
+const token = window.localStorage.getItem('token')
 
 if (token) {
   store.dispatch({ type: AUTH_USER })

@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 import {
   SET_MOVIE_ID,
   RESET_MOVIE_SUGGESTIONS,

@@ -16,7 +16,7 @@ import {
 
 export function fetchMovieSuggestions (query) {
   const request = axios.get(`${IMDB_MOVIE_URL}movies/`, {
-    headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+    headers: { Authorization: `Token ${window.localStorage.getItem('token')}` },
     params: { query: query, limit: 15 }
   })
 
@@ -47,7 +47,7 @@ export function setImdbId (id) {
 export function fetchAdditionalMovieInfo (id) {
   return dispatch => {
     axios.get(`${TMDB_MOVIE_URL}movie/imdb/${id}`, {
-      headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      headers: { Authorization: `Token ${window.localStorage.getItem('token')}` }
     }).then(response => {
       dispatch({
         type: FETCH_TMDB_DETAILS,
@@ -60,7 +60,7 @@ export function fetchAdditionalMovieInfo (id) {
 
 export function fetchActorSuggestions (imdbId, tmdbId) {
   const request = axios.get(`${REMAKE_URL}characters/`, {
-    headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+    headers: { Authorization: `Token ${window.localStorage.getItem('token')}` },
     params: { imdbId, tmdbId }
   })
 

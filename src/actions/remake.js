@@ -24,7 +24,7 @@ export function fetchRemakes () {
 export function createRemake (values, callback) {
   const request = axios.post(
     `${REMAKE_URL}add/`, values,
-    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+    {headers: { Authorization: `Token ${window.localStorage.getItem('token')}` }}
   )
     .then(() => callback())
 
@@ -58,7 +58,7 @@ export function resetRemake () {
 export function deleteRemake (id, callback) {
   axios.delete(
     `${REMAKE_URL}${id}`,
-    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+    {headers: { Authorization: `Token ${window.localStorage.getItem('token')}` }}
   )
     .then(() => callback())
 
@@ -71,7 +71,7 @@ export function deleteRemake (id, callback) {
 export function closeRemake (id, callback) {
   axios.get(
     `${REMAKE_URL}close/${id}`,
-    {headers: { Authorization: `Token ${localStorage.getItem('token')}` }}
+    {headers: { Authorization: `Token ${window.localStorage.getItem('token')}` }}
   )
     .then(() => callback())
 

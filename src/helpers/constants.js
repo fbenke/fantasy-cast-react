@@ -14,7 +14,7 @@ export const CHARACTER_NOT_FOUND = 'character_not_found'
 export const CHARACTER_LOADING = 'character_loading'
 export const CHARACTER_INIT = 'character_init'
 
-const TMDB_SETTINGS = {
+export const TMDB_SETTINGS = {
   'backdrop_sizes': [
     'w300',
     'w780',

@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { signinUser } from '../../actions/auth'
-import { email, required, renderField, renderNonFieldErrors } from '../../helpers/form'
+import { required, renderField, renderNonFieldErrors } from '../../helpers/form'
 
 class Signin extends Component {
   onSubmit (formProps) {
