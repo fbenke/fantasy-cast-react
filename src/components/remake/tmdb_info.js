@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as c from '../../helpers/constants'
+import PropTypes from 'prop-types';
 
 class TmdbInfo extends Component {
   render () {
@@ -28,3 +29,8 @@ function mapStateToProps ({ tmdbInfo }) {
 }
 
 export default connect(mapStateToProps)(TmdbInfo)
+
+
+TmdbInfo.propTypes = {
+  tmdbInfo: PropTypes.object
+};

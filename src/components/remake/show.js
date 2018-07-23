@@ -7,6 +7,7 @@ import { getUserDetails } from '../../actions/auth'
 import TmdbInfo from './tmdb_info'
 import CloseRemakeModal from './confirm_close_modal'
 import DeleteRemakeModal from './confirm_delete_modal'
+import PropTypes from 'prop-types'
 
 class RemakesShow extends Component {
   componentDidMount () {
@@ -48,7 +49,7 @@ class RemakesShow extends Component {
     }
     return (
       <div>
-        <h1>"{remake.title}" <small>by {remake.user.username}</small></h1>
+        <h1>&quot;{remake.title}&quot; <small>by {remake.user.username}</small></h1>
         <div className="row">
           <div className="col-md-7 offset-md-1">
             <table className="table table-hover">
@@ -89,10 +90,21 @@ class RemakesShow extends Component {
   }
 }
 
-function mapStateToProps ({ remake, tmdbInfo, auth: {user} }, ownProps) {
+function mapStateToProps ({ remake, tmdbInfo, auth: {user} }) {
   return { remake, tmdbInfo, user }
 }
 
 export default connect(mapStateToProps, {
   fetchRemake, resetRemake, getUserDetails, fetchAdditionalMovieInfo
 })(RemakesShow)
+
+RemakesShow.propTypes = {
+  fetchAdditionalMovieInfo: PropTypes.func,
+  fetchRemake: PropTypes.func,
+  getUserDetails: PropTypes.func,
+  match: PropTypes.object,
+  history: PropTypes.object,
+  remake: PropTypes.object,
+  resetRemake: PropTypes.func,
+  user: PropTypes.object
+}

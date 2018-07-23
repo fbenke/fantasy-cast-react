@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signoutUser } from '../../actions/auth'
+import PropTypes from 'prop-types'
 
 class Signout extends Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.signoutUser()
   }
 
@@ -13,3 +14,7 @@ class Signout extends Component {
 }
 
 export default connect(null, { signoutUser })(Signout)
+
+Signout.propTypes = {
+  signoutUser: PropTypes.func,
+}

@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 import { signinUser } from '../../actions/auth'
 import { required, renderField, renderNonFieldErrors } from '../../helpers/form'
+import PropTypes from 'prop-types'
 
 class Signin extends Component {
   onSubmit (formProps) {
@@ -47,3 +48,11 @@ export default compose(
   connect(mapStateToProps, { signinUser }),
   reduxForm({ form: 'Signin' })
 )(Signin)
+
+
+Signin.propTypes = {
+  handleSubmit: PropTypes.func,
+  serverErrors: PropTypes.object,
+  signinUser: PropTypes.func,
+  history: PropTypes.object
+}

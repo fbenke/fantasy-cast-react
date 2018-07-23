@@ -12,8 +12,7 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
-    case FETCH_MOVIE_SUGGESTIONS:
-
+    case FETCH_MOVIE_SUGGESTIONS: {
       const suggestions = _.map(
         action.payload.data, i => (
           { id: i.id,
@@ -27,6 +26,7 @@ export default function (state = INITIAL_STATE, action) {
         return { error: true, suggestions: suggestions }
       }
       return { error: false, suggestions: suggestions }
+    }
     case RESET_MOVIE_SUGGESTIONS:
       return INITIAL_STATE
     default:

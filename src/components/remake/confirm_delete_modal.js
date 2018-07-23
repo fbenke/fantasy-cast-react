@@ -2,6 +2,7 @@ import React from 'react'
 import Popup from 'reactjs-popup'
 import { connect } from 'react-redux'
 import { deleteRemake } from '../../actions/remake'
+import PropTypes from 'prop-types'
 
 class DeleteRemakeModal extends React.Component {
   render () {
@@ -39,3 +40,9 @@ class DeleteRemakeModal extends React.Component {
 }
 
 export default connect(null, { deleteRemake })(DeleteRemakeModal)
+
+DeleteRemakeModal.propTypes = {
+  deleteRemake: PropTypes.func,
+  history: PropTypes.object,
+  remake: PropTypes.object
+}

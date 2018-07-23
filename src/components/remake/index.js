@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchRemakes } from '../../actions/remake'
+import PropTypes from 'prop-types'
 
 class RemakesIndex extends Component {
   componentDidMount () {
@@ -17,7 +18,7 @@ class RemakesIndex extends Component {
           className="list-group-item list-group-item-action"
         >
           <Link to={`/remakes/${remake.id}`}>
-            {remake.title} (Recast of "{remake.movie.originalTitle}" by {remake.user.username})
+            {remake.title} (Recast of &quot;{remake.movie.originalTitle}&quot; by {remake.user.username})
           </Link>
         </li>
       )
@@ -49,3 +50,8 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps, { fetchRemakes })(RemakesIndex)
+
+RemakesIndex.propTypes = {
+  fetchRemakes: PropTypes.func,
+  remakes: PropTypes.object
+}

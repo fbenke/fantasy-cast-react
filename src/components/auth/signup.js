@@ -7,6 +7,7 @@ import {
   email, required, renderField,
   renderNonFieldErrors, passwordsMatch
 } from '../../helpers/form'
+import PropTypes from 'prop-types'
 
 class Signup extends Component {
   onSubmit (formProps) {
@@ -66,3 +67,11 @@ export default compose(
   connect(mapStateToProps, { signupUser }),
   reduxForm({ form: 'Signup' })
 )(Signup)
+
+
+Signup.propTypes = {
+  handleSubmit: PropTypes.func,
+  serverErrors: PropTypes.object,
+  signupUser: PropTypes.func,
+  history: PropTypes.object
+}

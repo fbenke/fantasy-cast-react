@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 
 class Navigation extends Component {
   renderLinks () {
@@ -44,3 +45,7 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps)(Navigation)
+
+Navigation.propTypes = {
+  authenticated: PropTypes.bool
+};

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 export default ChildComponent => {
   class Authentication extends Component {
-    componentWillMount () {
+    componentDidMount () {
       this.shouldNavigateAway()
     }
 
-    componentWillUpdate () {
+    componentDidUpdate () {
       this.shouldNavigateAway()
     }
 
@@ -22,9 +23,15 @@ export default ChildComponent => {
     }
   }
 
+  Authentication.propTypes = {
+    authenticated: PropTypes.bool,
+    history: PropTypes.object
+  }
+
   function mapStateToProps (state) {
     return { authenticated: state.auth.authenticated }
   }
 
   return connect(mapStateToProps)(Authentication)
 }
+

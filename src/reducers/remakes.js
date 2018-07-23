@@ -7,9 +7,10 @@ import {
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case FETCH_REMAKES:
+    case FETCH_REMAKES: {
       const newPosts = _.mapKeys(action.payload.data, 'id')
       return newPosts
+    }
     case FETCH_REMAKE:
       return { ...state, [action.payload.data.id]: action.payload.data }
     case DELETE_REMAKE:

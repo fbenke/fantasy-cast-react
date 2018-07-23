@@ -11,6 +11,7 @@ import * as c from '../../helpers/constants'
 import { renderAutocompleteField } from './autocomplete'
 import { renderCharacterField } from './characters_selector'
 import TmdbInfo from './tmdb_info'
+import PropTypes from 'prop-types'
 
 class RemakesNew extends Component {
   componentDidMount () {
@@ -123,3 +124,17 @@ export default compose(
   connect(mapStateToProps, { ...movieActions, ...remakeActions }),
   reduxForm({ form: 'RemakeNewForm' })
 )(RemakesNew)
+
+RemakesNew.propTypes = {
+  clearFields: PropTypes.func,
+  createRemake: PropTypes.func,
+  fetchMovieSuggestions: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  history: PropTypes.object,
+  newRemake: PropTypes.object,
+  resetMovieSuggestions: PropTypes.func,
+  setImdbId: PropTypes.func,
+  suggestions: PropTypes.object,
+  tmdbId: PropTypes.number
+}
+

@@ -2,6 +2,7 @@ import React from 'react'
 import Popup from 'reactjs-popup'
 import { connect } from 'react-redux'
 import { closeRemake, fetchRemake } from '../../actions/remake'
+import PropTypes from 'prop-types'
 
 class CloseRemakeModal extends React.Component {
   render () {
@@ -39,3 +40,9 @@ class CloseRemakeModal extends React.Component {
 }
 
 export default connect(null, { closeRemake, fetchRemake })(CloseRemakeModal)
+
+CloseRemakeModal.propTypes = {
+  closeRemake: PropTypes.func,
+  fetchRemake: PropTypes.func,
+  remake: PropTypes.object
+}
