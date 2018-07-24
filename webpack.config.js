@@ -32,7 +32,7 @@ const config = {
       },
       {
         use: 'url-loader?name=[name].[ext]',
-        test: /\.(gif|ttf|eot|svg|woff2?)$/,
+        test: /\.(gif|ttf|eot|svg|woff2?|ico)$/,
       },
     ],
   },
@@ -46,6 +46,7 @@ const config = {
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
+      favicon: 'favicon.ico',
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
