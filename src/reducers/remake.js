@@ -2,20 +2,20 @@ import {
   FETCH_REMAKE,
   FETCH_REMAKE_ERROR,
   RESET_REMAKE,
-  CLOSE_REMAKE
-} from '../actions/types'
+  CLOSE_REMAKE,
+} from '../actions/types';
 
 export default function (state = {}, action) {
   switch (action.type) {
     case FETCH_REMAKE:
-      return action.payload.data
+      return action.payload.data;
     case FETCH_REMAKE_ERROR:
-      return { error: action.payload }
+      return { error: action.payload };
     case RESET_REMAKE:
-      return {}
+      return {};
     case CLOSE_REMAKE:
-      return {...state, isOpen: false}
+      return { ...state, isOpen: false };
     default:
-      return state
+      return state;
   }
 }

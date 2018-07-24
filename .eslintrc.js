@@ -1,21 +1,14 @@
 module.exports = {
-	"extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "plugins": [
-    "react"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 9,
-    "sourceType": "module",
-    "ecmaFeatures": {
-        "jsx": true
-    }
-  },
+  "extends": "airbnb",
   "globals": {
     "window": true,
-    "process": true,
-    "document": true
+    "document": true,
+  },
+  "rules": {
+    "no-shadow": "warn",
+    "jsx-a11y/label-has-for": "off",
+    "import/prefer-default-export": "warn",
+    "react/forbid-prop-types": "warn",
+    "react/jsx-one-expression-per-line": "warn",
   }
 };
