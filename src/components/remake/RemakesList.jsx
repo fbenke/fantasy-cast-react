@@ -19,7 +19,7 @@ const renderList = remakes => (
   ))
 );
 
-class RemakesIndex extends Component {
+class RemakesList extends Component {
   componentDidMount() {
     const { fetchRemakes } = this.props;
     fetchRemakes();
@@ -54,9 +54,9 @@ function mapStateToProps(state) {
   return { remakes: state.remakes };
 }
 
-export default connect(mapStateToProps, { fetchRemakes })(RemakesIndex);
+export default connect(mapStateToProps, { fetchRemakes })(RemakesList);
 
-RemakesIndex.propTypes = {
+RemakesList.propTypes = {
   fetchRemakes: PropTypes.func.isRequired,
   remakes: PropTypes.object.isRequired,
 };

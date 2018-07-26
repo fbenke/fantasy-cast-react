@@ -11,11 +11,11 @@ import {
   required, renderField, renderTextArea, requiredArray,
 } from '../../helpers/form';
 import * as c from '../../helpers/constants';
-import renderAutocompleteField from './autocomplete';
-import renderCharacterField from './characters_selector';
-import TmdbInfo from './tmdb_info';
+import renderAutocompleteField from './renderAutocompleteField';
+import renderCharacterField from './renderCharacterField';
+import TmdbInfo from './TmdbInfo';
 
-class RemakesNew extends Component {
+class NewRemake extends Component {
   constructor(props) {
     super(props);
     const { fetchMovieSuggestions } = this.props;
@@ -149,9 +149,9 @@ function mapStateToProps(state) {
 export default compose(
   connect(mapStateToProps, { ...movieActions, ...remakeActions }),
   reduxForm({ form: 'RemakeNewForm' }),
-)(RemakesNew);
+)(NewRemake);
 
-RemakesNew.propTypes = {
+NewRemake.propTypes = {
   clearFields: PropTypes.func.isRequired,
   createRemake: PropTypes.func.isRequired,
   fetchMovieSuggestions: PropTypes.func.isRequired,

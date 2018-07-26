@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { fetchAdditionalMovieInfo } from '../../actions/tmdb';
 import * as remakeActions from '../../actions/remake';
 import { getUserDetails } from '../../actions/auth';
-import TmdbInfo from './tmdb_info';
-import CloseRemakeModal from './confirm_close_modal';
-import DeleteRemakeModal from './confirm_delete_modal';
+import TmdbInfo from './TmdbInfo';
+import CloseRemakeModal from './CloseRemakeModal';
+import DeleteRemakeModal from './DeleteRemakeModal';
 
 
-class RemakesShow extends Component {
+class RemakeDetail extends Component {
   componentDidMount() {
     const {
       match: { params: { id } }, resetRemake, fetchRemake,
@@ -126,9 +126,9 @@ function mapStateToProps({ remake, tmdbInfo, auth: { user } }) {
 
 export default connect(mapStateToProps, {
   ...remakeActions, getUserDetails, fetchAdditionalMovieInfo,
-})(RemakesShow);
+})(RemakeDetail);
 
-RemakesShow.propTypes = {
+RemakeDetail.propTypes = {
   closeRemake: PropTypes.func.isRequired,
   deleteRemake: PropTypes.func.isRequired,
   fetchRemake: PropTypes.func.isRequired,
