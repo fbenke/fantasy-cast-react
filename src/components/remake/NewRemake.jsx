@@ -33,16 +33,13 @@ class NewRemake extends Component {
 
   onSubmit(values) {
     const {
-      createRemake, newRemake: { imdbId }, tmdbInfo: { tmdbId }, history,
+      createRemake, newRemake: { imdbId }, tmdbInfo: { tmdbId },
     } = this.props;
     if (this.isMovieValid()) {
       createRemake({
         ...values,
         movie: imdbId,
         tmdbId,
-      },
-      () => {
-        history.push('/remakes/');
       });
     }
   }
@@ -156,7 +153,6 @@ NewRemake.propTypes = {
   createRemake: PropTypes.func.isRequired,
   fetchMovieSuggestions: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   newRemake: PropTypes.object.isRequired,
   resetMovieSuggestions: PropTypes.func.isRequired,
   setImdbId: PropTypes.func.isRequired,

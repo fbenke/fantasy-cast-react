@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
 
@@ -18,6 +18,7 @@ import requireAnonymous from './components/hoc/require_anonymous';
 import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
 import Signout from './components/auth/Signout';
+import history from './helpers/history';
 import { AUTH_USER } from './actions/types';
 
 import '../style/style.css';
@@ -37,7 +38,7 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <div>
         <Navigation />
         <div className="row" id="body">
@@ -55,7 +56,7 @@ ReactDOM.render(
         </div>
         <Footer />
       </div>
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.querySelector('.container'),
 );

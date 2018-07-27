@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { REMAKE_URL } from '../helpers/constants';
+import history from '../helpers/history';
 
 import {
   CREATE_REMAKE,
@@ -21,12 +22,12 @@ export function fetchRemakes() {
   };
 }
 
-export function createRemake(values, callback) {
+export function createRemake(values) {
   const request = axios.post(
     `${REMAKE_URL}add/`, values,
     { headers: { Authorization: `Token ${window.localStorage.getItem('token')}` } },
   )
-    .then(() => callback());
+    .then(() => history.push('/remakes/'));
 
   return {
     type: CREATE_REMAKE,
@@ -46,6 +47,7 @@ export const fetchRemake = id => (dispatch) => {
         type: FETCH_REMAKE_ERROR,
         payload: error,
       });
+      history.push('/');
     });
 };
 
@@ -53,12 +55,12 @@ export function resetRemake() {
   return { type: RESET_REMAKE };
 }
 
-export function deleteRemake(id, callback) {
+export function deleteRemake(id) {
   axios.delete(
     `${REMAKE_URL}${id}`,
     { headers: { Authorization: `Token ${window.localStorage.getItem('token')}` } },
   )
-    .then(() => callback());
+    .then(() => history.push('/remakes/'));
 
   return {
     type: DELETE_REMAKE,
@@ -66,15 +68,15 @@ export function deleteRemake(id, callback) {
   };
 }
 
-export function closeRemake(id, callback) {
+export const closeRemake = id => (dispatch) => {
   axios.get(
     `${REMAKE_URL}close/${id}`,
     { headers: { Authorization: `Token ${window.localStorage.getItem('token')}` } },
   )
-    .then(() => callback());
+    .then(() => dispatch(fetchRemake(id)));
 
   return {
     type: CLOSE_REMAKE,
     payload: id,
   };
-}
+};

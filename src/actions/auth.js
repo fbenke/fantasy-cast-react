@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { AUTH_URL } from '../helpers/constants';
+import history from '../helpers/history';
 
 import {
   AUTH_USER,
@@ -17,7 +18,7 @@ export function authError(error) {
   };
 }
 
-export const signinUser = (formProps, callback) => (dispatch) => {
+export const signinUser = formProps => (dispatch) => {
   axios.post(
     `${AUTH_URL}signin/`,
     formProps,
@@ -25,14 +26,14 @@ export const signinUser = (formProps, callback) => (dispatch) => {
     .then((response) => {
       dispatch({ type: AUTH_USER });
       window.localStorage.setItem('token', response.data.token);
-      callback();
+      history.push('/remakes/');
     })
     .catch((error) => {
       dispatch(authError(error.response.data));
     });
 };
 
-export const signupUser = (formProps, callback) => (dispatch) => {
+export const signupUser = formProps => (dispatch) => {
   const {
     email, password, passwordConfirm, username,
   } = formProps;
@@ -46,7 +47,7 @@ export const signupUser = (formProps, callback) => (dispatch) => {
     .then((response) => {
       dispatch({ type: AUTH_USER });
       window.localStorage.setItem('token', response.data.token);
-      callback();
+      history.push('/remakes/');
     })
     .catch((error) => {
       dispatch(authError(error.response.data));

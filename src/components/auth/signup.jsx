@@ -11,10 +11,8 @@ import {
 
 class Signup extends Component {
   onSubmit(formProps) {
-    const { signupUser, history } = this.props;
-    signupUser(formProps, () => {
-      history.push('/remakes/');
-    });
+    const { signupUser } = this.props;
+    signupUser(formProps);
   }
 
   render() {
@@ -74,7 +72,6 @@ export default compose(
 
 Signup.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   serverErrors: PropTypes.object.isRequired,
   signupUser: PropTypes.func.isRequired,
 };

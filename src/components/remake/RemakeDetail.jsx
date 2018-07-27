@@ -22,13 +22,6 @@ class RemakeDetail extends Component {
     getUserDetails();
   }
 
-  componentDidUpdate() {
-    const { remake, history } = this.props;
-    if (remake.error !== undefined) {
-      history.push('/');
-    }
-  }
-
   hasEditRights() {
     const { remake, user } = this.props;
     if (user && remake.user) {
@@ -49,8 +42,8 @@ class RemakeDetail extends Component {
 
   render() {
     const {
-      match: { params: { id } }, history, remake, tmdbInfo,
-      deleteRemake, closeRemake, fetchRemake,
+      match: { params: { id } }, remake, tmdbInfo,
+      deleteRemake, closeRemake,
     } = this.props;
 
     if (_.isEmpty(remake) || remake.error !== undefined) {
@@ -109,10 +102,10 @@ class RemakeDetail extends Component {
         </div>
         <div className="options">
           { this.hasEditRights()
-            && <DeleteRemakeModal remake={id} history={history} deleteRemake={deleteRemake} />
+            && <DeleteRemakeModal remake={id} deleteRemake={deleteRemake} />
           }
           { this.hasEditRights() && remake.isOpen
-            && <CloseRemakeModal remake={id} closeRemake={closeRemake} fetchRemake={fetchRemake} />
+            && <CloseRemakeModal remake={id} closeRemake={closeRemake} />
           }
         </div>
       </div>
@@ -134,7 +127,6 @@ RemakeDetail.propTypes = {
   fetchRemake: PropTypes.func.isRequired,
   fetchAdditionalMovieInfo: PropTypes.func.isRequired,
   getUserDetails: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   remake: PropTypes.object.isRequired,
   resetRemake: PropTypes.func.isRequired,

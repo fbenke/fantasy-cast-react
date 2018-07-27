@@ -4,7 +4,7 @@ const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const VENDOR_LIBS = [
-  'axios', 'lodash', 'prop-types', 'react', 'react-autocomplete',
+  'axios', 'history', 'lodash', 'prop-types', 'react', 'react-autocomplete',
   'react-dom', 'react-redux', 'react-router', 'react-router-dom',
   'react-widgets', 'reactjs-popup', 'redux', 'redux-form',
   'redux-promise', 'redux-thunk',

@@ -24,10 +24,8 @@ function CloseRemakeModal(props) {
             <button
               className="btn btn-primary"
               onClick={() => {
-                const { remake, closeRemake, fetchRemake } = props;
-                closeRemake(remake, () => {
-                  fetchRemake(remake);
-                });
+                const { remake, closeRemake } = props;
+                closeRemake(remake);
                 close();
               }}
               type="submit"
@@ -52,6 +50,5 @@ export default (CloseRemakeModal);
 
 CloseRemakeModal.propTypes = {
   closeRemake: PropTypes.func.isRequired,
-  fetchRemake: PropTypes.func.isRequired,
   remake: PropTypes.string.isRequired,
 };

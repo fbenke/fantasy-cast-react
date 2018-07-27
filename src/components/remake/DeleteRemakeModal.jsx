@@ -24,10 +24,8 @@ function DeleteRemakeModal(props) {
             <button
               className="btn btn-danger"
               onClick={() => {
-                const { remake, history, deleteRemake } = props;
-                deleteRemake(remake, () => {
-                  history.push('/remakes/');
-                });
+                const { remake, deleteRemake } = props;
+                deleteRemake(remake);
                 close();
               }}
               type="submit"
@@ -50,9 +48,7 @@ function DeleteRemakeModal(props) {
 
 export default DeleteRemakeModal;
 
-
 DeleteRemakeModal.propTypes = {
   deleteRemake: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   remake: PropTypes.string.isRequired,
 };

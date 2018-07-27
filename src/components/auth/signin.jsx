@@ -9,10 +9,8 @@ import { required, renderField, renderNonFieldErrors } from '../../helpers/form'
 
 class Signin extends Component {
   onSubmit(formProps) {
-    const { history, signinUser } = this.props;
-    signinUser(formProps, () => {
-      history.push('/remakes/');
-    });
+    const { signinUser } = this.props;
+    signinUser(formProps);
   }
 
   render() {
@@ -56,7 +54,6 @@ export default compose(
 
 Signin.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   serverErrors: PropTypes.object.isRequired,
   signinUser: PropTypes.func.isRequired,
 };
