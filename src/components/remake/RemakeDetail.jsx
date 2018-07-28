@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAdditionalMovieInfo } from '../../actions/tmdb';
+import { fetchAdditionalRemakeInfo } from '../../actions/movie';
 import * as remakeActions from '../../actions/remake';
 import { getUserDetails } from '../../actions/auth';
 import TmdbInfo from './TmdbInfo';
@@ -14,11 +14,11 @@ class RemakeDetail extends Component {
   componentDidMount() {
     const {
       match: { params: { id } }, resetRemake, fetchRemake,
-      getUserDetails, fetchAdditionalMovieInfo,
+      getUserDetails, fetchAdditionalRemakeInfo,
     } = this.props;
     resetRemake();
     fetchRemake(id);
-    fetchAdditionalMovieInfo(id);
+    fetchAdditionalRemakeInfo(id);
     getUserDetails();
   }
 
@@ -118,14 +118,14 @@ function mapStateToProps({ remake, tmdbInfo, auth: { user } }) {
 }
 
 export default connect(mapStateToProps, {
-  ...remakeActions, getUserDetails, fetchAdditionalMovieInfo,
+  ...remakeActions, getUserDetails, fetchAdditionalRemakeInfo,
 })(RemakeDetail);
 
 RemakeDetail.propTypes = {
   closeRemake: PropTypes.func.isRequired,
   deleteRemake: PropTypes.func.isRequired,
   fetchRemake: PropTypes.func.isRequired,
-  fetchAdditionalMovieInfo: PropTypes.func.isRequired,
+  fetchAdditionalRemakeInfo: PropTypes.func.isRequired,
   getUserDetails: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   remake: PropTypes.object.isRequired,

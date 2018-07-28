@@ -12,6 +12,7 @@ import {
   SET_MOVIE_ID,
   FETCH_ACTOR_SUGGESTIONS,
   FETCH_TMDB_DETAILS,
+  FETCH_TMDB_DETAILS_ERRORS,
 } from './types';
 
 export function fetchMovieSuggestions(query) {
@@ -53,6 +54,23 @@ export const fetchAdditionalMovieInfo = id => (dispatch) => {
       payload: response,
     });
     dispatch(fetchActorSuggestions(id, response.data.tmdbId));
+  });
+};
+
+
+export const fetchAdditionalRemakeInfo = id => (dispatch) => {
+  axios.get(`${TMDB_MOVIE_URL}movie/remake/${id}`, {
+    headers: { Authorization: `Token ${window.localStorage.getItem('token')}` },
+  }).then((response) => {
+    dispatch({
+      type: FETCH_TMDB_DETAILS,
+      payload: response,
+    });
+  }).catch((error) => {
+    dispatch({
+      type: FETCH_TMDB_DETAILS_ERRORS,
+      payload: error,
+    });
   });
 };
 
