@@ -18,8 +18,8 @@ a {
 /* List remakes */
 
 .list-group-item-action a:hover{
-  text-decoration: none;
   color: black;
+  text-decoration: none;
 }
 
 .remakes-index div:nth-child(2){
@@ -29,8 +29,8 @@ a {
 /* Add new remake */
 
 .item-highlighted{
-  color: white;
   background-color: #4095bf;
+  color: white;
 }
 
 .has-danger .rw-widget-container{
@@ -57,20 +57,19 @@ a {
 
 /* Footer */
 
-#body {
-  min-height: 400px;
+.body {
   margin-top: 15px;
-
+  min-height: 400px;
 }
 
 footer {
-  margin: 30px 0;
   font-size: 0.85em;
+  margin: 30px 0;
 }
 
 .brand-logo {
-	width: 40px;
   margin: 10px;
+  width: 40px;
 }
 
 /* Modal */
@@ -81,21 +80,18 @@ footer {
 }
 
 .modal > .header {
-  width: 100%;
   border-bottom: 1px solid gray;
   font-size: 18px;
-  text-align: center;
   padding: 5px;
+  text-align: center;
 }
 
 .modal > .content {
-  width: 100%;
   padding: 10px 5px;
 }
 
 .modal > .actions {
-  width: 100%;
-  padding: 10px 5px;
   margin: auto;
+  padding: 10px 5px;
   text-align: center;
 }

@@ -41,7 +41,7 @@ ReactDOM.render(
     <Router history={history}>
       <div>
         <Navigation />
-        <div className="row" id="body">
+        <div className="row body">
           <div className="col-md-12">
             <Switch>
               <Route path="/signin" component={requireAnonymous(Signin)} />
