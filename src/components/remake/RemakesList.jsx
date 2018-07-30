@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { fetchRemakes } from '../../actions/remake';
+import * as remakeActions from '../../actions/remake';
 
 const renderList = remakes => (
   _.map(remakes, remake => (
@@ -54,9 +54,9 @@ function mapStateToProps(state) {
   return { remakes: state.remakes };
 }
 
-export default connect(mapStateToProps, { fetchRemakes })(RemakesList);
+export default connect(mapStateToProps, remakeActions)(RemakesList);
 
 RemakesList.propTypes = {
   fetchRemakes: PropTypes.func.isRequired,
-  remakes: PropTypes.object.isRequired,
+  remakes: PropTypes.shape({}).isRequired,
 };

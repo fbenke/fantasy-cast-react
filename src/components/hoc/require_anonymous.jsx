@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 export default (ChildComponent) => {
   class Authentication extends Component {
@@ -26,7 +27,7 @@ export default (ChildComponent) => {
 
   Authentication.propTypes = {
     authenticated: PropTypes.bool.isRequired,
-    history: PropTypes.object.isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
   };
 
   function mapStateToProps(state) {

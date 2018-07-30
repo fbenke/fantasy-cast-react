@@ -55,6 +55,7 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-router-prop-types": "^1.0.4",
     "react-widgets": "^4.3.2",
     "reactjs-popup": "^1.1.1",
     "redux": "^4.0.0",

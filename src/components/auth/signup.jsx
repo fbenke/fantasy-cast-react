@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { signupUser } from '../../actions/auth';
+import * as authActions from '../../actions/auth';
 import {
   email, required, renderField,
   renderNonFieldErrors, passwordsMatch,
@@ -65,13 +65,17 @@ function mapStateToProps(state) {
 }
 
 export default compose(
-  connect(mapStateToProps, { signupUser }),
+  connect(mapStateToProps, authActions),
   reduxForm({ form: 'Signup' }),
 )(Signup);
 
 
 Signup.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  serverErrors: PropTypes.object.isRequired,
+  serverErrors: PropTypes.shape({
+    email: PropTypes.string,
+    username: PropTypes.string,
+    password1: PropTypes.array,
+  }).isRequired,
   signupUser: PropTypes.func.isRequired,
 };

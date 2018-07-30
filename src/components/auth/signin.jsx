@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { signinUser } from '../../actions/auth';
+import * as authActions from '../../actions/auth';
 import { required, renderField, renderNonFieldErrors } from '../../helpers/form';
 
 
@@ -47,13 +47,15 @@ function mapStateToProps(state) {
 }
 
 export default compose(
-  connect(mapStateToProps, { signinUser }),
+  connect(mapStateToProps, authActions),
   reduxForm({ form: 'Signin' }),
 )(Signin);
 
 
 Signin.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  serverErrors: PropTypes.object.isRequired,
+  serverErrors: PropTypes.shape({
+    non_field_errors: PropTypes.array,
+  }).isRequired,
   signinUser: PropTypes.func.isRequired,
 };

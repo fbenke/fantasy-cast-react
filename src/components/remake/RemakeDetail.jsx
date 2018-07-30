@@ -2,9 +2,10 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAdditionalRemakeInfo } from '../../actions/movie';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import * as movieActions from '../../actions/movie';
 import * as remakeActions from '../../actions/remake';
-import { getUserDetails } from '../../actions/auth';
+import * as authActions from '../../actions/auth';
 import TmdbInfo from './TmdbInfo';
 import CloseRemakeModal from './CloseRemakeModal';
 import DeleteRemakeModal from './DeleteRemakeModal';
@@ -118,7 +119,7 @@ function mapStateToProps({ remake, tmdbInfo, auth: { user } }) {
 }
 
 export default connect(mapStateToProps, {
-  ...remakeActions, getUserDetails, fetchAdditionalRemakeInfo,
+  ...remakeActions, ...authActions, ...movieActions,
 })(RemakeDetail);
 
 RemakeDetail.propTypes = {
@@ -127,9 +128,9 @@ RemakeDetail.propTypes = {
   fetchRemake: PropTypes.func.isRequired,
   fetchAdditionalRemakeInfo: PropTypes.func.isRequired,
   getUserDetails: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
-  remake: PropTypes.object.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
+  remake: PropTypes.shape({}).isRequired,
   resetRemake: PropTypes.func.isRequired,
-  tmdbInfo: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  tmdbInfo: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({}).isRequired,
 };

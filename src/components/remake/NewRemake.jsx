@@ -153,9 +153,9 @@ NewRemake.propTypes = {
   createRemake: PropTypes.func.isRequired,
   fetchMovieSuggestions: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  newRemake: PropTypes.object.isRequired,
+  newRemake: PropTypes.shape({}).isRequired,
   resetMovieSuggestions: PropTypes.func.isRequired,
   setImdbId: PropTypes.func.isRequired,
-  suggestions: PropTypes.object.isRequired,
-  tmdbInfo: PropTypes.object.isRequired,
+  suggestions: PropTypes.shape({}).isRequired,
+  tmdbInfo: PropTypes.shape({}).isRequired,
 };
