@@ -45,7 +45,7 @@ class Signup extends Component {
         />
         <Field
           label="Confirm Password"
-          name="passwordConfirm"
+          name="passwordRepeat"
           type="password"
           validate={[required, passwordsMatch]}
           component={renderField}
@@ -75,7 +75,7 @@ Signup.propTypes = {
   serverErrors: PropTypes.shape({
     email: PropTypes.string,
     username: PropTypes.string,
-    password1: PropTypes.array,
+    password: PropTypes.array,
   }).isRequired,
   signupUser: PropTypes.func.isRequired,
 };

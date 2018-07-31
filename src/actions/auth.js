@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { AUTH_URL } from '../helpers/constants';
 import history from '../helpers/history';
-
 import {
   AUTH_USER,
   AUTH_ERROR,
@@ -14,7 +13,7 @@ import {
 export function authError(error) {
   return {
     type: AUTH_ERROR,
-    payload: { ...error, password: error.password1 },
+    payload: error,
   };
 }
 
@@ -34,16 +33,7 @@ export const signinUser = formProps => (dispatch) => {
 };
 
 export const signupUser = formProps => (dispatch) => {
-  const {
-    email, password, passwordConfirm, username,
-  } = formProps;
-
-  axios.post(
-    `${AUTH_URL}signup/`,
-    {
-      email, username, password1: password, password2: passwordConfirm,
-    },
-  )
+  axios.post(`${AUTH_URL}signup/`, formProps)
     .then((response) => {
       dispatch({ type: AUTH_USER });
       window.localStorage.setItem('token', response.data.token);

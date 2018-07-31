@@ -3,9 +3,16 @@ import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as authActions from '../../actions/auth';
-import { required, renderField, renderNonFieldErrors } from '../../helpers/form';
+import * as authActions from 'actions/auth';
+import { required, renderField, renderNonFieldErrors } from 'helpers/form';
 
+const propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  serverErrors: PropTypes.shape({
+    non_field_errors: PropTypes.array,
+  }).isRequired,
+  signinUser: PropTypes.func.isRequired,
+};
 
 class Signin extends Component {
   onSubmit(formProps) {
@@ -46,16 +53,9 @@ function mapStateToProps(state) {
   return { serverErrors: state.auth.errors };
 }
 
+Signin.propTypes = propTypes;
+
 export default compose(
   connect(mapStateToProps, authActions),
   reduxForm({ form: 'Signin' }),
 )(Signin);
-
-
-Signin.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  serverErrors: PropTypes.shape({
-    non_field_errors: PropTypes.array,
-  }).isRequired,
-  signinUser: PropTypes.func.isRequired,
-};

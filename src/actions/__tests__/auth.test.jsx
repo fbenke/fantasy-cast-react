@@ -1,5 +1,12 @@
-import { signoutUser } from '../auth';
-import { UNAUTH_USER } from '../types';
+import {
+  signoutUser,
+  authError,
+} from 'actions/auth';
+
+import {
+  UNAUTH_USER,
+  AUTH_ERROR,
+} from 'actions/types';
 
 class LocalStorageMock {
   constructor() {
@@ -44,5 +51,17 @@ describe('signoutUser', () => {
     expect(window.localStorage.getItem('token')).toEqual('foo');
     signoutUser();
     expect(window.localStorage.getItem('token')).toEqual(null);
+  });
+});
+
+describe('authError', () => {
+  it('has the correct type', () => {
+    const action = authError({ foo: 'foo' });
+    expect(action.type).toEqual(AUTH_ERROR);
+  });
+
+  it('has the correct payload', () => {
+    const action = authError({ foo: 'foo' });
+    expect(action.payload).toEqual({ foo: 'foo' });
   });
 });

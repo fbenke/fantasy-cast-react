@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import promise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
 
-import { AUTH_USER } from './actions/types';
 import reducers from './reducers';
 
 const propTypes = {
@@ -23,12 +22,6 @@ const Root = ({ children, initialState = {} }) => {
     initialState,
     applyMiddleware(promise, reduxThunk),
   );
-
-  const token = window.localStorage.getItem('token');
-
-  if (token) {
-    store.dispatch({ type: AUTH_USER });
-  }
 
   return (
     <Provider store={store}>

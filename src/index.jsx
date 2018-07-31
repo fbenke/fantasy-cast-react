@@ -19,8 +19,10 @@ import history from './helpers/history';
 import '../style/style.css';
 import '../node_modules/react-widgets/dist/css/react-widgets.css';
 
+const token = window.localStorage.getItem('token');
+
 ReactDOM.render(
-  <Root>
+  <Root initialState={token ? { auth: { authenticated: true } } : {}}>
     <Router history={history}>
       <div>
         <Navigation />
