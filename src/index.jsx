@@ -1,12 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, Switch } from 'react-router-dom';
-import promise from 'redux-promise';
-import reduxThunk from 'redux-thunk';
 
-import reducers from './reducers';
+import Root from './Root';
 import Home from './components/Home';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -19,25 +15,12 @@ import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
 import Signout from './components/auth/Signout';
 import history from './helpers/history';
-import { AUTH_USER } from './actions/types';
 
 import '../style/style.css';
 import '../node_modules/react-widgets/dist/css/react-widgets.css';
 
-const store = createStore(
-  reducers,
-  {},
-  applyMiddleware(promise, reduxThunk),
-);
-
-const token = window.localStorage.getItem('token');
-
-if (token) {
-  store.dispatch({ type: AUTH_USER });
-}
-
 ReactDOM.render(
-  <Provider store={store}>
+  <Root>
     <Router history={history}>
       <div>
         <Navigation />
@@ -57,6 +40,6 @@ ReactDOM.render(
         <Footer />
       </div>
     </Router>
-  </Provider>,
+  </Root>,
   document.querySelector('.container'),
 );

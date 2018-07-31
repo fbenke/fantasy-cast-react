@@ -8,7 +8,7 @@
     "clean": "rimraf build",
     "build": "NODE_ENV=production && npm run clean && webpack && webpack -p",
     "serve": "webpack-dev-server",
-    "test": "mocha -w ./test/browser.js ./test/**/*.spec.js"
+    "test": "react-scripts test --env=jsdom"
   },
   "author": "Falk Benke",
   "license": "ISC",
@@ -35,6 +35,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.3.1",
     "jsdom": "^8.5.0",
+    "react-scripts": "^1.1.4",
     "rimraf": "^2.6.2",
     "sinon": "^4.5.0",
     "style-loader": "^0.21.0",
@@ -48,6 +49,7 @@
     "axios": "^0.18.0",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
+    "moxios": "^0.4.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-autocomplete": "^1.8.1",
