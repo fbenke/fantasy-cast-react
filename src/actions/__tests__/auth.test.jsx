@@ -1,36 +1,37 @@
+import moxios from 'moxios';
+import LocalStorageMock from 'helpers/tests';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import promise from 'redux-promise';
+
 import {
-  signoutUser,
   authError,
+  signoutUser,
+  getUserDetails,
 } from 'actions/auth';
 
 import {
   UNAUTH_USER,
   AUTH_ERROR,
+  AUTH_DETAIL,
 } from 'actions/types';
 
-class LocalStorageMock {
-  constructor() {
-    this.store = {};
-  }
 
-  clear() {
-    this.store = {};
-  }
-
-  getItem(key) {
-    return this.store[key] || null;
-  }
-
-  setItem(key, value) {
-    this.store[key] = value.toString();
-  }
-
-  removeItem(key) {
-    delete this.store[key];
-  }
-}
+const mockStore = configureMockStore([thunk, promise]);
 
 global.localStorage = new LocalStorageMock();
+
+describe('authError', () => {
+  it('has the correct type', () => {
+    const action = authError({ foo: 'foo' });
+    expect(action.type).toEqual(AUTH_ERROR);
+  });
+
+  it('has the correct payload', () => {
+    const action = authError({ foo: 'foo' });
+    expect(action.payload).toEqual({ foo: 'foo' });
+  });
+});
 
 describe('signoutUser', () => {
   beforeEach(() => {
@@ -54,14 +55,29 @@ describe('signoutUser', () => {
   });
 });
 
-describe('authError', () => {
+describe('getUserDetails', () => {
+  beforeEach(() => {
+    moxios.install();
+    moxios.stubRequest('http://localhost:8888/api/account/detail/', {
+      status: 200,
+      response: { foo: 'bar' },
+    });
+  });
+
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
   it('has the correct type', () => {
-    const action = authError({ foo: 'foo' });
-    expect(action.type).toEqual(AUTH_ERROR);
+    const action = getUserDetails();
+    expect(action.type).toEqual(AUTH_DETAIL);
   });
 
   it('has the correct payload', () => {
-    const action = authError({ foo: 'foo' });
-    expect(action.payload).toEqual({ foo: 'foo' });
+    const store = mockStore({});
+    return store.dispatch(getUserDetails()).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].payload.data).toMatchObject({ foo: 'bar' });
+    });
   });
 });
