@@ -5,31 +5,149 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 
 import {
-  authError,
+  signinUser,
+  signupUser,
   signoutUser,
   getUserDetails,
 } from 'actions/auth';
 
 import {
   UNAUTH_USER,
+  AUTH_USER,
   AUTH_ERROR,
   AUTH_DETAIL,
 } from 'actions/types';
 
+import { AUTH_URL } from 'helpers/constants';
 
 const mockStore = configureMockStore([thunk, promise]);
 
 global.localStorage = new LocalStorageMock();
 
-describe('authError', () => {
-  it('has the correct type', () => {
-    const action = authError({ foo: 'foo' });
-    expect(action.type).toEqual(AUTH_ERROR);
+
+describe('signinUser', () => {
+  afterEach(() => {
+    moxios.uninstall();
   });
 
-  it('has the correct payload', () => {
-    const action = authError({ foo: 'foo' });
-    expect(action.payload).toEqual({ foo: 'foo' });
+  describe('success', () => {
+    beforeEach(() => {
+      window.localStorage.clear();
+      moxios.install();
+      moxios.stubRequest(`${AUTH_URL}signin/`, {
+        status: 200,
+        response: { token: 'foo' },
+      });
+    });
+
+    it('has the correct type', (done) => {
+      const store = mockStore({});
+      store.dispatch(signinUser());
+      moxios.wait(() => {
+        expect(store.getActions()[0].type).toEqual(AUTH_USER);
+        done();
+      });
+    });
+
+    it('sets the local storage token', (done) => {
+      const store = mockStore({});
+      store.dispatch(signinUser());
+      moxios.wait(() => {
+        expect(window.localStorage.getItem('token')).toEqual('foo');
+        done();
+      });
+    });
+  });
+
+  describe('failure', () => {
+    beforeEach(() => {
+      moxios.install();
+      moxios.stubRequest(`${AUTH_URL}signin/`, {
+        status: 400,
+        response: { error: 'foo' },
+      });
+    });
+
+    it('issues the correct type', (done) => {
+      const store = mockStore({});
+      store.dispatch(signinUser());
+      moxios.wait(() => {
+        expect(store.getActions()[0].type).toEqual(AUTH_ERROR);
+        done();
+      });
+    });
+
+    it('issues the correct payload', (done) => {
+      const store = mockStore({});
+      store.dispatch(signinUser());
+      moxios.wait(() => {
+        expect(store.getActions()[0].payload).toEqual({ error: 'foo' });
+        done();
+      });
+    });
+  });
+});
+
+describe('signupUser', () => {
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
+  describe('success', () => {
+    beforeEach(() => {
+      window.localStorage.clear();
+      moxios.install();
+      moxios.stubRequest(`${AUTH_URL}signup/`, {
+        status: 200,
+        response: { token: 'foo' },
+      });
+    });
+
+    it('has the correct type', (done) => {
+      const store = mockStore({});
+      store.dispatch(signupUser());
+      moxios.wait(() => {
+        expect(store.getActions()[0].type).toEqual(AUTH_USER);
+        done();
+      });
+    });
+
+    it('sets the local storage token', (done) => {
+      const store = mockStore({});
+      store.dispatch(signupUser());
+      moxios.wait(() => {
+        expect(window.localStorage.getItem('token')).toEqual('foo');
+        done();
+      });
+    });
+  });
+
+  describe('failure', () => {
+    beforeEach(() => {
+      moxios.install();
+      moxios.stubRequest(`${AUTH_URL}signup/`, {
+        status: 400,
+        response: { error: 'foo' },
+      });
+    });
+
+    it('issues the correct type', (done) => {
+      const store = mockStore({});
+      store.dispatch(signupUser());
+      moxios.wait(() => {
+        expect(store.getActions()[0].type).toEqual(AUTH_ERROR);
+        done();
+      });
+    });
+
+    it('issues the correct payload', (done) => {
+      const store = mockStore({});
+      store.dispatch(signupUser());
+      moxios.wait(() => {
+        expect(store.getActions()[0].payload).toEqual({ error: 'foo' });
+        done();
+      });
+    });
   });
 });
 
@@ -58,7 +176,7 @@ describe('signoutUser', () => {
 describe('getUserDetails', () => {
   beforeEach(() => {
     moxios.install();
-    moxios.stubRequest('http://localhost:8888/api/account/detail/', {
+    moxios.stubRequest(`${AUTH_URL}detail/`, {
       status: 200,
       response: { foo: 'bar' },
     });

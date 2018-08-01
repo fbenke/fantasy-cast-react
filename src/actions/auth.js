@@ -17,15 +17,16 @@ export function authError(error) {
   };
 }
 
+export function authSuccess(token) {
+  window.localStorage.setItem('token', token);
+  history.push('/remakes/');
+  return { type: AUTH_USER };
+}
+
 export const signinUser = formProps => (dispatch) => {
-  axios.post(
-    `${AUTH_URL}signin/`,
-    formProps,
-  )
+  axios.post(`${AUTH_URL}signin/`, formProps)
     .then((response) => {
-      dispatch({ type: AUTH_USER });
-      window.localStorage.setItem('token', response.data.token);
-      history.push('/remakes/');
+      dispatch(authSuccess(response.data.token));
     })
     .catch((error) => {
       dispatch(authError(error.response.data));
@@ -35,9 +36,7 @@ export const signinUser = formProps => (dispatch) => {
 export const signupUser = formProps => (dispatch) => {
   axios.post(`${AUTH_URL}signup/`, formProps)
     .then((response) => {
-      dispatch({ type: AUTH_USER });
-      window.localStorage.setItem('token', response.data.token);
-      history.push('/remakes/');
+      dispatch(authSuccess(response.data.token));
     })
     .catch((error) => {
       dispatch(authError(error.response.data));
