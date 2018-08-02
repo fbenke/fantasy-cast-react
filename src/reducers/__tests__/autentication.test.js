@@ -6,6 +6,14 @@ import {
   AUTH_DETAIL,
 } from 'actions/types';
 
+it('returns the initial state', () => {
+  expect(authenticationReducer(undefined, {})).toEqual({
+    errors: {},
+    user: {},
+    authenticated: false,
+  });
+});
+
 it('handles actions of type AUTH_USER', () => {
   const action = {
     type: AUTH_USER,
@@ -28,7 +36,11 @@ it('handles actions of type UNAUTH_USER', () => {
     authenticated: true,
   };
   const newState = authenticationReducer(INITIAL_STATE, action);
-  expect(newState.authenticated).toEqual(false);
+  expect(newState).toEqual({
+    errors: {},
+    user: {},
+    authenticated: false,
+  });
 });
 
 it('handles actions of type AUTH_ERROR', () => {
