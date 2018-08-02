@@ -1,4 +1,6 @@
-export default class LocalStorageMock {
+import React from 'react';
+
+export class LocalStorageMock {
   constructor() {
     this.store = {};
   }
@@ -19,3 +21,5 @@ export default class LocalStorageMock {
     delete this.store[key];
   }
 }
+
+export const MockComponent = () => <div />;

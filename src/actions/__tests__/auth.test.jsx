@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import LocalStorageMock from 'helpers/tests';
+import { LocalStorageMock } from 'helpers/tests';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';

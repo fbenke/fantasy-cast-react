@@ -8,20 +8,6 @@ import Navigation from 'components/Navigation';
 
 let wrapped;
 
-beforeEach(() => {
-  const initialState = {
-    auth: { authenticated: true },
-  };
-
-  wrapped = mount(
-    <Root initialState={initialState}>
-      <Router history={history}>
-        <Navigation />
-      </Router>
-    </Root>,
-  );
-});
-
 afterEach(() => {
   wrapped.unmount();
 });
@@ -55,8 +41,12 @@ describe('for anonymous user', () => {
 
 describe('for signed in user', () => {
   beforeEach(() => {
+    const initialState = {
+      auth: { authenticated: false },
+    };
+
     wrapped = mount(
-      <Root>
+      <Root initialState={initialState}>
         <Router history={history}>
           <Navigation />
         </Router>
