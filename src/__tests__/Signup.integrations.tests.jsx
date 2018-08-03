@@ -4,17 +4,12 @@ import { mount } from 'enzyme';
 
 import Root from 'Root';
 import Signin from 'components/auth/Signin';
-import { AUTH_URL } from 'helpers/constants';
 
 let wrapped;
 
 describe('unsuccessful signup', () => {
   beforeEach(() => {
     moxios.install();
-    moxios.stubRequest(`${AUTH_URL}signin/`, {
-      status: 400,
-      response: { non_field_errors: ['foo'] },
-    });
     wrapped = mount(
       <Root>
         <Signin />
@@ -38,9 +33,19 @@ describe('unsuccessful signup', () => {
     wrapped.find('form').simulate('submit');
 
     moxios.wait(() => {
-      wrapped.update();
-      expect(wrapped.find('div.alert-danger').render().text()).toEqual('foo');
-      done();
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 400,
+        response: { non_field_errors: ['foo'] },
+      }).then(() => {
+        wrapped.update();
+        try {
+          expect(wrapped.find('div.alert-danger').render().text()).toEqual('foo');
+        } catch (err) {
+          done.fail(new Error(err));
+        }
+        done();
+      });
     });
   });
 });

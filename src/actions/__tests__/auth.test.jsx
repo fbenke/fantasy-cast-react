@@ -44,7 +44,11 @@ describe('signinUser', () => {
       const store = mockStore({});
       store.dispatch(signinUser());
       moxios.wait(() => {
-        expect(store.getActions()[0].type).toEqual(AUTH_USER);
+        try {
+          expect(store.getActions()[0].type).toEqual(AUTH_USER);
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
@@ -53,7 +57,11 @@ describe('signinUser', () => {
       const store = mockStore({});
       store.dispatch(signinUser());
       moxios.wait(() => {
-        expect(window.localStorage.getItem('token')).toEqual('foo');
+        try {
+          expect(window.localStorage.getItem('token')).toEqual('foo');
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
@@ -72,7 +80,11 @@ describe('signinUser', () => {
       const store = mockStore({});
       store.dispatch(signinUser());
       moxios.wait(() => {
-        expect(store.getActions()[0].type).toEqual(AUTH_ERROR);
+        try {
+          expect(store.getActions()[0].type).toEqual(AUTH_ERROR);
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
@@ -81,7 +93,11 @@ describe('signinUser', () => {
       const store = mockStore({});
       store.dispatch(signinUser());
       moxios.wait(() => {
-        expect(store.getActions()[0].payload).toEqual({ error: 'foo' });
+        try {
+          expect(store.getActions()[0].payload).toEqual({ error: 'foo' });
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
@@ -107,7 +123,11 @@ describe('signupUser', () => {
       const store = mockStore({});
       store.dispatch(signupUser());
       moxios.wait(() => {
-        expect(store.getActions()[0].type).toEqual(AUTH_USER);
+        try {
+          expect(store.getActions()[0].type).toEqual(AUTH_USER);
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
@@ -116,7 +136,11 @@ describe('signupUser', () => {
       const store = mockStore({});
       store.dispatch(signupUser());
       moxios.wait(() => {
-        expect(window.localStorage.getItem('token')).toEqual('foo');
+        try {
+          expect(window.localStorage.getItem('token')).toEqual('foo');
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
@@ -135,7 +159,11 @@ describe('signupUser', () => {
       const store = mockStore({});
       store.dispatch(signupUser());
       moxios.wait(() => {
-        expect(store.getActions()[0].type).toEqual(AUTH_ERROR);
+        try {
+          expect(store.getActions()[0].type).toEqual(AUTH_ERROR);
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
@@ -144,7 +172,11 @@ describe('signupUser', () => {
       const store = mockStore({});
       store.dispatch(signupUser());
       moxios.wait(() => {
-        expect(store.getActions()[0].payload).toEqual({ error: 'foo' });
+        try {
+          expect(store.getActions()[0].payload).toEqual({ error: 'foo' });
+        } catch (err) {
+          done.fail(new Error(err));
+        }
         done();
       });
     });
