@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+const propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+};
+
 class Navigation extends Component {
   renderLinks() {
     const { authenticated } = this.props;
@@ -57,8 +61,6 @@ function mapStateToProps(state) {
   return { authenticated: state.auth.authenticated };
 }
 
-export default connect(mapStateToProps)(Navigation);
+Navigation.propTypes = propTypes;
 
-Navigation.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
-};
+export default connect(mapStateToProps)(Navigation);

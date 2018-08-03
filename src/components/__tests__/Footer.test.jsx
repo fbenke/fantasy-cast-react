@@ -15,6 +15,10 @@ it('has two images', () => {
 
 
 it('has correct credit information', () => {
-  expect(wrapped.render().text()).toContain('Information courtesy of IMDb. Used with permission.');
-  expect(wrapped.render().text()).toContain('This product uses the TMDb API but is not endorsed or certified by TMDb.');
+  expect(wrapped.render().text()).toContain(
+    'Information courtesy of IMDb. Used with permission.',
+  );
+  expect(wrapped.render().text()).toContain(
+    'This product uses the TMDb API but is not endorsed or certified by TMDb.',
+  );
 });
