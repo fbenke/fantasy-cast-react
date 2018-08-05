@@ -3,27 +3,23 @@ import { LocalStorageMock } from 'helpers/tests';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
-
 import {
   signinUser,
   signupUser,
   signoutUser,
   getUserDetails,
 } from 'actions/auth';
-
 import {
   UNAUTH_USER,
   AUTH_USER,
   AUTH_ERROR,
   AUTH_DETAIL,
 } from 'actions/types';
-
 import { AUTH_URL } from 'helpers/constants';
 
 const mockStore = configureMockStore([thunk, promise]);
 
 global.localStorage = new LocalStorageMock();
-
 
 describe('signinUser', () => {
   afterEach(() => {

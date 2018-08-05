@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import { AUTH_URL } from '../helpers/constants';
 import history from '../helpers/history';
 import {
@@ -8,7 +7,6 @@ import {
   UNAUTH_USER,
   AUTH_DETAIL,
 } from './types';
-
 
 export function authError(error) {
   return {
@@ -43,10 +41,8 @@ export const signupUser = formProps => (dispatch) => {
     });
 };
 
-
 export function signoutUser() {
   window.localStorage.removeItem('token');
-
   return { type: UNAUTH_USER };
 }
 

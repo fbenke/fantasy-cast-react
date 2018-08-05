@@ -8,11 +8,9 @@ beforeEach(() => {
   wrapped = shallow(<Footer />);
 });
 
-
 it('has two images', () => {
   expect(wrapped.find('img').length).toEqual(2);
 });
-
 
 it('has correct credit information', () => {
   expect(wrapped.render().text()).toContain(

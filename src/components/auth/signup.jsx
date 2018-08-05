@@ -9,7 +9,6 @@ import {
   renderNonFieldErrors, passwordsMatch,
 } from 'helpers/form';
 
-
 const propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   serverErrors: PropTypes.shape({
@@ -19,7 +18,6 @@ const propTypes = {
   }).isRequired,
   signupUser: PropTypes.func.isRequired,
 };
-
 
 class Signup extends Component {
   onSubmit(formProps) {
