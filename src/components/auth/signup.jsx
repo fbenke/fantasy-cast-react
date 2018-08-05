@@ -3,11 +3,23 @@ import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as authActions from '../../actions/auth';
+import * as authActions from 'actions/auth';
 import {
   email, required, renderField,
   renderNonFieldErrors, passwordsMatch,
-} from '../../helpers/form';
+} from 'helpers/form';
+
+
+const propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  serverErrors: PropTypes.shape({
+    email: PropTypes.array,
+    username: PropTypes.array,
+    password: PropTypes.array,
+  }).isRequired,
+  signupUser: PropTypes.func.isRequired,
+};
+
 
 class Signup extends Component {
   onSubmit(formProps) {
@@ -64,18 +76,9 @@ function mapStateToProps(state) {
   return { serverErrors: state.auth.errors };
 }
 
+Signup.propTypes = propTypes;
+
 export default compose(
   connect(mapStateToProps, authActions),
   reduxForm({ form: 'Signup' }),
 )(Signup);
-
-
-Signup.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  serverErrors: PropTypes.shape({
-    email: PropTypes.string,
-    username: PropTypes.string,
-    password: PropTypes.array,
-  }).isRequired,
-  signupUser: PropTypes.func.isRequired,
-};

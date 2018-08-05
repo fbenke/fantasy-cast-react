@@ -46,7 +46,7 @@ export const renderTextArea = (field) => {
 export const renderNonFieldErrors = (errors) => {
   if (errors && errors.non_field_errors) {
     return (
-      <div className="alert alert-danger">
+      <div className="alert alert-danger" id="non-field-errors">
         {errors.non_field_errors}
       </div>
     );
